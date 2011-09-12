@@ -17,6 +17,7 @@ class CreateJobs < ActiveRecord::Migration
       t.decimal :longitude, :precision => 15, :scale => 10
       t.decimal :latitude, :precision => 15, :scale => 10
       t.string :location_name
+      t.string :location_display_name
       t.boolean :is_permanent
 
       t.datetime :first_import_at
