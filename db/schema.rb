@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110912110957) do
+ActiveRecord::Schema.define(:version => 20110914151714) do
 
   create_table "jobs", :force => true do |t|
     t.string   "vacancy_id"
@@ -30,9 +30,16 @@ ActiveRecord::Schema.define(:version => 20110912110957) do
     t.decimal  "longitude",             :precision => 15, :scale => 10
     t.decimal  "latitude",              :precision => 15, :scale => 10
     t.string   "location_name"
+    t.string   "location_display_name"
     t.boolean  "is_permanent"
+    t.date     "received_on"
     t.datetime "first_import_at"
     t.datetime "most_recent_import_at"
+    t.string   "employer_name"
+    t.text     "eligability_criteria"
+    t.text     "vacancy_description"
+    t.text     "messages"
+    t.text     "how_to_apply"
   end
 
   add_index "jobs", ["vacancy_id"], :name => "index_jobs_on_vacancy_id", :unique => true

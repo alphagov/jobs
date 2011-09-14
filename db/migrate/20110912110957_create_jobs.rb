@@ -19,6 +19,7 @@ class CreateJobs < ActiveRecord::Migration
       t.string :location_name
       t.string :location_display_name
       t.boolean :is_permanent
+      t.date :received_on
 
       t.datetime :first_import_at
       t.datetime :most_recent_import_at

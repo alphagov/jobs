@@ -2,6 +2,9 @@ require 'csv'
 
 class Job < ActiveRecord::Base
 
+  validates_presence_of :vacancy_id
+  serialize :messages, Array
+
   def self.import_all
     postcodes = CSV.read(File.join(Rails.root, 'data', 'uk.pc.ll.csv'), :headers => true)
     postcodes = postcodes.to_a # we get a Table class back from the CSV library
@@ -11,7 +14,7 @@ class Job < ActiveRecord::Base
       postcode = row[0]
       latitude = row[1].to_f
       longitude = row[2].to_f
-      puts "Importing for #{postcode} at #{latitude}, #{longitude}"
+      logger.debug "Importing for #{postcode} at #{latitude}, #{longitude}"
       self.import_for_point(latitude, longitude)
     end
   end
@@ -22,6 +25,7 @@ class Job < ActiveRecord::Base
       job = Job.find_or_initialize_by_vacancy_id(v[:vacancy_id])
       job.vacancy_title = v[:vacancy_title]
       job.soc_code = v[:soc_code]
+      job.received_on = v[:received_on]
 
       job.wage = v[:wage]
       job.wage_qualifier = v[:wage_qualifier]
@@ -49,6 +53,67 @@ class Job < ActiveRecord::Base
     end
   end
 
+  def self.send_to_solr
+    Job.find_each do |job|
+      job.send_to_solr
+    end
+    $solr.commit!
+  end
+
+  def import_details
+    details = self.fetch_details_from_api
+    self.employer_name = details[:employer_name]
+    self.eligability_criteria = details[:eligability_criteria]
+    self.vacancy_description = details[:vacancy_description]
+    self.messages = (details[:vacancy_messages].try(:[], :vacancy_message) || []).map { |m| m[:message] }.presence
+    self.how_to_apply = details[:how_to_apply]
+    self.save
+  end
+
+  def send_to_solr
+    $solr.update!(self.to_solr_document)
+  end
+
+  def delete_from_solr
+    $solr.delete(self.vacancy_id)
+  end
+
+  def to_solr_document
+    DelSolr::Document.new.tap do |doc|
+      doc.add_field 'id', self.vacancy_id
+      doc.add_field 'title', self.vacancy_title, :cdata => true
+      doc.add_field 'soc_code', self.soc_code
+      doc.add_field 'location', "#{self.latitude},#{self.longitude}"
+      doc.add_field 'location_name', self.location_name, :cdata => true
+      doc.add_field 'is_permanent', self.is_permanent
+      doc.add_field 'hours', self.hours
+      doc.add_field 'hours_display_text', self.hours_display_text, :cdata => true
+      doc.add_field 'received_on', self.received_on.beginning_of_day.iso8601
+    end
+  end
+
+  protected
+
+  def fetch_details_from_api
+    results = self.class.soap_client.request "http://ws.dgjobsservice.info/GetJobDetail" do
+      soap.xml do |xml|
+        xml.soap :Envelope, { "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema", "xmlns:soap" => "http://schemas.xmlsoap.org/soap/envelope/" } do
+          xml.soap :Body do
+            xml.GetJobDetail( { :xmlns => "http://ws.dgjobsservice.info/" }) do
+              xml.search do
+                xml.AuthenticationKey DIRECTGOV_JOBS_API_AUTHENTICATION_KEY
+                xml.UniqueIdentifier "1"
+                xml.VacancyID self.vacancy_id
+              end
+            end
+          end
+        end
+      end
+    end
+
+    results.body.try(:[], :get_job_detail_response).try(:[], :get_job_detail_result).try(:[], :vacancy)
+  end
+
   private
 
   def self.fetch_vacancies_from_api(latitude, longitude)
@@ -59,7 +124,7 @@ class Job < ActiveRecord::Base
             xml.AllNearMe({ :xmlns => "http://ws.dgjobsservice.info/" }) do
               xml.search do
                 xml.AuthenticationKey DIRECTGOV_JOBS_API_AUTHENTICATION_KEY
-                xml.UniqueIdentifier "1" 
+                xml.UniqueIdentifier "1"
                 xml.MaximumNumberOfResults 100 # 100 is the maximum allowed
                 xml.IncludeNationalVacancies true
                 xml.IncludeRegionalVacancies true
@@ -67,11 +132,12 @@ class Job < ActiveRecord::Base
                 xml.Permanent true
                 xml.PartTime true
                 xml.FullTime true
+                xml.MaxAge 31
                 xml.Location do
                   xml.Latitude latitude
                   xml.Longitude longitude
                 end
-                xml.Radius 100 # TODO: set this to a reasonable value - what unit is this in anyway?
+                xml.Radius 50 # TODO: set this to a reasonable value - what unit is this in anyway?
               end
             end
           end
@@ -79,7 +145,7 @@ class Job < ActiveRecord::Base
       end
     end
 
-    results.body[:all_near_me_response][:all_near_me_result][:vacancies][:vacancy_summary]
+    results.body.try(:[], :all_near_me_response).try(:[], :all_near_me_result).try(:[], :vacancies).try(:[], :vacancy_summary) || []
   end
 
   def self.soap_client

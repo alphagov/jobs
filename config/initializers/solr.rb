@@ -1,0 +1,1 @@
+$solr = DelSolr::Client.new(:server => 'localhost', :port => 8983)
