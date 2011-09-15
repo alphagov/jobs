@@ -1,68 +1,88 @@
-<h3>Location</h3>
-<form action="<%= search_path %>" method="get">
-  <%= search_form_fields @search.query_params.except(:location, :latitude, :longitude) %>
-  <%= label_tag 'location', "Location: " %>
-  <%= text_field_tag 'location', params[:location] %>
-  <%= submit_tag 'Search nearby', :name => nil %>
-</form>
-
-<h3>Job title</h3>
-<form action="<%= search_path %>" method="get">
-  <%= search_form_fields @search.query_params.except(:query) %>
-  <%= label_tag 'query', "Search for:" %>
-  <%= text_field_tag 'query', params[:query] %>
-  <%= submit_tag 'Search', :name => nil %>
-</form>
-
-<form action="<%= search_path %>" method="get">
-  <%= search_form_fields @search.query_params.except(:query) %>
-  <%= submit_tag 'Show me everything', :name => nil %>
-</form>
-
-<div class="inline-options-container">
-  <%- permanent_options.each do |k, v| -%>
-    <form action="<%= search_path %>" method="get" class="inline-option">
-      <%= search_form_fields @search.query_params.except(:permanent) %>
-      <%- unless v.nil? %>
-        <%= hidden_field_tag 'permanent', v %>
-      <%- end -%>
-      <%= submit_tag k, :disabled => params[:permanent].to_s == v.to_s, :name => nil -%>
+<div id="search">
+  <div class="location-options">
+    <form action="<%= search_path %>" method="get">
+      <%= search_form_fields @search.query_params.except(:location, :latitude, :longitude) %>
+      <%= label_tag 'location', "Location: " %>
+      <%= text_field_tag 'location', params[:location] %>
+      <%= submit_tag 'Search nearby', :name => nil %>
     </form>
-  <%- end -%>
-</div>
+  </div>
 
-<div class="inline-options-container">
-  <%- time_options.each do |k, v| -%>
-    <form action="<%= search_path %>" method="get" class="inline-option">
-      <%= search_form_fields @search.query_params.except(:full_time) %>
-      <%- unless v.nil? %>
-        <%= hidden_field_tag 'full_time', v %>
-      <%- end -%>
-      <%= submit_tag k, :disabled => params[:full_time].to_s == v.to_s, :name => nil -%>
-    </form>
-  <%- end -%>
-</div>
 
-<%- if @results.total > 0 -%>
-  <p>Found <%= pluralize @results.total, 'result' %></p>
-  <table class="search-results">
-    <thead>
-      <tr>
-        <td>Title</td>
-        <td>Location</td>
-        <td>Distance</td>
-      </tr>
-    </thead>
-    <tbody>
-      <%- @results.docs.each do |doc| %>
-        <tr>
-          <td><%= link_to doc['title'].titlecase, job_path(doc['id']) %></td>
-          <td><%= doc['location_name'].titlecase %></td>
-          <td><%= distance(doc['location_0_coordinate'].to_f, doc['location_1_coordinate'].to_f, @search.latitude, @search.longitude).round(1) %> miles</td>
-        </tr>
-      <%- end -%>
-    </tbody>
-  </table>
-<%- else -%>
-  <p>No results found.</p>
-<%- end -%>
+
+  <div class="split-container">
+    <div class="search-container">
+      <div class="search-content">
+
+        <div class="query-options">
+          <form action="<%= search_path %>" class="query" method="get">
+            <%= search_form_fields @search.query_params.except(:query) %>
+            <%= label_tag 'query', "Search for:" %>
+            <%= text_field_tag 'query', params[:query] %>
+            <%= submit_tag 'Search', :name => nil %>
+          </form>
+
+          <form action="<%= search_path %>" class="show-me-everything" method="get">
+            <%= search_form_fields @search.query_params.except(:query) %>
+            <%= submit_tag 'Show me all jobs', :name => nil %>
+          </form>
+        </div>
+
+        <div class="permanent-options">
+          <%- permanent_options.each do |k, v| -%>
+            <form action="<%= search_path %>" method="get">
+              <%= search_form_fields @search.query_params.except(:permanent) %>
+              <%- unless v.nil? %>
+                <%= hidden_field_tag 'permanent', v %>
+              <%- end -%>
+              <%= submit_tag k, :disabled => params[:permanent].to_s == v.to_s, :name => nil -%>
+            </form>
+          <%- end -%>
+        </div>
+
+        <div class="full-time-options">
+          <%- time_options.each do |k, v| -%>
+            <form action="<%= search_path %>" method="get">
+              <%= search_form_fields @search.query_params.except(:full_time) %>
+              <%- unless v.nil? %>
+                <%= hidden_field_tag 'full_time', v %>
+              <%- end -%>
+              <%= submit_tag k, :disabled => params[:full_time].to_s == v.to_s, :name => nil -%>
+            </form>
+          <%- end -%>
+        </div>
+        <%- if @results.total > 0 -%>
+          <p>Found <%= pluralize @results.total, 'result' %> within <%= pluralize @search.distance, 'mile' %>.</p>
+          <table class="search-results">
+            <thead>
+              <tr>
+                <td>Title</td>
+                <td>Location</td>
+                <td>Wage</td>
+                <td>Hours</td>
+                <td>Buttons</td>
+              </tr>
+            </thead>
+            <tbody>
+              <%- @results.docs.each do |doc| %>
+                <%= content_tag :tr, :class => 'job', :data => { :id => doc['id'], :title => doc['title'] } do -%>
+                  <td><%= link_to doc['title'].titlecase, job_path(doc['id']) %></td>
+                  <td>
+                    <%= doc['location_name'].titlecase %>
+                    <br />
+                    <%= distance(doc['location_0_coordinate'].to_f, doc['location_1_coordinate'].to_f, @search.latitude, @search.longitude).round(1) %> miles
+                  </td>
+                  <td><%= doc['wage_display_text'].presence.try(:titlecase) || "No details" %></td>
+                  <td><%= doc['hours_display_text'].presence.try(:titlecase) || "No details" %></td>
+                  <td><a href="#" class="add-to-jobs-list">Add</a></td>
+                <%- end -%>
+              <%- end -%>
+            </tbody>
+          </table>
+        <%- else -%>
+          <p>No results found.</p>
+        <%- end -%>
+      </div>
+    </div>
+  </div>
+</div>

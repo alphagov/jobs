@@ -54,10 +54,19 @@ class Job < ActiveRecord::Base
   end
 
   def self.send_to_solr
-    Job.find_each do |job|
-      job.send_to_solr
+    Job.find_in_batches do |jobs|
+      jobs.each do |j|
+        j.send_to_solr
+      end
+      $solr.post_update!
     end
     $solr.commit!
+  end
+
+  def self.import_details
+    Job.where('vacancy_description IS NULL').find_each do |job|
+      job.import_details
+    end
   end
 
   def import_details
@@ -71,7 +80,7 @@ class Job < ActiveRecord::Base
   end
 
   def send_to_solr
-    $solr.update!(self.to_solr_document)
+    $solr.update(self.to_solr_document)
   end
 
   def delete_from_solr
@@ -88,7 +97,14 @@ class Job < ActiveRecord::Base
       doc.add_field 'is_permanent', self.is_permanent
       doc.add_field 'hours', self.hours
       doc.add_field 'hours_display_text', self.hours_display_text, :cdata => true
+      doc.add_field 'wage_display_text', self.wage_display_text, :cdata => true
       doc.add_field 'received_on', self.received_on.beginning_of_day.iso8601
+      doc.add_field 'vacancy_description', self.vacancy_description, :cdata => true
+      doc.add_field 'employer_name', self.employer_name, :cdata => true
+      doc.add_field 'how_to_apply', self.how_to_apply, :cdata => true
+      messages.each do |m|
+        doc.add_field 'message', m
+      end
     end
   end
 

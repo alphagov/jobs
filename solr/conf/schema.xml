@@ -36,8 +36,14 @@
     <field name="location_name" type="string" stored="true" />
     <field name="is_permanent" type="boolean" stored="true" indexed="true" />
     <field name="hours" type="tint" stored="true" indexed="true" />
+    <field name="wage_display_text" type="string" stored="true" />
     <field name="hours_display_text" type="string" stored="true" />
     <field name="received_on" type="tdate" indexed="true" stored="true" />
+    <field name="vacancy_description" type="text" stored="true" />
+    <field name="how_to_apply" type="text" stored="true" />
+    <field name="eligability_criteria" type="text" stored="true" />
+    <field name="employer_name" type="text" indexed="true" stored="true" />
+    <field name="message" type="string" stored="true" multiValued="true" />
     <dynamicField name="*_coordinate" type="tdouble" indexed="true" stored="true"/>
   </fields>
 

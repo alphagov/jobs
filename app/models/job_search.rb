@@ -4,12 +4,13 @@ class JobSearch
   class LocationMissing < RuntimeError; end
   class SearchError < RuntimeError; end
 
-  attr_accessor :location, :latitude, :longitude
+  attr_accessor :location, :latitude, :longitude, :distance
   attr_accessor :query, :permanent, :full_time
   attr_accessor :page, :per_page
 
   DEFAULT_QUERY = "*:*"
   DEFAULT_PER_PAGE = 50
+  DEFAULT_DISTANCE = 50
 
   def initialize(options)
     @location = options.delete(:location)
@@ -22,19 +23,22 @@ class JobSearch
     @permanent = options.delete(:permanent)
     @full_time = options.delete(:full_time)
     @per_page = options.delete(:per_page).presence || DEFAULT_PER_PAGE
-    @query = options.delete(:query).presence || DEFAULT_QUERY
+    @query = options.delete(:query)
     @page = options.delete(:page).presence || 1
+    @distance = options.delete(:distance) || DEFAULT_DISTANCE
   end
 
   def run
     geocode if @location.present?
 
     params = {
-      :query => @query,
+      :query => @query.present? ? "title:#{@query}" : "*:*",
       :fields => "*",
+      :fq => "{!bbox}",
       :sort => "geodist() asc",
       :sfield => "location",
       :pt => "#{@latitude},#{@longitude}",
+      :d => @distance / 0.621371192,
       :limit => @per_page,
       :offset => (@page-1)*@per_page,
       :filters => []

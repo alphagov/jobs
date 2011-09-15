@@ -8,6 +8,7 @@ gem 'savon'
 gem 'therubyracer'
 gem 'delsolr', :git => 'https://github.com/avvo/delsolr.git'
 gem 'geogov', :git => 'https://github.com/alphagov/geogov.git'
+gem 'compass', '~> 0.12.alpha.0'
 
 group :test do
   gem 'factory_girl_rails'

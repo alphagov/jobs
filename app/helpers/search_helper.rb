@@ -2,17 +2,17 @@ module SearchHelper
 
   def permanent_options
     {
-      "Permanent" => true,
-      "Temporary" => false,
-      "Permanent or Temporary" => nil
+      "Permanent or Temporary Jobs" => nil,
+      "Just Permanent Jobs" => true,
+      "Just Temporary Jobs" => false
     }
   end
 
   def time_options
     {
-      "Full Time" => true,
-      "Part Time" => false,
-      "Full or Part Time" => nil
+      "Full or Part Time Jobs" => nil,
+      "Just Full Time Jobs" => true,
+      "Just Part Time Jobs" => false
     }
   end
 
