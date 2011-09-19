@@ -1,12 +1,7 @@
-<form action="<%= search_path -%>" method="get">
-  <%= label_tag :location, "Postcode:" %>
-  <%= text_field_tag :location %>
-
-  <%= label_tag :permanent, "Permanence" %>
-  <%= select_tag :permanent, options_for_permanent %>
-
-  <%= label_tag :full_time, "Time" %>
-  <%= select_tag :full_time, options_for_full_time %>
-
-  <%= submit_tag "Search", :name => nil %>
-</form>
+<div id="home">
+  <form action="<%= search_path -%>" method="get">
+    <%= label_tag :location, "Find jobs near you. Enter your postcode below." %>
+    <%= text_field_tag :location, '', :class => 'location' %>
+    <%= submit_tag "Search", :name => nil, :class => 'submit' %>
+  </form>
+</div>

@@ -17,6 +17,10 @@ class JobTest < ActiveSupport::TestCase
       :is_permanent => true,
       :hours => 25,
       :hours_display_text => "25 hours, flexible working",
+      :wage_display_text => "Lots of cash",
+      :vacancy_description => "Work for us",
+      :employer_name => "Alphagov",
+      :how_to_apply => "Send us an email",
       :received_on => Date.today
     )
 
@@ -29,7 +33,11 @@ class JobTest < ActiveSupport::TestCase
     document.add_field 'is_permanent', true
     document.add_field 'hours', 25
     document.add_field 'hours_display_text', "25 hours, flexible working", :cdata => true
+    document.add_field 'wage_display_text', "Lots of cash", :cdata => true
     document.add_field 'received_on', Date.today.beginning_of_day.iso8601
+    document.add_field 'vacancy_description', "Work for us", :cdata => true
+    document.add_field 'employer_name', "Alphagov", :cdata => true
+    document.add_field 'how_to_apply', 'Send us an email', :cdata => true
 
     assert_equal job.to_solr_document.xml, document.xml
   end
@@ -37,8 +45,15 @@ class JobTest < ActiveSupport::TestCase
   test 'send_to_solr' do
     job = Factory.build(:job)
     job.stubs(:to_solr_document).returns(mock())
-    $solr.expects(:update!).with(job.to_solr_document).returns(true)
+    $solr.expects(:update).with(job.to_solr_document).returns(true)
     assert_equal true, job.send_to_solr
+  end
+
+  test 'send_to_solr!' do
+    job = Factory.build(:job)
+    job.stubs(:to_solr_document).returns(mock())
+    $solr.expects(:update!).with(job.to_solr_document).returns(true)
+    assert_equal true, job.send_to_solr!
   end
 
   test 'delete_from_solr' do
@@ -46,4 +61,5 @@ class JobTest < ActiveSupport::TestCase
     $solr.expects(:delete).with(job.vacancy_id).returns(true)
     assert_equal true, job.delete_from_solr
   end
+
 end

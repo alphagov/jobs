@@ -9,10 +9,22 @@ gem 'therubyracer'
 gem 'delsolr', :git => 'https://github.com/avvo/delsolr.git'
 gem 'geogov', :git => 'https://github.com/alphagov/geogov.git'
 gem 'compass', '~> 0.12.alpha.0'
+gem 'rails_autolink'
+gem 'retry-this'
+
+group :development do
+  gem 'guard'
+  gem 'guard-test'
+  gem 'growl_notify'
+  gem 'rb-fsevent'
+  gem 'ruby-prof'
+end
 
 group :test do
   gem 'factory_girl_rails'
   gem 'mocha', :require => false
+  gem 'simplecov', :require => false
+  gem 'simplecov-rcov', :require => false
 end
 
 # Gems used only for assets and not required

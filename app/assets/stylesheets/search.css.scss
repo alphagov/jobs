@@ -7,28 +7,31 @@ $midblue: #0063dc;
   @include clearfix;
 
   div.location-options {
-    margin: 20px 10px 20px 10px;
-  }
+    background-color: black;
+    color: white;
+    margin-bottom: 20px;
+    padding: 5px;
+    line-height: 24px;
+    height: 24px;
 
-  div.split-container {
-    margin-bottom: 50px;
-    @include clearfix;
-
-    div.search-container {
-      width: 66%;
+    label {
       float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 12px;
     }
 
-    div.jobs-list-container {
-      width: 34%;
+    input {
       float: left;
     }
   }
 
   div.search-container {
+    width: 66%;
+    float: left;
+
     div.search-content {
       margin-left: 10px;
-      padding: 10px;
       background-color: #eee;
       border: 1px solid #ccc;
       @include border-radius(5px);
@@ -86,18 +89,61 @@ $midblue: #0063dc;
         width: 100%;
         font-size: 12px;
 
-        td {
-          line-height: 1.3;
-          padding: 3px;
+        thead {
+          tr {
+            border-bottom: 1px solid #ccc;
+          }
+
+          th {
+            padding: 3px;
+            font-weight: bold;
+            font-size: 16px;
+          }
+
+          th.title {
+            padding-left: 10px;
+          }
+        }
+
+        tbody {
+
+          td {
+            padding: 3px 3px 3px 3px;
+            line-height: 1.3;
+          }
+
+          td.title {
+            padding-left: 10px;
+          }
+
+          span.title {
+            font-size: 14px;
+            font-weight: bold;
+          }
+
+          span.employer-name {
+            color: #666;
+            font-weight: bold;
+          }
+
+          tr {
+            border-bottom: 1px solid #ccc;
+
+            &:hover {
+              background-color: yellow;
+            }
+          }
         }
       }
     }
   }
 
   div.jobs-list-container {
-    margin-top: 20px;
-    position: relative;
-    left: -10px;
+    width: 34%;
+    position: fixed;
+    right: 10px;
+    top: 60px;
+    // left: -10px;
     z-index: 1;
 
     div.jobs-list-content {

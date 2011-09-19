@@ -44,4 +44,13 @@ module SearchHelper
     end
   end
 
+  def pretty_format_date(date)
+    return "Today" if date.to_date == Date.today
+    return "Yesterday" if date.to_date == Date.yesterday
+    buffer = date.strftime("%A ")
+    buffer << date.strftime("%d").to_i.ordinalize
+    buffer << date.strftime(" %B")
+    return buffer
+  end
+
 end

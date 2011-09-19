@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(:version => 20110914151714) do
     t.string   "employer_name"
     t.text     "eligability_criteria"
     t.text     "vacancy_description"
-    t.text     "messages"
     t.text     "how_to_apply"
   end
 

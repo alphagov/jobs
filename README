@@ -8,3 +8,12 @@ Requirements
 
 * Ruby 1.9.2
 * Solr 3.3
+
+Configuration
+--
+
+Normal Rails 3.1 application.
+
+Add a file in config/secrets.rb containing:
+
+    DIRECTGOV_JOBS_API_AUTHENTICATION_KEY = "YOUR-API-KEY"

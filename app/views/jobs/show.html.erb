@@ -1,1 +1,27 @@
-<%= debug @job %>
+<div id="individual-job">
+
+  <p><%= link_to 'Back to search results', :back %></p>
+  <h1><%= @job['title'] %></h1>
+  <p class="employer"><%= @job['employer_name'].presence || "No employer information." %></p>
+  <p class="location"><%= @job['location_name'].presence || "No location information." %></p>
+
+  <div class="job-details">
+    <h2>Wage</h2>
+    <p><%= @job['wage_display_text'] %></p>
+    <h2>Hours</h2>
+    <p><%= @job['hours_display_text'] %></p>
+  </div>
+
+  <h2>Vacancy Description</h1>
+  <%= auto_link(simple_format(@job['vacancy_description'].presence || "No information.")) %>
+
+  <h2>How To Apply</h1>
+  <%= auto_link(simple_format(@job['how_to_apply'].presence || "No information.")) %>
+
+  <%- if @job['message'].present? && @job['message'].any? -%>
+    <h2>Notes</h2>
+    <%- @job['message'].each do |message| -%>
+      <p><%= message %></p>
+    <%- end -%>
+  <%- end -%>
+</div>

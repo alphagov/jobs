@@ -11,7 +11,7 @@ window.JobsListApp = class JobsListApp extends Backbone.Model
 
 
   bootstrap: ->
-    jobsListContainer = $('<div class="jobs-list-container" />').appendTo('div.split-container')
+    jobsListContainer = $('<div class="jobs-list-container" />').appendTo('div#search')
     jobsListContent = $('<div class="jobs-list-content" />').appendTo(jobsListContainer)
 
     jobsListView = new JobsListView(model: jobsList, el: jobsListContent)

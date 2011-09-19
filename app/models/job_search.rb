@@ -11,6 +11,7 @@ class JobSearch
   DEFAULT_QUERY = "*:*"
   DEFAULT_PER_PAGE = 50
   DEFAULT_DISTANCE = 50
+  MILES_TO_KM_MULTIPLIER = 1.609344
 
   def initialize(options)
     @location = options.delete(:location)
@@ -24,7 +25,7 @@ class JobSearch
     @full_time = options.delete(:full_time)
     @per_page = options.delete(:per_page).presence || DEFAULT_PER_PAGE
     @query = options.delete(:query)
-    @page = options.delete(:page).presence || 1
+    @page = options.delete(:page).try(:to_i) || 1
     @distance = options.delete(:distance) || DEFAULT_DISTANCE
   end
 
@@ -38,7 +39,7 @@ class JobSearch
       :sort => "geodist() asc",
       :sfield => "location",
       :pt => "#{@latitude},#{@longitude}",
-      :d => @distance / 0.621371192,
+      :d => @distance * MILES_TO_KM_MULTIPLIER,
       :limit => @per_page,
       :offset => (@page-1)*@per_page,
       :filters => []
@@ -62,7 +63,6 @@ class JobSearch
       hash[:permanent] = permanent unless permanent.nil?
       hash[:full_time] = full_time unless full_time.nil?
       hash[:query] = query unless (query.nil? || query == DEFAULT_QUERY)
-      hash[:page] = page unless (page.nil? || page == 1)
     end
   end
 
