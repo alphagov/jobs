@@ -134,12 +134,9 @@ class Job < ActiveRecord::Base
           end
         end
       end
+      results.body.try(:[], :get_job_detail_response).try(:[], :get_job_detail_result).try(:[], :vacancy)
     end
-
-    results.body.try(:[], :get_job_detail_response).try(:[], :get_job_detail_result).try(:[], :vacancy)
   end
-
-  private
 
   def self.fetch_vacancies_from_api(latitude, longitude)
     retry_this(:times => 3, :error_types => [SocketError, Timeout::Error], :sleep => 1) do |attempt|
@@ -170,9 +167,8 @@ class Job < ActiveRecord::Base
           end
         end
       end
+      results.body.try(:[], :all_near_me_response).try(:[], :all_near_me_result).try(:[], :vacancies).try(:[], :vacancy_summary) || []
     end
-
-    results.body.try(:[], :all_near_me_response).try(:[], :all_near_me_result).try(:[], :vacancies).try(:[], :vacancy_summary) || []
   end
 
   def self.soap_client
