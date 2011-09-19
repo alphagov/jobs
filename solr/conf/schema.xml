@@ -43,7 +43,6 @@
     <field name="how_to_apply" type="text" stored="true" />
     <field name="eligability_criteria" type="text" stored="true" />
     <field name="employer_name" type="text" indexed="true" stored="true" />
-    <field name="message" type="string" stored="true" multiValued="true" />
     <dynamicField name="*_coordinate" type="tdouble" indexed="true" stored="true"/>
   </fields>
 
