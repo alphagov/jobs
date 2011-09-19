@@ -21,6 +21,7 @@ class Job < ActiveRecord::Base
     end
   end
 
+  # Imports and updates jobs around a specific postcode.
   def self.import_for_point(latitude, longitude)
     results = self.fetch_vacancies_from_api(latitude, longitude)
     results.each do |v|
@@ -58,6 +59,8 @@ class Job < ActiveRecord::Base
     end
   end
 
+  # Imports details for a job - if the job is old, it's possible the API might
+  # not be able to find it.
   def import_details!
     details = self.fetch_details_from_api
     if details
@@ -69,6 +72,8 @@ class Job < ActiveRecord::Base
     end
   end
 
+  # Push all jobs to Solr, flushing every batch, and commiting at the end.
+  # You probably only want to use this in development.
   def self.send_to_solr
     Job.find_in_batches do |jobs|
       jobs.each do |j|
@@ -77,6 +82,7 @@ class Job < ActiveRecord::Base
       $solr.post_update!
     end
     $solr.commit!
+    $solr.optimize!
   end
 
   # Updates solr without committing
