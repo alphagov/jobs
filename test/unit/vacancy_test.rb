@@ -49,14 +49,14 @@ class VacancyTest < ActiveSupport::TestCase
   test '.send_to_solr' do
     vacancy = Factory.build(:vacancy)
     vacancy.stubs(:to_solr_document).returns(mock())
-    $solr.expects(:update).with(vacancy.to_solr_document).returns(true)
+    $solr.expects(:update!).with(vacancy.to_solr_document).returns(true)
     assert_equal true, vacancy.send_to_solr
   end
 
   test '.send_to_solr!' do
     vacancy = Factory.build(:vacancy)
     vacancy.stubs(:to_solr_document).returns(mock())
-    $solr.expects(:update!).with(vacancy.to_solr_document).returns(true)
+    $solr.expects(:update_and_commit!).with(vacancy.to_solr_document).returns(true)
     assert_equal true, vacancy.send_to_solr!
   end
 
@@ -93,35 +93,6 @@ class VacancyTest < ActiveSupport::TestCase
 
     response = Vacancy.fetch_vacancies_from_api(51.0, 1.0)
     assert_equal 100, response.length
-  end
-
-  test '#import_for_point' do
-    stub_vacancy = {:currency=>"GBP", :date_received=>"30082011", :distance_sort_order_id=>"2396.97008934328", :es_vacancy=>"Y", :hours=>"35", :hours_display_text=>"37.5 HOURS OVER 5 DAYS", :hours_qualifier=>"per week", :is_national=>false, :is_regional=>false, :location=>{:distance_from_origin=>"2396.97008934328", :latitude=>"50.986008297409", :longitude=>"0.9740371746526", :origin_latitude=>"51", :origin_longitude=>"1", :location_name=>"NEW ROMNEY, KENT"}, :location_display_text=>"NEW ROMNEY, KENT", :order_id=>"1", :perm_temp=>"P", :quality=>"86", :received_on=> Time.utc(2011, 8, 30, 0, 0, 0), :soc_code=>"3543", :vacancy_detail=>{:hours=>"0", :soc_code=>"0"}, :vacancy_id=>"FOK/12116", :vacancy_title=>"CHARITY FUNDRAISER", :wage=>"See details", :wage_display_text=>"£255 TO £1000 PER WEEK", :wage_qualifier=>"NK", :wage_sort_order_id=>"20"}
-
-    vacancy = stub_everything('vacancy', :new_record? => true)
-    vacancy.expects(:vacancy_title=).with(stub_vacancy[:vacancy_title])
-    vacancy.expects(:received_on=).with(stub_vacancy[:received_on])
-    vacancy.expects(:soc_code=).with(stub_vacancy[:soc_code])
-    vacancy.expects(:wage=).with(stub_vacancy[:wage])
-    vacancy.expects(:wage_qualifier=).with(stub_vacancy[:wage_qualifier])
-    vacancy.expects(:wage_display_text=).with(stub_vacancy[:wage_display_text])
-    vacancy.expects(:currency=).with(stub_vacancy[:currency])
-    vacancy.expects(:is_national=).with(stub_vacancy[:is_national])
-    vacancy.expects(:is_regional=).with(stub_vacancy[:is_regional])
-    vacancy.expects(:hours=).with(stub_vacancy[:hours].to_i)
-    vacancy.expects(:hours_qualifier=).with(stub_vacancy[:hours_qualifier])
-    vacancy.expects(:hours_display_text=).with(stub_vacancy[:hours_display_text])
-    vacancy.expects(:location_name=).with(stub_vacancy[:location][:location_name])
-    vacancy.expects(:latitude=).with(stub_vacancy[:location][:latitude].to_f)
-    vacancy.expects(:longitude=).with(stub_vacancy[:location][:longitude].to_f)
-    vacancy.expects(:is_permanent=).with(true)
-
-    vacancy.expects(:import_details!).once
-    vacancy.expects(:save!).once
-
-    Vacancy.stubs(:fetch_vacancies_from_api).returns([stub_vacancy])
-    Vacancy.stubs(:find_or_initialize_by_vacancy_id).with('FOK/12116').returns(vacancy)
-    Vacancy.import_for_point(51.0, 1.0)
   end
 
 end

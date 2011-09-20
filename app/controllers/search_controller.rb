@@ -4,7 +4,7 @@ class SearchController < ApplicationController
 
   def show
     begin
-      @search = JobSearch.new(
+      @search = VacancySearch.new(
         :latitude => params[:latitude],
         :longitude => params[:longitude],
         :location => params[:location],
@@ -14,7 +14,7 @@ class SearchController < ApplicationController
         :full_time => boolean_or_nil_param(params[:full_time])
       )
       @results = @search.run
-    rescue JobSearch::SearchError
+    rescue VacancySearch::SearchError
       render :text => "Error"
     end
   end

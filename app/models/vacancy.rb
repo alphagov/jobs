@@ -2,14 +2,15 @@ require 'csv'
 
 class Vacancy < ActiveRecord::Base
 
+  class ExtraDetailsNotFound < RuntimeError; end
+
   # for retrying the SOAP requests
   include RetryThis
   extend RetryThis
 
   validates_presence_of :vacancy_id
 
-  # Traverses the country at random, importing vacancies and storing them locally.
-  def self.bulk_import
+  def self.async_bulk_import(run_date)
     postcodes = CSV.read(File.join(Rails.root, 'data', 'uk.pc.ll.csv'), :headers => true)
     postcodes = postcodes.to_a # we get a Table class back from the CSV library
     postcodes.shift # lose the header
@@ -18,59 +19,52 @@ class Vacancy < ActiveRecord::Base
       postcode = row[0]
       latitude = row[1].to_f
       longitude = row[2].to_f
-      self.import_for_point(latitude, longitude)
+      Resque.enqueue(PointImporterJob, run_date, latitude, longitude)
     end
   end
 
-  # Imports and updates vacancies around a specific postcode.
-  def self.import_for_point(latitude, longitude)
-    results = self.fetch_vacancies_from_api(latitude, longitude)
-    results.each do |v|
-      vacancy = Vacancy.find_or_initialize_by_vacancy_id(v[:vacancy_id])
-      if vacancy.new_record?
-        vacancy.vacancy_title = v[:vacancy_title]
-        vacancy.soc_code = v[:soc_code]
-        vacancy.received_on = v[:received_on]
+  def import_details_from_hash(v)
+    self.vacancy_title = v[:vacancy_title]
+    self.soc_code = v[:soc_code]
+    self.received_on = v[:received_on]
 
-        vacancy.wage = v[:wage]
-        vacancy.wage_qualifier = v[:wage_qualifier]
-        vacancy.wage_display_text = v[:wage_display_text]
-        vacancy.wage_sort_order_id = v[:wage_sort_order_id]
+    self.wage = v[:wage]
+    self.wage_qualifier = v[:wage_qualifier]
+    self.wage_display_text = v[:wage_display_text]
+    self.wage_sort_order_id = v[:wage_sort_order_id]
 
-        vacancy.currency = v[:currency] # Do we need this?
-        vacancy.is_national = v[:is_national]
-        vacancy.is_regional = v[:is_regional]
+    self.currency = v[:currency] # Do we need this?
+    self.is_national = v[:is_national]
+    self.is_regional = v[:is_regional]
 
-        vacancy.hours = v[:hours].to_i
-        vacancy.hours_qualifier = v[:hours_qualifier]
-        vacancy.hours_display_text = v[:hours_display_text]
+    self.hours = v[:hours].to_i
+    self.hours_qualifier = v[:hours_qualifier]
+    self.hours_display_text = v[:hours_display_text]
 
-        vacancy.location_name = v[:location][:location_name]
-        vacancy.location_display_name = v[:location_display_name]
-        vacancy.latitude = v[:location][:latitude].to_f
-        vacancy.longitude = v[:location][:longitude].to_f
+    self.location_name = v[:location][:location_name]
+    self.location_display_name = v[:location_display_name]
+    self.latitude = v[:location][:latitude].to_f
+    self.longitude = v[:location][:longitude].to_f
 
-        vacancy.is_permanent = v[:perm_temp].downcase == 'p'
-        vacancy.first_import_at = Time.now
-        logger.debug "Fetching details for #{vacancy.vacancy_id}"
-        vacancy.import_details!
-      end
-      vacancy.most_recent_import_at = Time.now
-      vacancy.save!
-    end
+    self.is_permanent = v[:perm_temp].downcase == 'p'
   end
 
   # Imports details for a vacancy - if the vacancy is old, it's possible the API might
   # not be able to find it.
-  def import_details!
+  def import_extra_details
     details = self.fetch_details_from_api
     if details
       self.employer_name = details[:employer_name]
       self.eligability_criteria = details[:eligability_criteria]
       self.vacancy_description = details[:vacancy_description]
       self.how_to_apply = details[:how_to_apply]
-      self.save!
+    else
+      raise ExtraDetailsNotFound
     end
+  end
+
+  def import_extra_details!
+    import_extra_details || raise(ExtraDetailsNotFound)
   end
 
   # Push all vacancies to Solr, flushing every batch, and commiting at the end.
@@ -88,12 +82,12 @@ class Vacancy < ActiveRecord::Base
 
   # Updates solr without committing
   def send_to_solr
-    $solr.update(self.to_solr_document)
+    $solr.update!(self.to_solr_document)
   end
 
   # Updates solr and commits
   def send_to_solr!
-    $solr.update!(self.to_solr_document)
+    $solr.update_and_commit!(self.to_solr_document)
   end
 
   def delete_from_solr
@@ -101,7 +95,7 @@ class Vacancy < ActiveRecord::Base
   end
 
   def self.purge_expired
-    Vacancy.where(['most_recent_import_at < ?', 48.hours.ago]).find_each do |vacancy|
+    Vacancy.where(['most_recent_import_on < ?', Date.yesterday]).find_each do |vacancy|
       vacancy.delete_from_solr && vacancy.destroy
     end
     $solr.commit!

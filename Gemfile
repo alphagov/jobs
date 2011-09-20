@@ -11,6 +11,7 @@ gem 'geogov', :git => 'https://github.com/alphagov/geogov.git'
 gem 'compass', '~> 0.12.alpha.0'
 gem 'rails_autolink'
 gem 'retry-this'
+gem 'resque'
 
 group :development do
   gem 'guard'
