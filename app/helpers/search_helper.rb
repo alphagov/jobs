@@ -53,4 +53,27 @@ module SearchHelper
     return buffer
   end
 
+  def pagination(search, results)
+    total = results.total
+    per_page = search.per_page
+    max_page = (total.to_f / per_page).ceil + 1
+    current_page = search.page
+
+    content_tag :ul, :class => 'pagination' do
+      ActiveSupport::SafeBuffer.new.tap do |buffer|
+        if current_page > 1
+          buffer << content_tag(:li, :class => 'previous') do
+            link_to("Previous page", search.query_params.merge({:page => current_page - 1}), :rel => 'prev')
+          end
+        end
+
+        if current_page < (max_page - 1)
+          buffer << content_tag(:li, :class => 'next') do
+            link_to("Next page", search.query_params.merge({:page => current_page + 1}), :rel => 'next')
+          end
+        end
+      end
+    end
+  end
+
 end
