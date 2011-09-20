@@ -1,6 +1,6 @@
-class CreateJobs < ActiveRecord::Migration
+class CreateVacancies < ActiveRecord::Migration
   def change
-    create_table :jobs do |t|
+    create_table :vacancies do |t|
       t.string :vacancy_id
       t.string :vacancy_title
       t.string :soc_code
@@ -21,9 +21,14 @@ class CreateJobs < ActiveRecord::Migration
       t.boolean :is_permanent
       t.date :received_on
 
-      t.datetime :first_import_at
-      t.datetime :most_recent_import_at
+      t.date :first_import_on
+      t.date :most_recent_import_on
+
+      t.string :employer_name
+      t.text :eligability_criteria
+      t.text :vacancy_description
+      t.text :how_to_apply
     end
-    add_index :jobs, :vacancy_id, :unique => true
+    add_index :vacancies, :vacancy_id, :unique => true
   end
 end

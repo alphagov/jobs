@@ -1,4 +1,4 @@
-class JobSearch
+class VacancySearch
 
   class InvalidLocationCombination < RuntimeError; end
   class LocationMissing < RuntimeError; end

@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  factory :job do
-    factory :job_without_details do
+  factory :vacancy do
+    factory :vacancy_without_details do
       vacancy_id 'HAF/65144'
       vacancy_title 'DOG GROOMER'
       soc_code '6139'
@@ -21,7 +21,7 @@ FactoryGirl.define do
       first_import_at { 1.day.ago }
       most_recent_import_at { Time.now }
 
-      factory :job_with_details do
+      factory :vacancy_with_details do
         vacancy_description "A job you can do."
         employer_name "Alphagov"
         eligability_criteria "Must be breathing."
