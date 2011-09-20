@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
-
   helper_method :boolean_or_nil_param
 
   def boolean_or_nil_param(param)
