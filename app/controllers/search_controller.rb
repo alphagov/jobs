@@ -15,7 +15,9 @@ class SearchController < ApplicationController
       )
       @results = @search.run
     rescue VacancySearch::SearchError
-      render :text => "Error"
+      render :text => "Error", :status => 500
+    rescue VacancySearch::LocationMissing
+      redirect_to root_path
     end
   end
 
