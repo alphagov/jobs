@@ -100,6 +100,14 @@ class Job < ActiveRecord::Base
     $solr.delete(self.vacancy_id)
   end
 
+  def self.purge_expired
+    Job.where(['most_recent_import_at < ?', 48.hours.ago]).find_each do |job|
+      job.delete_from_solr && job.destroy
+    end
+    $solr.commit!
+    $solr.optimize!
+  end
+
   def to_solr_document
     DelSolr::Document.new.tap do |doc|
       doc.add_field 'id', self.vacancy_id
