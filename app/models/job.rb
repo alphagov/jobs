@@ -4,6 +4,7 @@ class Job < ActiveRecord::Base
 
   # for retrying the SOAP requests
   include RetryThis
+  extend RetryThis
 
   validates_presence_of :vacancy_id
 

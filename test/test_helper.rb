@@ -10,3 +10,5 @@ class ActiveSupport::TestCase
 end
 
 require 'mocha'
+require 'webmock/test_unit'
+require 'asset_helpers'

@@ -25,6 +25,7 @@ group :test do
   gem 'mocha', :require => false
   gem 'simplecov', :require => false
   gem 'simplecov-rcov', :require => false
+  gem 'webmock', :require => false
 end
 
 # Gems used only for assets and not required

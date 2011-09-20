@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ws.dgjobsservice.info/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://ws.dgjobsservice.info/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ws.dgjobsservice.info/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="FreeTextSearch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="search" type="tns:GenericSearchList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GenericSearchList">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AuthenticationKey" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="FullTime" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Location" type="tns:Geography" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxAge" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaximumNumberOfResults" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PartTime" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Permanent" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Subjects" type="tns:ArrayOfSubject" />
+          <s:element minOccurs="1" maxOccurs="1" name="Radius" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnDetailsWithList" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IncludeNationalVacancies" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IncludeRegionalVacancies" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsThirdPartyVacancySearch" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="SearchLocationText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SearchSubjectText" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Temporary" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="UniqueIdentifier" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="WageLower" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="WageUpper" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Geography">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="DistanceFromOrigin" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Latitude" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Longitude" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="OriginLatitude" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="OriginLongitude" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="OriginPostcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Postcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LocationName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PostTown" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="County" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Region" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSubject">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Subject" type="tns:Subject" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Subject">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PreferredTerm" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SOCs" type="tns:ArrayOfShort" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfShort">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="short" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FreeTextSearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FreeTextSearchResult" type="tns:GenericResponseList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GenericResponseList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AlternateLocations" type="tns:ArrayOfGeography" />
+          <s:element minOccurs="0" maxOccurs="1" name="AlternateSubjects" type="tns:ArrayOfSubject" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfError" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsPopulatedWithDetails" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="RecordTotal" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Vacancies" type="tns:ArrayOfVacancySummary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfGeography">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Geography" type="tns:Geography" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfError">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Error" type="tns:Error" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Error">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorNumber" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfVacancySummary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="VacancySummary" type="tns:VacancySummary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VacancySummary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DateReceived" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DistanceSortOrderID" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="ESVacancy" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Hours" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="HoursDisplayText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HoursQualifier" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsNational" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsRegional" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Location" type="tns:Geography" />
+          <s:element minOccurs="0" maxOccurs="1" name="LocationDisplayText" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PermTemp" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Quality" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReceivedOn" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="SOCCode" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="VacancyDetail" type="tns:VacancyDetail" />
+          <s:element minOccurs="0" maxOccurs="1" name="VacancyID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VacancyTitle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Wage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WageDisplayText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WageQualifier" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="WageSortOrderID" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VacancyDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AgeExempt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AgencyEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AgencyLogoURL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AgencyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AgencyRefNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AgencyURL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AgencyVacURL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClosingDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DateReceived" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DisabilityExempt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DisabilityFriendly" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EligibilityCriteria" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmployerAddressLine1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmployerEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmployerFax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmployerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmployerPhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmployerRefNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ESVacancy" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EULanguageSkill1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EURESRef" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Evenings" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Hours" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="HoursDisplayText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HoursQualifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HowToApply" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Location" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NationalMinWageExempt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nights" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NUTSCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OpenFile" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PensionDetail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PermTemp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Postcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RaceExempt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReligionOrBeliefExempt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RequiredExperience" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RequiredSkillLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Restrictions" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SexExempt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SexExemptGender" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SexualOrientationExempt" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SOCCode" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="SpecialGroups" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Termtimes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VacancyDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VacancyID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VacancyMessages" type="tns:ArrayOfVacancyMessage" />
+          <s:element minOccurs="0" maxOccurs="1" name="VacancyTitle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Wage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WageDisplayText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WageQualifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Weekends" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WorkTimes" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfVacancyMessage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="VacancyMessage" type="tns:VacancyMessage" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VacancyMessage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchNearMe">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="search" type="tns:GenericSearchList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchNearMeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SearchNearMeResult" type="tns:GenericResponseList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AllNearMe">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="search" type="tns:GenericSearchList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AllNearMeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AllNearMeResult" type="tns:GenericResponseList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="search" type="tns:GenericSearchDetail" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GenericSearchDetail">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AuthenticationKey" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="Latitude" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Longitude" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="UniqueIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VacancyID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetJobDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetJobDetailResult" type="tns:GenericResponseDetail" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GenericResponseDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfError" />
+          <s:element minOccurs="1" maxOccurs="1" name="Location" type="tns:Geography" />
+          <s:element minOccurs="1" maxOccurs="1" name="Vacancy" type="tns:VacancyDetail" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="FreeTextSearchSoapIn">
+    <wsdl:part name="parameters" element="tns:FreeTextSearch" />
+  </wsdl:message>
+  <wsdl:message name="FreeTextSearchSoapOut">
+    <wsdl:part name="parameters" element="tns:FreeTextSearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchNearMeSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchNearMe" />
+  </wsdl:message>
+  <wsdl:message name="SearchNearMeSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchNearMeResponse" />
+  </wsdl:message>
+  <wsdl:message name="AllNearMeSoapIn">
+    <wsdl:part name="parameters" element="tns:AllNearMe" />
+  </wsdl:message>
+  <wsdl:message name="AllNearMeSoapOut">
+    <wsdl:part name="parameters" element="tns:AllNearMeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetJobDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetJobDetail" />
+  </wsdl:message>
+  <wsdl:message name="GetJobDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetJobDetailResponse" />
+  </wsdl:message>
+  <wsdl:portType name="JobSearchSoap">
+    <wsdl:operation name="FreeTextSearch">
+      <wsdl:input message="tns:FreeTextSearchSoapIn" />
+      <wsdl:output message="tns:FreeTextSearchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchNearMe">
+      <wsdl:input message="tns:SearchNearMeSoapIn" />
+      <wsdl:output message="tns:SearchNearMeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AllNearMe">
+      <wsdl:input message="tns:AllNearMeSoapIn" />
+      <wsdl:output message="tns:AllNearMeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobDetail">
+      <wsdl:input message="tns:GetJobDetailSoapIn" />
+      <wsdl:output message="tns:GetJobDetailSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="JobSearchSoap" type="tns:JobSearchSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FreeTextSearch">
+      <soap:operation soapAction="http://ws.dgjobsservice.info/FreeTextSearch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchNearMe">
+      <soap:operation soapAction="http://ws.dgjobsservice.info/SearchNearMe" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AllNearMe">
+      <soap:operation soapAction="http://ws.dgjobsservice.info/AllNearMe" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobDetail">
+      <soap:operation soapAction="http://ws.dgjobsservice.info/GetJobDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="JobSearchSoap12" type="tns:JobSearchSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FreeTextSearch">
+      <soap12:operation soapAction="http://ws.dgjobsservice.info/FreeTextSearch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchNearMe">
+      <soap12:operation soapAction="http://ws.dgjobsservice.info/SearchNearMe" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AllNearMe">
+      <soap12:operation soapAction="http://ws.dgjobsservice.info/AllNearMe" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobDetail">
+      <soap12:operation soapAction="http://ws.dgjobsservice.info/GetJobDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="JobSearch">
+    <wsdl:port name="JobSearchSoap" binding="tns:JobSearchSoap">
+      <soap:address location="http://soap.xbswebservices.info/jobsearch.asmx" />
+    </wsdl:port>
+    <wsdl:port name="JobSearchSoap12" binding="tns:JobSearchSoap12">
+      <soap12:address location="http://soap.xbswebservices.info/jobsearch.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

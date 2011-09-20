@@ -42,6 +42,7 @@ GEM
       activesupport (= 3.1.0)
     activesupport (3.1.0)
       multi_json (~> 1.0)
+    addressable (2.2.6)
     akami (1.0.0)
       gyoku (>= 0.4.0)
     arel (2.2.1)
@@ -59,6 +60,7 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+    crack (0.3.0)
     erubis (2.7.0)
     execjs (1.2.4)
       multi_json (~> 1.0)
@@ -167,6 +169,9 @@ GEM
       multi_json (>= 1.0.2)
     wasabi (2.0.0)
       nokogiri (>= 1.4.0)
+    webmock (1.7.6)
+      addressable (~> 2.2, > 2.2.5)
+      crack (>= 0.1.7)
 
 PLATFORMS
   ruby
@@ -195,3 +200,4 @@ DEPENDENCIES
   sqlite3
   therubyracer
   uglifier
+  webmock
