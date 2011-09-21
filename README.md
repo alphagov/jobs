@@ -25,4 +25,14 @@ The canonical store of vacancy information is the DirectGov Jobs API. This servi
 
 Solr provides the search engine for vacancies, and is used for displaying the information about each job. SQLite isn't used as a public facing datastore: it's only an intermediary step.
 
-We use Resque to manage the import process. `rake api:import` starts the process, queueing up a request for each postcode sector in the UK. We then loop through the entire country, finding the jobs nearby each request.
+We use Resque to manage the import process. `rake api:import` queues up the first resque jobs: making a request for each postcode sector in the UK, and finding the vacancies nearby. These then queue up resque jobs to fetch vacancy details for each vacancy, before importing them into Solr.
+
+To process the queue, you'll need to be running some Resque workers.
+
+    QUEUES=vacancies,points JOBS_PER_FORK=100 COUNT=4 rake resque:workers
+
+The order of the queues doesn't matter, but if you have it set to vacancies first, then it'll process vacancies as they're found, rather than waiting until the entire country has been swept.
+
+`JOBS_PER_FORK` is a tunable number. 100 is just an example.
+
+The resque jobs should fail in obvious ways, ensuring that they can be retried from the resque web interface if possible.
