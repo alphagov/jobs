@@ -80,14 +80,15 @@ class Vacancy < ActiveRecord::Base
     $solr.optimize!
   end
 
-  # Updates solr without committing
+  # Pushes into the update queue - still needs $solr.post_update! and $solr.commit!
+  # to appear in the index.
   def send_to_solr
-    $solr.update!(self.to_solr_document)
+    $solr.update(self.to_solr_document)
   end
 
-  # Updates solr and commits
+  # Immediately updates solr and tell it to commit within 5 minutes
   def send_to_solr!
-    $solr.update_and_commit!(self.to_solr_document)
+    $solr.update!(self.to_solr_document, :commitWithin => 5.minutes*1000)
   end
 
   def delete_from_solr
