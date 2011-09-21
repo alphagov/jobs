@@ -13,15 +13,8 @@
   </div>
 
   <h2>Vacancy Description</h1>
-  <%= auto_link(simple_format(@job['vacancy_description'].presence || "No information.")) %>
+  <%= auto_link(simple_format(@job['vacancy_description'].presence || "No information."), :html => { :rel => 'nofollow' }) %>
 
   <h2>How To Apply</h1>
-  <%= auto_link(simple_format(@job['how_to_apply'].presence || "No information.")) %>
-
-  <%- if @job['message'].present? && @job['message'].any? -%>
-    <h2>Notes</h2>
-    <%- @job['message'].each do |message| -%>
-      <p><%= message %></p>
-    <%- end -%>
-  <%- end -%>
+  <%= auto_link(simple_format(@job['how_to_apply'].presence || "No information."), :html => { :rel => 'nofollow'}) %>
 </div>

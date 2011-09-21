@@ -95,8 +95,8 @@ class Vacancy < ActiveRecord::Base
     $solr.delete(self.vacancy_id)
   end
 
-  def self.purge_expired
-    Vacancy.where(['most_recent_import_on < ?', Date.yesterday]).find_each do |vacancy|
+  def self.purge_older_than(date)
+    Vacancy.where(['most_recent_import_on < ?', date]).find_each do |vacancy|
       vacancy.delete_from_solr && vacancy.destroy
     end
     $solr.commit!
