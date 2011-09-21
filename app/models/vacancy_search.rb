@@ -82,6 +82,36 @@ class VacancySearch
     results.docs.first
   end
 
+  def self.received_on_counts
+    params = {
+      :query => "*:*",
+      :limit => 0,
+      :facets => [{ :field => 'received_on', :mincount => 10 }]
+    }
+
+    results = $solr.query('standard', params) || raise(SearchError)
+    Hash.new.tap do |hash|
+      results.facet_field_values('received_on').each do |v|
+        date = Time.iso8601(v).to_date
+        count = results.facet_field_count('received_on', v)
+        hash[date] = count
+      end
+    end.sort_by { |k, v| k }
+  end
+
+  def self.ids_for_date(date)
+    params = {
+      :query => "*:*",
+      :limit => 50000,
+      :sort => "id asc",
+      :fields => "id",
+      :filters => ["received_on:[#{date.beginning_of_day.iso8601} TO #{date.end_of_day.iso8601}]"]
+    }
+
+    results = $solr.query('standard', params) || raise(SearchError)
+    results.docs.map { |d| d['id'] }
+  end
+
   private
 
   def geocode
