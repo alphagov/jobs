@@ -1,14 +1,14 @@
 GIT
+  remote: https://github.com/alphagov/delsolr.git
+  revision: ef2bacbced2226f3a3c0680c0b9d3bab096eff81
+  specs:
+    delsolr (0.1.5)
+
+GIT
   remote: https://github.com/alphagov/geogov.git
   revision: c2acf57a158ef18a9820e40f03d0d1cccd9d6345
   specs:
     geogov (0.0.1)
-
-GIT
-  remote: https://github.com/avvo/delsolr.git
-  revision: 9a213aa05e03d983300a54d7b542cdee596cfc8e
-  specs:
-    delsolr (0.1.5)
 
 GEM
   remote: http://rubygems.org/
@@ -62,7 +62,7 @@ GEM
       sass (~> 3.1)
     crack (0.3.0)
     erubis (2.7.0)
-    execjs (1.2.7)
+    execjs (1.2.8)
       multi_json (~> 1.0)
     factory_girl (2.1.0)
     factory_girl_rails (1.2.0)
