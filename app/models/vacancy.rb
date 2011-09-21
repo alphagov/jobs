@@ -178,6 +178,7 @@ class Vacancy < ActiveRecord::Base
     @@soap_client ||= Savon::Client.new do
       wsdl.document = "http://soap.xbswebservices.info/jobsearch.asmx?WSDL"
       http.open_timeout = 30
+      http.read_timeout = 30
     end
   end
 
