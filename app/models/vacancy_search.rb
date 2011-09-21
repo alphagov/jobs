@@ -5,7 +5,7 @@ class VacancySearch
   class SearchError < RuntimeError; end
 
   attr_accessor :location, :latitude, :longitude, :distance
-  attr_accessor :query, :permanent, :full_time
+  attr_accessor :query, :permanent, :full_time, :recency
   attr_accessor :page, :per_page
 
   DEFAULT_QUERY = "*:*"
@@ -27,6 +27,7 @@ class VacancySearch
     @query = options.delete(:query)
     @page = options.delete(:page).try(:to_i) || 1
     @distance = options.delete(:distance) || DEFAULT_DISTANCE
+    @recency = options.delete(:recency).try(:to_i)
   end
 
   def run
@@ -47,6 +48,8 @@ class VacancySearch
 
     params[:filters] << { :is_permanent => @permanent } unless @permanent.nil?
     params[:filters] << (@full_time ? "hours:[30 TO *]" : "hours:[* TO 29]") unless @full_time.nil?
+    # round to beginning of day and subtract x days
+    params[:filters] << "received_on:[NOW/DAY-#{@recency}DAY TO *]" unless @recency.nil?
 
     $solr.query('standard', params) || raise(SearchError)
   end
@@ -62,6 +65,7 @@ class VacancySearch
 
       hash[:permanent] = permanent unless permanent.nil?
       hash[:full_time] = full_time unless full_time.nil?
+      hash[:recency] = recency unless recency.nil?
       hash[:query] = query unless (query.nil? || query == DEFAULT_QUERY)
     end
   end

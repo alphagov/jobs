@@ -11,7 +11,8 @@ class SearchController < ApplicationController
         :query => params[:query],
         :page => params[:page],
         :permanent => boolean_or_nil_param(params[:permanent]),
-        :full_time => boolean_or_nil_param(params[:full_time])
+        :full_time => boolean_or_nil_param(params[:full_time]),
+        :recency => params[:recency]
       )
       @results = @search.run
     rescue VacancySearch::SearchError

@@ -48,6 +48,19 @@
           </form>
         <%- end -%>
       </div>
+
+      <div class="recency-options">
+        <%- recency_options.each do |k, v| -%>
+          <form action="<%= search_path %>" method="get">
+            <%= search_form_fields @search.query_params.except(:recency) %>
+            <%- unless v.nil? %>
+              <%= hidden_field_tag 'recency', v %>
+            <%- end -%>
+            <%= submit_tag k, :disabled => params[:recency].to_s == v.to_s, :name => nil -%>
+          </form>
+        <%- end -%>
+      </div>
+
       <%- if @results.total > 0 -%>
         <p>Found <%= pluralize @results.total, 'result' %> within <%= pluralize @search.distance, 'mile' %>.</p>
         <table class="search-results">

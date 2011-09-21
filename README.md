@@ -31,7 +31,7 @@ To process the queue, you'll need to be running some Resque workers.
 
     QUEUES=vacancies,points JOBS_PER_FORK=100 COUNT=4 rake resque:workers
 
-The order of the queues doesn't matter, but if you have it set to vacancies first, then it'll process vacancies as they're found, rather than waiting until the entire country has been swept.
+The order of the queues doesn't matter, but if you have it set to vacancies first, then it'll process vacancies as they're found, rather than waiting until the entire country has been swept. It also keeps the queue sizes in redis down, which could be an issue.
 
 `JOBS_PER_FORK` is a tunable number. 100 is just an example.
 

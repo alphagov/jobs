@@ -16,6 +16,15 @@ module SearchHelper
     }
   end
 
+  def recency_options
+    {
+      "All time" => nil,
+      "Last fortnight" => 14,
+      "Last week" => 7,
+      "Last 3 days" => 3
+    }
+  end
+
   RAD_PER_DEG = 0.017453293
   RADIUS_MILES = 3956
 
