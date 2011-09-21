@@ -12,6 +12,7 @@ gem 'compass', '~> 0.12.alpha.0'
 gem 'rails_autolink'
 gem 'retry-this'
 gem 'resque'
+gem 'resque-jobs-per-fork'
 
 group :development do
   gem 'guard'
