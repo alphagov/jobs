@@ -33,6 +33,6 @@ To process the queue, you'll need to be running some Resque workers.
 
 The order of the queues doesn't matter, but if you have it set to vacancies first, then it'll process vacancies as they're found, rather than waiting until the entire country has been swept. It also keeps the queue sizes in redis down, which could be an issue.
 
-`JOBS_PER_FORK` is a tunable number. 100 is just an example.
+`JOBS_PER_FORK` is a tunable number, to limit how often resque forks a new worker. Without this, resque will fork after it processes each job. This is fine for larger jobs, but for quick jobs this adds a large overhead. 100 is just an example. You could probably make this 1000.
 
 The resque jobs should fail in obvious ways, ensuring that they can be retried from the resque web interface if possible.
