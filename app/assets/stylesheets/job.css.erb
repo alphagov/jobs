@@ -3,7 +3,7 @@ p {
 	margin: 0.75em 0;
 }
 
-hgroup h1 {
+header h1 {
 	font-size: 1.8em;
 	line-height: 1em;
 	margin-bottom: 0.75em;
@@ -67,7 +67,7 @@ form fieldset input[type="radio"]:first-child {
 
 .query-results-headline {
 	background-color: #fff;
-	background-image: url(images/job-search-arrow.png);
+	background-image: url(<%= asset_path 'job-search-arrow.png' %>);
 	background-position: top left;
 	background-repeat: no-repeat;
 	-moz-box-flex: 1;
@@ -94,15 +94,13 @@ form fieldset input[type="radio"]:first-child {
 
 .job {
 	border-top: solid 2px #bbb;
-	margin: 0 0 2em 0;
-/*	padding: 0.25em 0 0 0;*/
+	margin: 0.5em 0;
+	padding: 0.25em 0 0 0;
 }
 
 .job header {
-	border-bottom: solid 1px #ddd;
+	border-bottom: dashed 1px #ddd;
 	float: left;
-	margin: 0 0 0.5em 0;
-	padding: 0.25em 0 0.5em 0;
 	position: relative;
 	width: 100%;
 }
@@ -113,14 +111,13 @@ form fieldset input[type="radio"]:first-child {
 }
 
 h3.title {
-  font-size: 1.45em;
+  font-size: 1.2em;
   line-height: 1.25em;
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
 }
 
 h4.employer-name {
 	font-weight: normal;
+	line-height: 1.1em;
 }
 
 .add-to-jobs-list {
@@ -131,63 +128,73 @@ h4.employer-name {
 }
 
 .location-posted-date {
-	margin-left: 25em;
-	width: 15em;
+	margin-left: 26.5em;
+	width: 13.5em;
 }
 
 .location-posted-date p {
 	font-size: 0.8em;
-	line-height: 1.4em;
-	margin: 0.25em 0 0.25em 0;
+	line-height: 1.6em;
+	margin: 0.2em 0;
 }
 
 p.location {
-	background: url(images/location-pin_outline_tiny.png) no-repeat;
-	margin-bottom: 0.5em;
-	padding: 0.25em 0 0.25em 1.5em;
+	background: url(<%= asset_path 'location-pin_outline_tiny.png' %>) no-repeat 0 -0.1em;
+	margin: 0 0 0 -1.5em;
+	padding: 0.15em 0 0.2em 1.5em;
+	padding: 0 0 0 1.5em;
 }
 
 .posted-date {
 	border-top: dotted 1px #ddd;
 	color: #666;
-	padding: 0.75em 0 0 1.5em;
+	padding-top: 0.2em;
 }
 
 .basic-info {
 	float: left;
 }
 
+.basic-info h4, .basic-info p {
+	font-size: 0.8em;
+	line-height: 1.4em;
+}
+
 .basic-info h4 {
+	float: left;
 	font-weight: normal;
 	margin: 0.25em 0;
 }
 
 .basic-info p {
-	font-size: 0.8em;
-	margin: 0.25em 0;
+	margin: 0.25em 0 0.25em 3.5em;
 }
 
 .basic-info div {
 	float: left;
+/*	background: yellow;*/
 }
 
 .basic-info .wage {
-	width: 15em;
+	width: 10em;
 }
 
 .basic-info .hours {
-	margin: 0 1em;
-	width: 15em;
+	margin: 0 1.5em;
+	width: 13.5em;
 }
 
 .basic-info .job-options {
-	width: 8em;
+	width: 13.5em;
+}
+
+.job-options p {
+	margin: 0.25em 0 0 0;
 }
 
 .job-options a {
 	background: blue;
 	color: #fff;
-	display: block;
 }
 
 .more-info {
@@ -196,7 +203,7 @@ p.location {
 
 .query-options input[type=submit],
 .query-options input[type=submit]:visited {
-	background: #039 url(images/button-overlay.png) repeat-x;
+	background: #039 url(<%= asset_path 'button-overlay.png' %>) repeat-x;
 	border: 1px solid rgba(0,0,0,0.25);
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -220,8 +227,6 @@ p.location {
 .query-options input[type=submit]:active {
 	top: 1px;
 }
-
-
 
 .job-bookmarks-position {
 	position: fixed;
