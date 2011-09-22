@@ -9,6 +9,12 @@ window.JobsListView = class JobsListView extends Backbone.View
 
     $(@el).append('<p class="hint">Save jobs here by clicking "Add to jobs list" on a job.')
 
+    $(window).bind 'resize', => this.setHeight()
+
+  setHeight: ->
+    height = $(window).height() - 144 - 48;
+    $(@el).height(height)
+
   render: ->
     @list.empty()
 
@@ -16,5 +22,7 @@ window.JobsListView = class JobsListView extends Backbone.View
       jobView = new JobView(model: job)
       @list.append(jobView.render().el)
     , this)
+
+    this.setHeight()
 
     return this
