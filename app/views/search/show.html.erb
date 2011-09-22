@@ -15,53 +15,36 @@
     <div class="search-content">
 			<div class="query-options-headline">
       	<div class="query-options">
-	        <form action="<%= search_path %>" class="query" method="get">
-	          <%= search_form_fields @search.query_params.except(:query) %>
-	          <%= label_tag 'query', "Search for job title:" %>
-	          <%= text_field_tag 'query', params[:query] %>
-	          <%= submit_tag 'Search', :name => nil %>
+					<form action="<%= search_path %>" class="query" method="get">
+	          <fieldset>
+							<input id="location" name="location" type="hidden" value="e5 0ja" />
+							<label for="query">Search for job title:</label>
+		          <input id="query" name="query" type="text" />
+						</fieldset>
+
+						<fieldset>
+							<%- time_options.each do |k, v| -%>
+								<%= radio_button_tag('time', v, params[:time].to_s == v.to_s) %>
+								<%= label_tag('time', k) %>
+							<%- end -%>
+						</fieldset>
+						
+						<fieldset>
+							<%- permanent_options.each do |k, v| -%>
+								<%= radio_button_tag('permanent', v, params[:permanent].to_s == v.to_s) %>
+								<%= label_tag('permanent', k) %>
+							<%- end -%>
+						</fieldset>
+						
+						<fieldset>
+							<label for="job-posted-date">Jobs posted:</label>
+							<%= select_tag('recency', options_for_select(recency_options, params[:recency].to_s)) %>
+						</fieldset>
+						<fieldset>
+							<input type="submit" value="Search" />
+							<a href="#">Reset</a>
+						</fieldset>
 	        </form>
-
-	        <form action="<%= search_path %>" class="show-me-everything" method="get">
-	          <%= search_form_fields @search.query_params.except(:query) %>
-	          <%= submit_tag 'Show me all jobs', :name => nil %>
-	        </form>
-	
-					<div class="permanent-options">
-					   <%- permanent_options.each do |k, v| -%>
-					     <form action="<%= search_path %>" method="get">
-					       <%= search_form_fields @search.query_params.except(:permanent) %>
-					       <%- unless v.nil? %>
-					         <%= hidden_field_tag 'permanent', v %>
-					       <%- end -%>
-					       <%= submit_tag k, :disabled => params[:permanent].to_s == v.to_s, :name => nil -%>
-					     </form>
-					   <%- end -%>
-					 </div>
-
-					 <div class="full-time-options">
-					   <%- time_options.each do |k, v| -%>
-					     <form action="<%= search_path %>" method="get">
-					       <%= search_form_fields @search.query_params.except(:full_time) %>
-					       <%- unless v.nil? %>
-					         <%= hidden_field_tag 'full_time', v %>
-					       <%- end -%>
-					       <%= submit_tag k, :disabled => params[:full_time].to_s == v.to_s, :name => nil -%>
-					     </form>
-					   <%- end -%>
-					 </div>
-
-					 <div class="recency-options">
-					   <%- recency_options.each do |k, v| -%>
-					     <form action="<%= search_path %>" method="get">
-					       <%= search_form_fields @search.query_params.except(:recency) %>
-					       <%- unless v.nil? %>
-					         <%= hidden_field_tag 'recency', v %>
-					       <%- end -%>
-					       <%= submit_tag k, :disabled => params[:recency].to_s == v.to_s, :name => nil -%>
-					     </form>
-					   <%- end -%>
-					 </div>
 	
 	      </div>
 				<div class="query-results-headline">
@@ -122,7 +105,8 @@
 				<ul>
 					<li>
 						<h4><a href="#">Muppet Operator</a></h4>
-						
+						<p>Jim Henson Workshop Inc.</p>
+						<p>Oxford, Oxfordshire (1.3 miles away)</p>
 					</li>
 				</ul>
 				<p class="hint">Save jobs here by clicking "Add to jobs list" on a job.</p>

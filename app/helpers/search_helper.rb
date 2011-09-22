@@ -2,23 +2,23 @@ module SearchHelper
 
   def permanent_options
     {
-      "Permanent or Temporary Jobs" => nil,
-      "Just Permanent Jobs" => true,
-      "Just Temporary Jobs" => false
+      "I don't mind" => '',
+      "Permanent" => true,
+      "Temporary" => false
     }
   end
 
   def time_options
     {
-      "Full or Part Time Jobs" => nil,
-      "Just Full Time Jobs" => true,
-      "Just Part Time Jobs" => false
+      "I don't mind" => '',
+      "Full Time" => true,
+      "Part Time" => false
     }
   end
 
   def recency_options
     {
-      "All time" => nil,
+      "All time" => '',
       "Last fortnight" => 14,
       "Last week" => 7,
       "Last 3 days" => 3
