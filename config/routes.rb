@@ -1,6 +1,7 @@
 Jobs::Application.routes.draw do
   root :to => 'home#show', :via => :get
   match 'search', :to => 'search#show', :via => :get
+  match 'search', :to => 'search#show_post', :via => :post
   match 'jobs/*id', :to => 'jobs#show', :via => :get, :as => :job
   match 'sitemap.xml',
     :to => 'sitemaps#index',

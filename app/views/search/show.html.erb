@@ -2,7 +2,7 @@
 	<header class="group">
     <h1>Job search results</h1>
 	  <div class="location-options">
-	    <form action="<%= search_path %>" method="get">
+	    <form action="<%= search_path %>" method="post">
 	      <%= search_form_fields @search.query_params.except(:location, :latitude, :longitude) %>
 	      <%= label_tag 'location', "For location: " %>
 	      <%= text_field_tag 'location', params[:location] %>
@@ -15,11 +15,11 @@
     <div class="search-content">
 			<div class="query-options-headline">
       	<div class="query-options">
-					<form action="<%= search_path %>" class="query" method="get">
+					<form action="<%= search_path %>" class="query" method="post">
 	          <fieldset>
 							<input id="location" name="location" type="hidden" value="<%= @search.location %>" />
 							<label for="query">Job title containing</label>
-		          <input id="query" name="query" type="text" placeholder="anything" />
+		          <input id="query" name="query" type="text" placeholder="anything" value="<%= @search.query %>" />
 						</fieldset>
 
 						<fieldset>
