@@ -1,6 +1,12 @@
 <div id="individual-job">
 
-  <p><%= link_to 'Back to search results', :back %></p>
+  <%# TODO: check whether the referer is for our site -%>
+  <%- if request.env['HTTP_REFERER'].present? -%>
+    <p><%= link_to 'Back to search results', :back %></p>
+  <%- else -%>
+    <p><%= link_to 'Search for jobs near you' -%></p>
+  <%- end -%>
+
   <h1><%= @job['title'] %></h1>
   <p class="employer"><%= @job['employer_name'].presence || "No employer information." %></p>
   <p class="location"><%= @job['location_name'].presence || "No location information." %></p>
