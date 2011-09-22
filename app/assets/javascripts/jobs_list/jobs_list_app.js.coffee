@@ -4,15 +4,15 @@ window.JobsListApp = class JobsListApp extends Backbone.Model
     window.jobsList = new JobsList()
     window.jobsList.fetch()
 
-    $('tr.job a.add-to-jobs-list').click(->
-      jobsList.create($(this).parents('tr').data())
+    $('li.job a.add-to-list').click(->
+      jobsList.create($(this).parents('li').data())
       return false
     )
 
-
   bootstrap: ->
-    jobsListContainer = $('<div class="jobs-list-container" />').appendTo('div#search')
-    jobsListContent = $('<div class="jobs-list-content" />').appendTo(jobsListContainer)
+    jobsListContainer = $('<div class="job-bookmarks-position"><div class="job-bookmarks-wrapper" /></div>')
+    $('div.search-container').after(jobsListContainer)
+    jobsListContent = $('<div class="job-bookmarks" />').appendTo(jobsListContainer)
 
     jobsListView = new JobsListView(model: jobsList, el: jobsListContent)
     jobsListView.render()
