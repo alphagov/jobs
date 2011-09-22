@@ -1,20 +1,26 @@
-<div id="individual-job">
+<section role="main" class="group">
+	<p><%= link_to 'Back to search results', :back %></p>
+	<header>
+		<hgroup>
+	    <h1><%= @job['title'] %></h1>
+		  <h2 class="employer"><%= @job['employer_name'].presence || "No employer information." %></h2>
+		</hgroup>
+	</header>
+	<article>
+ 	 <p class="location"><%= @job['location_name'].presence || "No location information." %></p>
 
-  <p><%= link_to 'Back to search results', :back %></p>
-  <h1><%= @job['title'] %></h1>
-  <p class="employer"><%= @job['employer_name'].presence || "No employer information." %></p>
-  <p class="location"><%= @job['location_name'].presence || "No location information." %></p>
+	  <div class="job-details">
+	    <h3>Wage</h3>
+	    <p><%= @job['wage_display_text'] %></p>
+	    <h3>Hours</h3>
+	    <p><%= @job['hours_display_text'] %></p>
+	  </div>
 
-  <div class="job-details">
-    <h2>Wage</h2>
-    <p><%= @job['wage_display_text'] %></p>
-    <h2>Hours</h2>
-    <p><%= @job['hours_display_text'] %></p>
-  </div>
+	  <h3>Vacancy Description</h3>
+	  <%= auto_link(simple_format(@job['vacancy_description'].presence || "No information."), :html => { :rel => 'nofollow' }) %>
 
-  <h2>Vacancy Description</h1>
-  <%= auto_link(simple_format(@job['vacancy_description'].presence || "No information."), :html => { :rel => 'nofollow' }) %>
-
-  <h2>How To Apply</h1>
-  <%= auto_link(simple_format(@job['how_to_apply'].presence || "No information."), :html => { :rel => 'nofollow'}) %>
-</div>
+	  <h3>How To Apply</h3>
+	  <%= auto_link(simple_format(@job['how_to_apply'].presence || "No information."), :html => { :rel => 'nofollow'}) %>
+	</article>
+	
+</section>
