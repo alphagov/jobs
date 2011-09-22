@@ -24,7 +24,7 @@ class VacancySearch
     @permanent = options.delete(:permanent)
     @full_time = options.delete(:full_time)
     @per_page = options.delete(:per_page).presence || DEFAULT_PER_PAGE
-    @query = options.delete(:query)
+    @query = options.delete(:query).presence
     @page = options.delete(:page).try(:to_i) || 1
     @distance = options.delete(:distance) || DEFAULT_DISTANCE
     @recency = options.delete(:recency).try(:to_i)
