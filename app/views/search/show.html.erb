@@ -1,18 +1,19 @@
 <section role="main" class="group">
-	<header class="group">
+	
+	<header class="jobs-header">
     <h1>Job search results</h1>
-	  <div class="location-options">
-	    <form action="<%= search_path %>" method="post">
-	      <%= search_form_fields @search.query_params.except(:location, :latitude, :longitude) %>
-	      <%= label_tag 'location', "For location: " %>
-	      <%= text_field_tag 'location', params[:location] %>
-	      <%= submit_tag 'Change location', :name => nil %>
-	    </form>
-	  </div>
   </header>
 
 	<div class="search-container">
     <div class="search-content">
+			<div class="location-options">
+		    <form action="<%= search_path %>" method="post">
+		      <%= search_form_fields @search.query_params.except(:location, :latitude, :longitude) %>
+		      <%= label_tag 'location', "For location: " %>
+		      <%= text_field_tag 'location', params[:location] %>
+		      <%= submit_tag 'Change location', :name => nil %>
+		    </form>
+		  </div>
 			<div class="query-options-headline">
       	<div class="query-options">
 					<form action="<%= search_path %>" class="query" method="post">
