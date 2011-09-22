@@ -1,7 +1,11 @@
 window.JobsListView = class JobsListView extends Backbone.View
 
+  events:
+    'click p.clear-all a': 'clearAll'
+
   initialize: ->
     @model.bind 'add', => this.render()
+    @model.bind 'remove', => this.render()
 
     $(@el).append('<h2>Jobs List</h2>')
 
@@ -9,11 +13,19 @@ window.JobsListView = class JobsListView extends Backbone.View
 
     $(@el).append('<p class="hint">Save jobs here by clicking "Add to jobs list" on a job.')
 
+    $(@el).append('<p class="clear-all"><a href="#">Clear</a></p>')
+
     $(window).bind 'resize', => this.setHeight()
 
   setHeight: ->
     height = $(window).height() - 350;
     $(@list).css(maxHeight: height)
+
+  clearAll: ->
+    if confirm("Are you sure you want to remove all the saved jobs in your jobs list?")
+      _.each(jobsList.models.slice(0), (job) -> job.destroy())
+
+    return false
 
   render: ->
     @list.empty()
@@ -22,6 +34,11 @@ window.JobsListView = class JobsListView extends Backbone.View
       jobView = new JobView(model: job)
       @list.append(jobView.render().el)
     , this)
+
+    if jobsList.models.length > 0
+      $(@el).find('p.clear-all').show()
+    else
+      $(@el).find('p.clear-all').hide()
 
     this.setHeight()
 
