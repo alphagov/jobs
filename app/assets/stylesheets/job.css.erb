@@ -7,11 +7,22 @@ p {
 	margin: 0.75em 0;
 }
 
-header h1 {
-	font-size: 1.8em;
-	line-height: 1em;
-	margin-bottom: 0.75em;
+.jobs-header hgroup {
+	background: #efece0;
+	border-bottom: none;
+	display: block;
+	margin: 0 16em 0 1em;
+	padding: 1em;
 }
+
+.jobs-header hgroup h1 {
+	font-size: 1.8em;
+	line-height: 1.05em;
+}
+
+/*
+	jobs listing page
+*/
 
 form fieldset {
 	border: none;
@@ -28,11 +39,15 @@ form fieldset input[type="radio"]:first-child {
 
 .location-options {
 	background-color: #ddd;
-	border-bottom: solid 2px #bbb;
-	margin-right: 16em;
-	padding: 1em;
+	border-bottom: solid 1px #bbb;
+	border-top: solid 1px #bbb;
+	padding: 0.5em 2em;
 	position: relative;
 	z-index: 1;
+}
+
+.location-options form {
+	font-size: 0.8em;
 }
 
 .search-content {
@@ -52,8 +67,8 @@ form fieldset input[type="radio"]:first-child {
   -moz-box-orient: horizontal;
   display: box;
   box-orient: horizontal;
-	height: 16em;
-	padding: 2em 0 0 0;
+	height: 15.5em;
+	padding: 1.5em 0 0 0;
 }
 
 .query-options {
@@ -203,7 +218,7 @@ p.location {
 }
 
 .query-options input[type=submit],
-.query-options input[type=submit]:visited, .add-to-list a, .add-to-list span.disabled {
+.query-options input[type=submit]:visited, .add-to-list a, .add-to-list a:visited, .add-to-list span.disabled {
 	background: #039 url(<%= asset_path 'button-overlay.png' %>) repeat-x;
 	border: 1px solid rgba(0,0,0,0.25);
 	-moz-border-radius: 4px;
@@ -266,7 +281,7 @@ p.location {
 	padding: 1em;
 	position: absolute;
 	right: 0;
-	top: 9em;
+	top: 6em;
 	width: 14em;
 	z-index: 10;
 }
@@ -298,12 +313,13 @@ p.location {
 .job-bookmarks li {
 	background-color: #fff;
 	border: solid 1px #ddd;
+	border-bottom: none;
 	padding: 0.25em 0.5em 0.5em 0.5em;
 	position: relative;
 }
 
-.job-bookmarks li:first-child {
-	box-shadow: none;
+.job-bookmarks li:last-child {
+	border-bottom: solid 1px #ddd;
 }
 
 .job-bookmarks h4, .job-bookmarks p {
@@ -321,13 +337,32 @@ p.location {
 }
 
 .job-bookmarks .location {
-/*	line-height: 1.6em;*/
 	margin: 0;
-/*	padding-bottom: 0;*/
 }
 
 .job-bookmarks .remove {
 	position: absolute;
 	right: 0.75em;
 	top: 0.5em;
+}
+
+/*
+	individual job page
+*/
+
+.individual-job article {
+	background: #fff;
+	-webkit-box-shadow: 0 0px 4px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0 0px 4px rgba(0,0,0,0.3);
+	box-shadow: 0 0px 4px rgba(0,0,0,0.3);
+	float: left;
+	min-height: 40em;
+	position: relative;
+  width: 75%;
+	z-index: 1;
+}
+
+.individual-job article .inner {
+	padding: 2em 3em;
+	width: auto;
 }
