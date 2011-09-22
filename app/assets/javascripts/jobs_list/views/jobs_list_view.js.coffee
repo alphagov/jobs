@@ -13,7 +13,7 @@ window.JobsListView = class JobsListView extends Backbone.View
 
   setHeight: ->
     height = $(window).height() - 350;
-    $(@list).height(height)
+    $(@list).css(maxHeight: height)
 
   render: ->
     @list.empty()
