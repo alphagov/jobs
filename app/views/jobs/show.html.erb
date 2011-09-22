@@ -1,5 +1,10 @@
 <section role="main" class="group">
-	<p><%= link_to 'Back to search results', :back %></p>
+  <%# TODO: check whether the referer is for our site -%>
+  <%- if request.env['HTTP_REFERER'].present? -%>
+    <p><%= link_to 'Back to search results', :back %></p>
+  <%- else -%>
+    <p><%= link_to 'Search for jobs near you' -%></p>
+  <%- end -%>
 	<header>
 		<hgroup>
 	    <h1><%= @job['title'] %></h1>
@@ -14,17 +19,6 @@
 	    <h3>Hours</h3>
 	    <p><%= @job['hours_display_text'] %></p>
 	  </div>
-	
-  <%# TODO: check whether the referer is for our site -%>
-  <%- if request.env['HTTP_REFERER'].present? -%>
-    <p><%= link_to 'Back to search results', :back %></p>
-  <%- else -%>
-    <p><%= link_to 'Search for jobs near you' -%></p>
-  <%- end -%>
-
-  <h1><%= @job['title'] %></h1>
-  <p class="employer"><%= @job['employer_name'].presence || "No employer information." %></p>
-  <p class="location"><%= @job['location_name'].presence || "No location information." %></p>
 
 	  <h3>Vacancy Description</h3>
 	  <%= auto_link(simple_format(@job['vacancy_description'].presence || "No information."), :html => { :rel => 'nofollow' }) %>
