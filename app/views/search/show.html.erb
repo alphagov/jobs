@@ -25,14 +25,14 @@
 						<fieldset>
 							<%- time_options.each do |k, v| -%>
 								<%= radio_button_tag('time', v, params[:time].to_s == v.to_s) %>
-								<%= label_tag('time', k) %>
+								<%= label_tag("time_#{v}", k) %>
 							<%- end -%>
 						</fieldset>
 
 						<fieldset>
 							<%- permanent_options.each do |k, v| -%>
 								<%= radio_button_tag('permanent', v, params[:permanent].to_s == v.to_s) %>
-								<%= label_tag('permanent', k) %>
+								<%= label_tag("permanent_#{v}", k) %>
 							<%- end -%>
 						</fieldset>
 
@@ -42,7 +42,7 @@
 						</fieldset>
 						<fieldset>
 							<input type="submit" value="Search" />
-							<a href="#">Reset</a>
+							<a href="#" class="reset-form">Reset</a>
 						</fieldset>
 	        </form>
 
