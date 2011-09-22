@@ -2,26 +2,22 @@ html {
 	height: 100%;
 }
 
-/*html section {
-	margin-top: 0;
-}*/
-
 p {
 	line-height: 1.4em;
 	margin: 0.75em 0;
 }
 
-header.jobs-header {
+.jobs-header hgroup {
 	background: #efece0;
-	margin: 1em 16em 0 2em;
+	border-bottom: none;
+	display: block;
+	margin: 0 16em 0 1em;
 	padding: 1em;
 }
 
-header h1 {
-  font-size: 1.65em;
-  line-height: 1.15em;
-/*  margin-top: 1em;*/
-/*  margin-bottom: 0.75em;*/
+.jobs-header hgroup h1 {
+	font-size: 1.8em;
+	line-height: 1.05em;
 }
 
 form fieldset {
@@ -41,7 +37,6 @@ form fieldset input[type="radio"]:first-child {
 	background-color: #ddd;
 	border-bottom: solid 1px #bbb;
 	border-top: solid 1px #bbb;
-/*	margin-right: 16em;*/
 	padding: 0.5em 2em;
 	position: relative;
 	z-index: 1;
@@ -219,7 +214,7 @@ p.location {
 }
 
 .query-options input[type=submit],
-.query-options input[type=submit]:visited, .add-to-list a, .add-to-list span.disabled {
+.query-options input[type=submit]:visited, .add-to-list a, .add-to-list a:visited, .add-to-list span.disabled {
 	background: #039 url(<%= asset_path 'button-overlay.png' %>) repeat-x;
 	border: 1px solid rgba(0,0,0,0.25);
 	-moz-border-radius: 4px;
@@ -346,4 +341,21 @@ p.location {
 	position: absolute;
 	right: 0.75em;
 	top: 0.5em;
+}
+
+.individual-job article {
+	background: #fff;
+	-webkit-box-shadow: 0 0px 4px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0 0px 4px rgba(0,0,0,0.3);
+	box-shadow: 0 0px 4px rgba(0,0,0,0.3);
+	float: left;
+	min-height: 40em;
+	position: relative;
+  width: 75%;
+	z-index: 1;
+}
+
+.individual-job article .inner {
+	padding: 2em 3em;
+	width: auto;
 }
