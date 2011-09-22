@@ -18,11 +18,12 @@ window.JobsListView = class JobsListView extends Backbone.View
     $(window).bind 'resize', => this.setHeight()
 
   setHeight: ->
-    height = $(window).height() - 350;
+    height = $(window).height() - 310;
     $(@list).css(maxHeight: height)
 
   clearAll: ->
     if confirm("Are you sure you want to remove all the saved jobs in your jobs list?")
+      # this is a bit of a hack - we duplicate the array so we're not removing elements from the same array we're iterating over. Damn Javascript.
       _.each(jobsList.models.slice(0), (job) -> job.destroy())
 
     return false
