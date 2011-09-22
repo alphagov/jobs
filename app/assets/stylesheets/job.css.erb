@@ -20,6 +20,10 @@ p {
 	line-height: 1.05em;
 }
 
+/*
+	jobs listing page
+*/
+
 form fieldset {
 	border: none;
 	padding: 0.5em 0;
@@ -309,12 +313,13 @@ p.location {
 .job-bookmarks li {
 	background-color: #fff;
 	border: solid 1px #ddd;
+	border-bottom: none;
 	padding: 0.25em 0.5em 0.5em 0.5em;
 	position: relative;
 }
 
-.job-bookmarks li:first-child {
-	box-shadow: none;
+.job-bookmarks li:last-child {
+	border-bottom: solid 1px #ddd;
 }
 
 .job-bookmarks h4, .job-bookmarks p {
@@ -332,9 +337,7 @@ p.location {
 }
 
 .job-bookmarks .location {
-/*	line-height: 1.6em;*/
 	margin: 0;
-/*	padding-bottom: 0;*/
 }
 
 .job-bookmarks .remove {
@@ -342,6 +345,10 @@ p.location {
 	right: 0.75em;
 	top: 0.5em;
 }
+
+/*
+	individual job page
+*/
 
 .individual-job article {
 	background: #fff;
