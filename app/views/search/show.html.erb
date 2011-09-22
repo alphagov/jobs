@@ -17,32 +17,32 @@
       	<div class="query-options">
 					<form action="<%= search_path %>" class="query" method="get">
 	          <fieldset>
-							<input id="location" name="location" type="hidden" value="e5 0ja" />
-							<label for="query">Search for job title:</label>
-		          <input id="query" name="query" type="text" />
+							<input id="location" name="location" type="hidden" value="<%= @search.location %>" />
+							<label for="query">Job title containing</label>
+		          <input id="query" name="query" type="text" placeholder="anything" />
 						</fieldset>
 
 						<fieldset>
 							<%- time_options.each do |k, v| -%>
-								<%= radio_button_tag('time', v, params[:time].to_s == v.to_s) %>
-								<%= label_tag('time', k) %>
+								<%= radio_button_tag('full_time', v, params[:full_time].to_s == v.to_s) %>
+								<%= label_tag("full_time_#{v}", k) %>
 							<%- end -%>
 						</fieldset>
 
 						<fieldset>
 							<%- permanent_options.each do |k, v| -%>
 								<%= radio_button_tag('permanent', v, params[:permanent].to_s == v.to_s) %>
-								<%= label_tag('permanent', k) %>
+								<%= label_tag("permanent_#{v}", k) %>
 							<%- end -%>
 						</fieldset>
 
 						<fieldset>
-							<label for="job-posted-date">Jobs posted:</label>
+							<%= label_tag('recency', "Posted") %>
 							<%= select_tag('recency', options_for_select(recency_options, params[:recency].to_s)) %>
 						</fieldset>
 						<fieldset>
 							<input type="submit" value="Search" />
-							<a href="#">Reset</a>
+							<a href="#" class="reset-form">Reset</a>
 						</fieldset>
 	        </form>
 
@@ -84,7 +84,6 @@
 									<p><%= doc['hours_display_text'].presence.try(:titlecase) %></p>
 								</div>
 								<div class="job-options">
-									<p class="add-to-jobs-list"><a href="#" class="add-to-list">Add to jobs list</a></p>
 									<p class="more-info"><a href="<%= job_path(doc['id']) %>">More info</a></p>
 								</div>
 							</article>
@@ -97,24 +96,4 @@
       <%- end -%>
     </div>
   </div>
-
-  <!--
-	<div class="job-bookmarks-position">
-		<div class="job-bookmarks-wrapper">
-			<div class="job-bookmarks">
-				<h2>Jobs list</h2>
-				<ul>
-					<li>
-						<h4><a href="#">Muppet Operator</a></h4>
-						<p class="employer">Jim Henson Workshop Inc.</p>
-						<p class="location">Oxford, Oxfordshire</p>
-						<p class="remove"><a href="#">Remove this job</a></p>
-					</li>
-				</ul>
-				<p class="hint">Save jobs here by clicking "Add to jobs list" on a job.</p>
-			</div>
-		</div>
-	</div>
-	-->
-
 </section>

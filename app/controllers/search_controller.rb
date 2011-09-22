@@ -12,7 +12,7 @@ class SearchController < ApplicationController
         :page => params[:page],
         :permanent => boolean_or_nil_param(params[:permanent]),
         :full_time => boolean_or_nil_param(params[:full_time]),
-        :recency => params[:recency]
+        :recency => params[:recency].presence.try(:to_i)
       )
       @results = @search.run
     rescue VacancySearch::SearchError

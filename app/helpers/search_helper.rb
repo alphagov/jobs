@@ -18,10 +18,10 @@ module SearchHelper
 
   def recency_options
     {
-      "All time" => '',
-      "Last fortnight" => 14,
-      "Last week" => 7,
-      "Last 3 days" => 3
+      "any time" => '',
+      "in the last fortnight" => 14,
+      "in the last week" => 7,
+      "in the last 3 days" => 3
     }
   end
 
