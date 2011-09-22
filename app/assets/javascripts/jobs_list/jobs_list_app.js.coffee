@@ -18,7 +18,7 @@ window.JobsListApp = class JobsListApp extends Backbone.Model
       $('p.add-to-list').html('<a href="#">Add to list</a>')
 
       _.each(jobsList.models, (job) ->
-        $("li.job[data-id='#{job.id}'] p.add-to-list").text("Already in list")
+        $("li.job[data-id='#{job.id}'] p.add-to-list").html("<span class='disabled'>Already in list</span>")
       )
     )
 
