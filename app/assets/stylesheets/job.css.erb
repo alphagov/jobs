@@ -94,7 +94,7 @@ form fieldset input[type="radio"]:first-child {
 
 .job {
 	border-top: solid 2px #bbb;
-	margin: 0.5em 0;
+	margin: 0.25em 0 0 0;
 	padding: 0.25em 0 0 0;
 }
 
@@ -162,12 +162,11 @@ p.location {
 
 .basic-info h4 {
 	float: left;
-	font-weight: normal;
 	margin: 0.25em 0;
 }
 
 .basic-info p {
-	margin: 0.25em 0 0.25em 3.5em;
+	margin: 0.25em 0 0.25em 3.75em;
 }
 
 .basic-info div {
@@ -262,4 +261,36 @@ p.location {
 	margin: 0;
 	padding: 1em;
 	text-align: center;
+}
+
+.job-bookmarks ul {
+	list-style: none;
+	padding: 0;
+}
+
+.job-bookmarks li {
+	border: solid 1px #ddd;
+	margin: 0 -0.5em;
+	padding: 0.25em 0.5em 0.5em 0.5em;
+	position: relative;
+}
+
+.job-bookmarks h4, .job-bookmarks p {
+	font-size: 0.8em;
+	margin: 0.25em 0;
+}
+
+.job-bookmarks h4 {
+	border-top: solid 2px #FCC;
+	padding-top: 0.25em;
+}
+
+.job-bookmarks .location {
+	color: #666;
+}
+
+.job-bookmarks .remove {
+	position: absolute;
+	right: 0;
+	top: 0;
 }
