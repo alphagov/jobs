@@ -203,7 +203,7 @@ p.location {
 }
 
 .query-options input[type=submit],
-.query-options input[type=submit]:visited, .add-to-list a {
+.query-options input[type=submit]:visited, .add-to-list a, .add-to-list span.disabled {
 	background: #039 url(<%= asset_path 'button-overlay.png' %>) repeat-x;
 	border: 1px solid rgba(0,0,0,0.25);
 	-moz-border-radius: 4px;
@@ -233,9 +233,14 @@ p.location {
 	float: right;
 }
 
-.add-to-list a {
+.add-to-list a, .add-to-list span.disabled {
 	margin-right: 0;
 	padding: 1px 8px 2px;
+}
+
+.add-to-list span.disabled {
+	background-color: #878787;
+	cursor: default;
 }
 
 .job-bookmarks-position {
