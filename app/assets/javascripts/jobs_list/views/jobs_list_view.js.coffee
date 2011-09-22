@@ -5,7 +5,9 @@ window.JobsListView = class JobsListView extends Backbone.View
 
     $(@el).append('<h2>Jobs List</h2>')
 
-    @list = $('<ol class="jobs-list" />').appendTo(@el)
+    @list = $('<ul class="jobs-list" />').appendTo(@el)
+
+    $(@el).append('<p class="hint">Save jobs here by clicking "Add to jobs list" on a job.')
 
   render: ->
     @list.empty()

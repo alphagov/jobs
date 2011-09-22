@@ -2,7 +2,7 @@ window.JobView = class JobView extends Backbone.View
 
   tagName: "li"
   events:
-    'click a.remove' : 'clear'
+    'click a.remove-link' : 'clear'
 
   initialize: ->
     @model.bind 'destroy', => this.removeView()
@@ -19,5 +19,8 @@ window.JobView = class JobView extends Backbone.View
     return false
 
   template: '''
-    <p>{{id}} - {{title}} <a href="#" class="remove">remove</a></p>
+    <h4><a href="/jobs/{{id}}">{{title}}</a></h4>
+    <p class="employer">{{employer}}</p>
+    <p class="location">{{location}}</p>
+    <p class="remove"><a href="#" class="remove-link">remove</a></p>
   '''
