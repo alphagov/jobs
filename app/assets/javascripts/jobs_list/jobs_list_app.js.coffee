@@ -2,17 +2,28 @@ window.JobsListApp = class JobsListApp extends Backbone.Model
 
   initialize: ->
     window.jobsList = new JobsList()
-    window.jobsList.fetch()
 
   bootstrap: ->
-    # add add to list links to each job in the search results
+    # add the paragraph which will contain the add to list link or text
     addToListParagraphElements = $('<p class="add-to-list" />').appendTo('li.job div.job-options')
-    addToListLinks = $('<a href="#">Add to List</a>').appendTo(addToListParagraphElements)
 
-    addToListLinks.click(->
+    # live bind to the add to list links, so the binding updates as they're added and removed
+    $('p.add-to-list a').live('click', ->
       jobsList.create($(this).parents('li').data())
       return false
     )
+
+    # if anything changes in the jobsList, then refresh the add to list links
+    jobsList.bind('all', ->
+      $('p.add-to-list').html('<a href="#">Add to list</a>')
+
+      _.each(jobsList.models, (job) ->
+        $("li.job[data-id='#{job.id}'] p.add-to-list").text("Already in list")
+      )
+    )
+
+    # finally, extract what we've already got in localstorage
+    jobsList.fetch()
 
     # now build out the jobs list
     jobsListContainer = $('<div class="job-bookmarks-position"><div class="job-bookmarks-wrapper" /></div>')

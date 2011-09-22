@@ -24,8 +24,8 @@
 
 						<fieldset>
 							<%- time_options.each do |k, v| -%>
-								<%= radio_button_tag('time', v, params[:time].to_s == v.to_s) %>
-								<%= label_tag("time_#{v}", k) %>
+								<%= radio_button_tag('full_time', v, params[:full_time].to_s == v.to_s) %>
+								<%= label_tag("full_time_#{v}", k) %>
 							<%- end -%>
 						</fieldset>
 
