@@ -17,9 +17,9 @@
       	<div class="query-options">
 					<form action="<%= search_path %>" class="query" method="get">
 	          <fieldset>
-							<input id="location" name="location" type="hidden" value="e5 0ja" />
-							<label for="query">Search for job title:</label>
-		          <input id="query" name="query" type="text" />
+							<input id="location" name="location" type="hidden" value="<%= @search.location %>" />
+							<label for="query">Job title containing</label>
+		          <input id="query" name="query" type="text" placeholder="anything" />
 						</fieldset>
 
 						<fieldset>
@@ -37,7 +37,7 @@
 						</fieldset>
 
 						<fieldset>
-							<label for="job-posted-date">Jobs posted:</label>
+							<%= label_tag('recency', "Posted") %>
 							<%= select_tag('recency', options_for_select(recency_options, params[:recency].to_s)) %>
 						</fieldset>
 						<fieldset>
