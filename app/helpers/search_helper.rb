@@ -72,13 +72,13 @@ module SearchHelper
       ActiveSupport::SafeBuffer.new.tap do |buffer|
         if current_page > 1
           buffer << content_tag(:li, :class => 'previous') do
-            link_to("Previous page", search.query_params.merge({:page => current_page - 1}), :rel => 'prev')
+            link_to("&larr; Previous page".html_safe, search.query_params.merge({:page => current_page - 1}), :rel => 'prev')
           end
         end
 
         if current_page < (max_page - 1)
           buffer << content_tag(:li, :class => 'next') do
-            link_to("Next page", search.query_params.merge({:page => current_page + 1}), :rel => 'next')
+            link_to("Next page &rarr;".html_safe, search.query_params.merge({:page => current_page + 1}), :rel => 'next')
           end
         end
       end
