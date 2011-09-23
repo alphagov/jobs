@@ -13,7 +13,7 @@ window.JobsListView = class JobsListView extends Backbone.View
 
     $(@el).append('<p class="hint">Save jobs here by clicking "Add to jobs list" on a job.')
 
-    $(@el).append('<p>Copy about clearing the list on public computers.</p>')
+    $(@el).append('<p class="clear-copy">Copy about clearing the list on public computers.</p>')
     $(@el).append('<p class="clear-all"><a href="#">Clear List</a></p>')
 
     $(window).bind 'resize', => this.setHeight()
@@ -38,9 +38,9 @@ window.JobsListView = class JobsListView extends Backbone.View
     , this)
 
     if jobsList.models.length > 0
-      $(@el).find('p.clear-all').show()
+      $(@el).find('p.clear-all, p.clear-copy').show()
     else
-      $(@el).find('p.clear-all').hide()
+      $(@el).find('p.clear-all, p.clear-copy').hide()
 
     this.setHeight()
 
