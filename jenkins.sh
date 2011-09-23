@@ -1,6 +1,9 @@
 #!/bin/bash -x
 source '/usr/local/lib/rvm'
 bundle install --path "/home/jenkins/bundles/${JOB_NAME}" --deployment --without mac_development
+
+echo -e "SOLR_HOST='localhost'\nDIRECTGOV_JOBS_API_AUTHENTICATION_KEY='TESTING'" >> /var/lib/jenkins/jobs/Jobs/workspace/config/initializers/config.rb
+
 bundle exec rake db:setup
 bundle exec rake db:migrate
 bundle exec rake stats
