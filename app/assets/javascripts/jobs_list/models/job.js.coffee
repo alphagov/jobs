@@ -1,1 +1,0 @@
-window.Job = class Job extends Backbone.Model

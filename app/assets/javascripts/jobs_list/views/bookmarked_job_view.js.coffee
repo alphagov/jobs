@@ -1,4 +1,4 @@
-window.JobView = class JobView extends Backbone.View
+window.BookmarkedJobView = class BookmarkedJobView extends Backbone.View
 
   tagName: "li"
   events:

@@ -1,0 +1,1 @@
+window.BookmarkedJob = class BookmarkedJob extends Backbone.Model
