@@ -10,3 +10,13 @@ $ ->
   if Modernizr.localstorage
     window.jobsListApp = new JobsListApp()
     jobsListApp.bootstrap()
+
+  $('a.reset-search-form').click(->
+    form = $("form.query")
+    form.find(":input[name='query']").val('')
+    form.find(":input[name='full_time']").val('')
+    form.find(":input[name='permanent']").val('')
+    form.find(":input[name='recency']").val('')
+    form.submit()
+    return false
+  )

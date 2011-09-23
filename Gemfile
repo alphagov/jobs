@@ -20,7 +20,7 @@ else
   gem 'slimmer', :git => 'git@github.com:alphagov/slimmer.git'
 end
 
-group :development do
+group :mac_development do
   gem 'guard'
   gem 'guard-test'
   gem 'growl_notify'
