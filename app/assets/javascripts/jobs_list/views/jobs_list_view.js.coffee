@@ -13,7 +13,8 @@ window.JobsListView = class JobsListView extends Backbone.View
 
     $(@el).append('<p class="hint">Save jobs here by clicking "Add to jobs list" on a job.')
 
-    $(@el).append('<p class="clear-all"><a href="#">Clear</a></p>')
+    $(@el).append('<p>Copy about clearing the list on public computers.</p>')
+    $(@el).append('<p class="clear-all"><a href="#">Clear List</a></p>')
 
     $(window).bind 'resize', => this.setHeight()
 
