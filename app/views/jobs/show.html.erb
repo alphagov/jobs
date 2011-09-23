@@ -18,14 +18,16 @@
 
 <section role="main" class="individual-job group">
   <%# TODO: check whether the referer is for our site -%>
-  <nav class="jobs-navigation" role="navigation">
-		<%- if request.env['HTTP_REFERER'].present? -%>
-	    <p><%= link_to '&larr; Back to job search results'.html_safe, :back %></p>
-	  <%- else -%>
-	    <p><%= link_to 'Search for jobs near you' -%></p>
-	  <%- end -%>
-		<p class="add-to-list"><a href="#">Add to list</a></p>
-	</nav>
+  <header class="jobs-header">
+			<nav class="jobs-navigation" role="navigation">
+			<%- if request.env['HTTP_REFERER'].present? -%>
+		    <p><%= link_to '&larr; Back to job search results'.html_safe, :back %></p>
+		  <%- else -%>
+		    <p><%= link_to 'Search for jobs near you' -%></p>
+		  <%- end -%>
+			<p class="add-to-list"><a href="#">Add to list</a></p>
+		</nav>
+	</header>
 	<article>
 		<div class="inner group">
 			<header>
@@ -48,11 +50,11 @@
 			  </div>
 			</header>
 			<div class="description">
-		 	 <h3>Vacancy Description</h3>
+		 	 <h3>Vacancy description</h3>
 			  <%= auto_link(simple_format(@job['vacancy_description'].presence || "No information."), :html => { :rel => 'nofollow' }) %>
 			</div>
 			<div class="how-to-apply">
-			  <h3>How To Apply</h3>
+			  <h3>How to apply</h3>
 			  <%= auto_link(simple_format(@job['how_to_apply'].presence || "No information."), :html => { :rel => 'nofollow'}) %>
 			</div>
 		</div>
