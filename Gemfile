@@ -35,6 +35,7 @@ group :test do
   gem 'simplecov-rcov', :require => false
   gem 'webmock', :require => false
   gem 'ci_reporter'
+  gem 'test-unit'
 end
 
 # Gems used only for assets and not required
