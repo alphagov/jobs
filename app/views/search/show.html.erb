@@ -7,7 +7,7 @@
   </header>
 
 	<div class="search-container">
-    <div class="search-content">
+    <div class="search-content group">
 			<div class="location-options">
 		    <form action="<%= search_path %>" method="post">
 		      <%= search_form_fields @search.query_params.except(:location, :latitude, :longitude) %>
@@ -16,7 +16,7 @@
 		      <%= submit_tag 'Change location', :name => nil %>
 		    </form>
 		  </div>
-			<div class="query-options-headline">
+			<div class="query-options-headline group">
       	<div class="query-options">
 					<form action="<%= search_path %>" class="query" method="post">
 	          <fieldset>
@@ -55,7 +55,7 @@
 						<h2>Found <%= pluralize @results.total, 'job' %> <small>within <%= pluralize @search.distance, 'mile' %> of <%= @search.location %></small></h2>
 		      <%- else -%>
 		        <div class="no-results">
-							<h2>No results found</h2>
+							<h2>No jobs found</h2>
 							<p>Try searching again, using a less specific job title or search options.</p>
 						</div>
 		      <%- end -%>

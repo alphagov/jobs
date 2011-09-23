@@ -1,7 +1,7 @@
-<div id="home">
-  <form action="<%= search_path -%>" method="get">
-    <%= label_tag :location, "Find jobs near you. Enter your postcode below." %>
-    <%= text_field_tag :location, '', :class => 'location' %>
-    <%= submit_tag "Search", :name => nil, :class => 'submit' %>
-  </form>
-</div>
+<section role="main" class="group">	
+	  <form action="<%= search_path -%>" method="get">
+	    <%= label_tag :location, "Find jobs near you. Enter your postcode below." %>
+	    <%= text_field_tag :location, '', :class => 'location' %>
+	    <%= submit_tag "Search", :name => nil, :class => 'submit' %>
+	  </form>
+</section>

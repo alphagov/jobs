@@ -24,16 +24,16 @@ p {
 	jobs listing page
 */
 
-form fieldset {
+.job-search form fieldset {
 	border: none;
 	padding: 0.5em 0;
 }
 
-form fieldset input[type="radio"] {
-	margin: 0 0 0 0.25em;
+.job-search form fieldset input[type="radio"] {
+	margin: 0 0.25em 0 0.5em;
 }
 
-form fieldset input[type="radio"]:first-child {
+.job-search form fieldset input[type="radio"]:first-child {
 	margin-left: 0;
 }
 
@@ -52,35 +52,31 @@ form fieldset input[type="radio"]:first-child {
 
 .search-content {
 	background-color: #fff;
+/*	float: left;*/
 	line-height: 1.4em;
 	margin-right: 16em;
+/*	overflow: auto;*/
 	padding: 0 0 2em 0;
 	position: relative;
 	z-index: 1;
 }
 
 .query-options-headline {
-	box-sizing: border-box;
-  display: -webkit-box;
-  -webkit-box-orient: horizontal;
-  display: -moz-box;
-  -moz-box-orient: horizontal;
-  display: box;
-  box-orient: horizontal;
-	height: 15.5em;
+	float: left;
 	padding: 1.5em 0 0 0;
+	width: 100%;
 }
 
 .query-options {
 	background-color: #EFECE0;
 	border: solid 2px #bbb;
-	border-right: none;
+/*	border-right: none;*/
 	border-left: none;
-	-moz-box-flex: 1.5;
-	-webkit-box-flex: 1.5;
-	box-flex: 1.5;
-	padding: 0.5em 0 1em 2em;
-	width: 20em;
+	float: left;
+	min-height: 12.5em;
+	margin-right: -2px;
+	padding: 0.5em 0 0.5em 2em;
+	width: 47%;
 }
 
 .query-options input[type="text"] {
@@ -88,14 +84,13 @@ form fieldset input[type="radio"]:first-child {
 }
 
 .query-results-headline {
-	background-color: #fff;
 	background-image: url(<%= asset_path 'job-search-arrow.png' %>);
-	background-position: top left;
+	background-position: 0 -2px;
 	background-repeat: no-repeat;
-	-moz-box-flex: 1;
-	-webkit-box-flex: 1;
-	box-flex: 1;
-	padding: 5.5em 1em 0 6em;
+	float: left;
+	min-height: 8.5em;
+	padding: 5.5em 0 0 17%;
+	width: 28%;
 }
 
 .query-results-headline h2 {
@@ -107,15 +102,18 @@ form fieldset input[type="radio"]:first-child {
 .query-results-headline h2 small {
 	display: block;
 	font-size: 0.5em;
+	line-height: 1.4em;
+	margin-top: 0.5em;
 }
 
 .search-results {
+	float: left;
 	list-style: none;
 	padding: 1em 2em 0 2em;
 }
 
 .no-results {
-	width: 14em;
+	width: 100%;
 }
 
 .job {
