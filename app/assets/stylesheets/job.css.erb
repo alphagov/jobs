@@ -218,7 +218,7 @@ p.location {
 }
 
 .query-options input[type=submit],
-.query-options input[type=submit]:visited, .add-to-list a, .add-to-list a:visited, .add-to-list span.disabled {
+.query-options input[type=submit]:visited, .add-to-list a, .add-to-list a:visited, .add-to-list span.disabled, .clear-all a, .clear-all a:visited {
 	background: #039 url(<%= asset_path 'button-overlay.png' %>) repeat-x;
 	border: 1px solid rgba(0,0,0,0.25);
 	-moz-border-radius: 4px;
@@ -248,7 +248,7 @@ p.location {
 	float: right;
 }
 
-.add-to-list a, .add-to-list span.disabled {
+.add-to-list a, .add-to-list span.disabled, .clear-all a {
 	margin-right: 0;
 	padding: 1px 8px 2px;
 }
@@ -344,6 +344,10 @@ p.location {
 	position: absolute;
 	right: 0.75em;
 	top: 0.5em;
+}
+
+p.clear-all {
+	margin-top: 1em;
 }
 
 /*
