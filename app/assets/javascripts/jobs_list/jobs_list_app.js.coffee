@@ -9,7 +9,18 @@ window.JobsListApp = class JobsListApp extends Backbone.Model
 
     # live bind to the add to list links, so the binding updates as they're added and removed
     $('p.add-to-list a').live('click', (event) =>
-      @bookmarkedJobsCollection.create($(event.target).parents('li').data())
+      # find the ID of the job that was selected
+      vacancyId = $(event.target).parents('li').data().id
+
+      # match it to the job in the searchResults variable set in a script tag in the HTML
+      searchResult = _.detect(searchResults, (result) ->
+        return result.id == vacancyId
+      )
+
+      # if we find it, add it to the collection
+      if searchResult
+        @bookmarkedJobsCollection.create(searchResult)
+
       return false
     )
 

@@ -1,3 +1,8 @@
+<%- content_for :head do -%>
+	<%= javascript_include_tag :search %>
+<%- end -%>
+
+<%= javascript_tag "var searchResults=#{@formatted_docs.to_json};" %>
 <section role="main" class="job-search group">
 
 	<header class="jobs-header">
@@ -65,7 +70,7 @@
       <%- if @results.total > 0 -%>
 				<ol class="search-results">
 					<%- @results.docs.each do |doc| %>
-						<%= content_tag :li, :class => 'job group', :data => { :id => doc['id'], :title => doc['title'].try(:titlecase), :employer => doc['employer_name'].try(:titlecase), :location => doc['location_name'].try(:titlecase) } do -%>
+						<%= content_tag :li, :class => 'job group', :data => { :id => doc['id'] } do -%>
 							<header>
 								<hgroup>
 									<h3 class="title">

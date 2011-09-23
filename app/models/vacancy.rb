@@ -118,6 +118,7 @@ class Vacancy < ActiveRecord::Base
       doc.add_field 'vacancy_description', self.vacancy_description, :cdata => true
       doc.add_field 'employer_name', self.employer_name, :cdata => true
       doc.add_field 'how_to_apply', self.how_to_apply, :cdata => true
+      doc.add_field 'eligability_criteria', self.eligability_criteria, :cdata => true
     end
   end
 

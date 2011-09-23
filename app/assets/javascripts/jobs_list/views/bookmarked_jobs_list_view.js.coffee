@@ -8,6 +8,7 @@ window.BookmarkedJobsListView = class BookmarkedJobsListView extends Backbone.Vi
     @model.bind 'remove', => this.render()
 
     $(@el).append('<h2>Jobs List</h2>')
+    $(@el).append('<p><a href="/print">Print</a></p>')
 
     @list = $('<ul class="bookmarked-jobs-list" />').appendTo(@el)
 

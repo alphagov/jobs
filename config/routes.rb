@@ -13,4 +13,6 @@ Jobs::Application.routes.draw do
     :via => :get,
     :as => :sitemap,
     :date => /\d{4}-\d{2}-\d{2}/
+
+  match 'print', :to => 'home#print', :via => :get
 end

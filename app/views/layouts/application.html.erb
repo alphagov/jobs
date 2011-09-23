@@ -3,9 +3,9 @@
   <head>
     <title>Jobs</title>
     <%= stylesheet_link_tag "job" %>
-    <%= javascript_include_tag "application" %>
     <meta name="x-section-name" content="Jobs" />
     <meta name="x-section-link" content="jobs" />
+    <%= yield :head %>
   </head>
 <body>
 	<div id="wrapper" class="jobs">
