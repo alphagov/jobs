@@ -19,7 +19,7 @@ window.BookmarkedJobsListView = class BookmarkedJobsListView extends Backbone.Vi
 
   setHeight: ->
     # TODO: calculate this relative to the size of the other elements, rather than using a hardcoded value.
-    height = $(window).height() - 310;
+    height = $(window).height() - 340;
     $(@list).css(maxHeight: height)
 
   clearAll: ->
