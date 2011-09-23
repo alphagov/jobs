@@ -31,13 +31,13 @@ p {
 	-webkit-border-radius: 0.5em;
 	-moz-border-radius: 0.5em;
 	border-radius: 0.5em;
-	padding: 1.5em 1em;
+	margin: 0 1em;
+	padding: 1.5em 0;
 }
 
 .jobs-home .query fieldset {
 	border: none;
 	margin: 0 auto;
-	width: 85%;
 }
 
 .jobs-home .query label {
@@ -56,12 +56,14 @@ p {
 }
 
 .job-search-how-to .inner {
-	padding: 2em 3em;
+	padding: 2em 2em;
 	width: auto;
 }
 
 .how-it-works {
-	margin-top: 2em;
+	float: left;
+	margin-top: 1em;
+	width: 100%;
 }
 
 .how-it-works ol {
@@ -73,17 +75,33 @@ p {
 }
 
 .how-it-works ol li {
+	background-color: #ddd;
 	float: left;
 	margin: 0 1.5%;
-	width: 30%;
+	width: 30.3%;
 }
 
 .how-it-works h2 {
-	margin: 0.25em 0;
+	margin: 1em 0 1.25em 0;
 }
 
 .how-it-works h3 {
-	margin: 1em 0;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	min-height: 3em;
+	line-height: 1.4em;
+	margin: -0.75em 0 0.5em 0;
+	padding: 1em 0 0em 2.25em;
+}
+
+.how-it-works ol li:nth-child(1) h3 {
+	background-image: url(<%= asset_path 'icon-jobs-step-1.png' %>);
+}
+.how-it-works ol li:nth-child(2) h3 {
+	background-image: url(<%= asset_path 'icon-jobs-step-2.png' %>);
+}
+.how-it-works ol li:nth-child(3) h3 {
+	background-image: url(<%= asset_path 'icon-jobs-step-3.png' %>);
 }
 
 .placeholder {
