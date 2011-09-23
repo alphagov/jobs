@@ -119,7 +119,7 @@ form fieldset input[type="radio"]:first-child {
 }
 
 .job {
-	border-top: solid 2px #bbb;
+	border-top: solid 2px #FCC;
 	margin: 0.25em 0 0 0;
 	padding: 0.25em 0 0 0;
 }
@@ -248,11 +248,11 @@ p.location {
 	top: 1px;
 }
 
-.add-to-list {
+.job-search .add-to-list {
 	float: right;
 }
 
-.add-to-list a, .add-to-list span.disabled, .clear-all a {
+.job-search .add-to-list a, .job-search .add-to-list span.disabled, .clear-all a {
 	margin-right: 0;
 	padding: 1px 8px 2px;
 }
@@ -371,6 +371,54 @@ p.clear-all {
 }
 
 .individual-job article .inner {
-	padding: 2em 3em;
+	padding: 2em 3em 2em 3em;
 	width: auto;
+}
+
+.individual-job div {
+/*	float: left;*/
+}
+
+.individual-job .location {
+	background: yellow;
+	height: 14em;
+	width: 12em;
+}
+
+.individual-job .basic-info {
+	border-top: solid 2px #fcc;
+	border-bottom: dashed 1px #ddd;
+/*	float: none;*/
+	padding: 0.25em 0;
+}
+
+.individual-job .basic-info p {
+	font-size: 1em;
+}
+
+.individual-job .basic-info div {
+
+}
+
+.individual-job .basic-info h3 {
+	float: left;
+	font-size: 1em;
+	line-height: 1.4em;
+	margin: 0.25em 0;
+}
+
+.individual-job .basic-info .wage {
+	margin-right: 2%;
+	width: 48%;
+}
+
+.individual-job .basic-info .hours {
+	margin-right: 0;
+	margin-left: 2%;
+	width: 48%;
+}
+
+.individual-job .description {
+	float: left;
+	padding-top: 1em;
 }
