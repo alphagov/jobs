@@ -101,7 +101,9 @@
 						<%- end -%>
 					<%- end -%>
 				</ol>
-        <%= pagination(@search, @results) %>
+        <nav class="pagination-wrapper group">
+					<%= pagination(@search, @results) %>
+				</nav>
       <%- else -%>
 
       <%- end -%>

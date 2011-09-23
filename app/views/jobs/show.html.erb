@@ -1,42 +1,60 @@
+<div class="related-positioning">
+	<div class="related-container">
+		<div class="related-container-two">
+   		<div class="related">
+		     <div class="inner" class="group">
+		       <h2>Related tools &amp; topics</h2>
+		       <nav role="navigation">
+		         <ul>
+								some other stuff here
+                 <li class="related-topic"><a href="#">View more in <span>Some section &rarr;</span></a></li>
+		         </ul>
+		       </nav>
+		     </div>
+		   </div><!-- end .related -->
+		</div>
+	</div>
+</div>
+
 <section role="main" class="individual-job group">
   <%# TODO: check whether the referer is for our site -%>
-  <%- if request.env['HTTP_REFERER'].present? -%>
-    <p><%= link_to 'Back to search results', :back %></p>
-  <%- else -%>
-    <p><%= link_to 'Search for jobs near you' -%></p>
-  <%- end -%>
-	<p class="add-to-list"><a href="#">Add to list</a></p>
-	<!-- <header class="jobs-header">
-		<hgroup>
-	    <h1><%= @job['title'].titlecase %></h1>
-		  <h2 class="employer"><%= @job['employer_name'].presence.try(:titlecase) || "No employer information." %></h2>
-		</hgroup>
-	</header> -->
+  <header class="jobs-header">
+			<nav class="jobs-navigation" role="navigation">
+			<%- if request.env['HTTP_REFERER'].present? -%>
+		    <p><%= link_to '&larr; Back to job search results'.html_safe, :back %></p>
+		  <%- else -%>
+		    <p><%= link_to 'Search for jobs near you' -%></p>
+		  <%- end -%>
+			<p class="add-to-list"><a href="#">Add to list</a></p>
+		</nav>
+	</header>
 	<article>
-		<div class="inner">
+		<div class="inner group">
 			<header>
 				<hgroup>
 			    <h1><%= @job['title'].titlecase %></h1>
-				  <h2 class="employer"><%= @job['employer_name'].presence.try(:titlecase) || "No employer information." %></h2>
+				  <h2 class="employer-name"><%= @job['employer_name'].presence.try(:titlecase) || "No employer information." %></h2>
 				</hgroup>
+				<div class="location-map">
+					<iframe width="160" height="160" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.co.uk/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=e1+2ps&amp;aq=&amp;sll=53.800651,-4.064941&amp;sspn=17.675514,33.618164&amp;vpsrc=6&amp;ie=UTF8&amp;hq=&amp;hnear=London+E1+2PS,+United+Kingdom&amp;t=m&amp;ll=51.514351,-0.054159&amp;spn=0.011965,0.01914&amp;z=14&amp;output=embed"></iframe>
+					<p class="location"><%= @job['location_name'].presence.try(:titlecase) || "No location information." %></p></div>
+			  <div class="basic-info">
+			    <div class="wage">
+						<h3>Wage</h3>
+			    	<p><%= @job['wage_display_text'].titlecase %></p>
+					</div>
+					<div class="hours">
+				    <h3>Hours</h3>
+				    <p><%= @job['hours_display_text'].titlecase %></p>
+					</div>
+			  </div>
 			</header>
-			<div class="location"><p><%= @job['location_name'].presence.try(:titlecase) || "No location information." %></p></div>
-		  <div class="basic-info">
-		    <div class="wage">
-					<h3>Wage</h3>
-		    	<p><%= @job['wage_display_text'].titlecase %></p>
-				</div>
-				<div class="hours">
-			    <h3>Hours</h3>
-			    <p><%= @job['hours_display_text'].titlecase %></p>
-				</div>
-		  </div>
 			<div class="description">
-		 	 <h3>Vacancy Description</h3>
+		 	 <h3>Vacancy description</h3>
 			  <%= auto_link(simple_format(@job['vacancy_description'].presence || "No information."), :html => { :rel => 'nofollow' }) %>
 			</div>
 			<div class="how-to-apply">
-			  <h3>How To Apply</h3>
+			  <h3>How to apply</h3>
 			  <%= auto_link(simple_format(@job['how_to_apply'].presence || "No information."), :html => { :rel => 'nofollow'}) %>
 			</div>
 		</div>

@@ -7,17 +7,107 @@ p {
 	margin: 0.75em 0;
 }
 
-.jobs-header hgroup {
+.jobs-header {
 	background: #efece0;
 	border-bottom: none;
 	display: block;
-	margin: 0 16em 0 1em;
-	padding: 1em;
+	margin: 0 12em 0 0em;
+	padding: 1em 2em;
 }
 
 .jobs-header hgroup h1 {
 	font-size: 1.8em;
 	line-height: 1.05em;
+/*	margin-bottom: 0.5em;*/
+}
+
+/*
+	jobs home page
+*/
+
+.jobs-home .query {
+	background-color: #efece0;
+	border: solid 2px #BBB;
+	-webkit-border-radius: 0.5em;
+	-moz-border-radius: 0.5em;
+	border-radius: 0.5em;
+	margin: 0 1em;
+	padding: 1.5em 0;
+}
+
+.jobs-home .query fieldset {
+	border: none;
+	margin: 0 auto;
+}
+
+.jobs-home .query label {
+	font-size: 1.18em;
+	font-weight: bold;
+}
+
+.jobs-home .query input[type="text"] {
+	margin: 0 0.5em;
+}
+
+.job-search-how-to {
+	background-color: #fff;
+	margin-right: 12em;
+	position: relative;
+}
+
+.job-search-how-to .inner {
+	padding: 2em 2em;
+	width: auto;
+}
+
+.how-it-works {
+	float: left;
+	margin-top: 1em;
+	width: 100%;
+}
+
+.how-it-works ol {
+	float: left;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+.how-it-works ol li {
+	background-color: #ddd;
+	float: left;
+	margin: 0 1.5%;
+	width: 30.3%;
+}
+
+.how-it-works h2 {
+	margin: 1em 0 1.25em 0;
+}
+
+.how-it-works h3 {
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	min-height: 3em;
+	line-height: 1.4em;
+	margin: -0.75em 0 0.5em 0;
+	padding: 1em 0 0em 2.25em;
+}
+
+.how-it-works ol li:nth-child(1) h3 {
+	background-image: url(<%= asset_path 'icon-jobs-step-1.png' %>);
+}
+.how-it-works ol li:nth-child(2) h3 {
+	background-image: url(<%= asset_path 'icon-jobs-step-2.png' %>);
+}
+.how-it-works ol li:nth-child(3) h3 {
+	background-image: url(<%= asset_path 'icon-jobs-step-3.png' %>);
+}
+
+.placeholder {
+	background: #bbb;
+	height: 12em;
+	width: 100%;
 }
 
 /*
@@ -219,8 +309,7 @@ p.location {
 	float: left;
 }
 
-.query-options input[type=submit],
-.query-options input[type=submit]:visited, .add-to-list a, .add-to-list a:visited, .add-to-list span.disabled, .clear-all a, .clear-all a:visited {
+.query input[type=submit], .query input[type=submit]:visited, .add-to-list a, .add-to-list a:visited, .add-to-list span.disabled, .clear-all a, .clear-all a:visited {
 	background: #039 url(<%= asset_path 'button-overlay.png' %>) repeat-x;
 	border: 1px solid rgba(0,0,0,0.25);
 	-moz-border-radius: 4px;
@@ -237,12 +326,12 @@ p.location {
 	position: relative;
 }
 
-.query-options input[type=submit]:hover {
+.query input[type=submit]:hover {
 	background-color: rgb(0,25,80);
 	color: #fff;
 }
 
-.query-options input[type=submit]:active {
+.query input[type=submit]:active {
 	top: 1px;
 }
 
@@ -352,9 +441,50 @@ p.clear-all {
 	margin-top: 1em;
 }
 
+.job-search .pagination-wrapper {
+	background-color: #F2F2F2;
+	border-top: solid 1px #bbb;
+	float: left;
+	margin: 1em 0 -2em 0;
+	width: 100%;
+}
+
+.job-search .pagination {
+	list-style: none;
+	padding: 0 2em 2.5em 2em;
+}
+
+.job-search .pagination li.previous {
+	float: left;
+}
+
+.job-search .pagination li.next {
+	float: right;
+	text-align: right;
+}
+
+.job-search .pagination li a {
+	display: block;
+	padding: 0.5em 0.25em;
+}
+
 /*
 	individual job page
 */
+
+.individual-job header.jobs-header {
+	padding: 0.5em 1em;
+}
+
+nav.jobs-navigation {
+	width: 100%;
+}
+
+nav.jobs-navigation p {
+	display: inline-block;
+	margin-right: 1em;
+	vertical-align: top;
+}
 
 .individual-job article {
 	background: #fff;
@@ -362,61 +492,127 @@ p.clear-all {
 	-moz-box-shadow: 0 0px 4px rgba(0,0,0,0.3);
 	box-shadow: 0 0px 4px rgba(0,0,0,0.3);
 	float: left;
-	min-height: 40em;
+	margin-right: 12em;
+	min-height: 20em;
 	position: relative;
-  width: 75%;
+  width: auto;
 	z-index: 1;
 }
 
 .individual-job article .inner {
-	padding: 2em 3em 2em 3em;
+	padding: 2.5em 3em 2em 3em;
 	width: auto;
 }
 
-.individual-job div {
-/*	float: left;*/
+.individual-job article h2 {
+  font-size: 1.25em;
+  line-height: 1.18em;
+  margin-top: 1.2em;
+  margin-bottom: 0.2em;
+}
+
+.individual-job article h3 {
+  font-size: 1.15em;
+  line-height: 1.11em;
+  margin-top: 1.304em;
+  margin-bottom: 0;
+}
+
+.individual-job article h4 {
+  margin-top: 1.5em;
+  margin-bottom: 0;
+}
+
+.individual-job article p {
+  font-size: 1em;
+  line-height: 1.5em;
+  margin: 0.75em 0;
+}
+
+.individual-job article header {
+	border-top: solid 4px #fcc;
+	border-bottom: dashed 1px #ddd;
+	float: left;
+	min-height: 12.5em;
+/*	padding: 1em 35% 0.5em 0;*/
+	padding: 1em 0 0.5em 0;
+/*	width: 65%;*/
+	width: 100%;
+}
+
+.individual-job article header hgroup {
+	float: left;
+	width: 65%;
+}
+
+.individual-job article header h1 {
+	font-size: 1.8em;
+	line-height: 1.05em;
+	word-wrap: break-word;
+}
+
+.individual-job article header h2.employer-name {
+	color: #666;
+	margin-top: 0.4em;
+	text-transform: uppercase;
+	word-wrap: break-word;
+}
+
+.individual-job .location-map {
+	float: right;
+	height: 12em;
+	width: 35%;
+}
+
+.individual-job .location-map iframe {
+	float: right;
 }
 
 .individual-job .location {
-	background: yellow;
-	height: 14em;
-	width: 12em;
+	float: right;
+	margin: 0.5em 0 0 0;
+	width: 10em;
 }
 
 .individual-job .basic-info {
-	border-top: solid 2px #fcc;
-	border-bottom: dashed 1px #ddd;
-/*	float: none;*/
 	padding: 0.25em 0;
+	margin: 0.5em 0 0 0;
+	width: 65%;
 }
 
 .individual-job .basic-info p {
-	font-size: 1em;
-}
-
-.individual-job .basic-info div {
-
-}
-
-.individual-job .basic-info h3 {
-	float: left;
+	display: inline-block;
 	font-size: 1em;
 	line-height: 1.4em;
 	margin: 0.25em 0;
+	vertical-align: top;
+	width: 65%;
+}
+
+.individual-job .basic-info div {
+	float: none;
+}
+
+.individual-job .basic-info h3 {
+	display: inline-block;
+	font-size: 1em;
+	line-height: 1.4em;
+	margin: 0.25em 2% 0 0;
+	min-width: 3em;
+	vertical-align: top;
+	width: 12%;
 }
 
 .individual-job .basic-info .wage {
-	margin-right: 2%;
-	width: 48%;
+	width: auto;
 }
 
 .individual-job .basic-info .hours {
-	margin-right: 0;
-	margin-left: 2%;
-	width: 48%;
+	margin: 0;
+	width: auto;
 }
 
-.individual-job .description {
+.individual-job .description, .individual-job .how-to-apply {
 	float: left;
-	padding-top: 1em;
 }
+
