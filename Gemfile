@@ -14,6 +14,12 @@ gem 'retry-this'
 gem 'resque'
 gem 'resque-jobs-per-fork'
 
+if ENV['SLIMMER_DEV']
+  gem 'slimmer', :path => '../slimmer'
+else
+  gem 'slimmer', :git => 'git@github.com:alphagov/slimmer.git'
+end
+
 group :development do
   gem 'guard'
   gem 'guard-test'

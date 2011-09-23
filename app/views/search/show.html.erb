@@ -54,7 +54,10 @@
 					<%- if @results.total > 0 -%>
 						<h2>Found <%= pluralize @results.total, 'job' %> <small>within <%= pluralize @search.distance, 'mile' %> of <%= @search.location %></small></h2>
 		      <%- else -%>
-		        <h2>No results found</h2>
+		        <div class="no-results">
+							<h2>No results found</h2>
+							<p>Try searching again, using a less specific job title or search options.</p>
+						</div>
 		      <%- end -%>
 				</div>
 			</div>
@@ -95,7 +98,7 @@
 				</ol>
         <%= pagination(@search, @results) %>
       <%- else -%>
-        <p>No results found.</p>
+
       <%- end -%>
     </div>
   </div>
