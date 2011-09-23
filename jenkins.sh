@@ -19,9 +19,6 @@ ln -s /var/lib/jenkins/jobs/Static/workspace/public/javascripts /var/lib/jenkins
 ln -s /var/lib/jenkins/jobs/Static/workspace/public/templates /var/lib/jenkins/jobs/Jobs/workspace/public/templates
 ln -s /var/lib/jenkins/jobs/Static/workspace/public/stylesheets /var/lib/jenkins/jobs/Jobs/workspace/public/stylesheets
 
-export DISPLAY=:99
-/etc/init.d/xvfb start
-bundle exec rake ci:setup:testunit test:units test:functionals test:integration
+bundle exec rake ci:setup:testunit test:units test:functionals
 RESULT=$?
-/etc/init.d/xvfb stop
 exit $RESULT
