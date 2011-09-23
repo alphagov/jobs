@@ -1,4 +1,11 @@
 GIT
+  remote: git@github.com:alphagov/slimmer.git
+  revision: 37848062444e3e27b03a4f06df6c31a90b251682
+  specs:
+    slimmer (0.7.10)
+      nokogiri
+
+GIT
   remote: https://github.com/alphagov/delsolr.git
   revision: ef2bacbced2226f3a3c0680c0b9d3bab096eff81
   specs:
@@ -216,6 +223,7 @@ DEPENDENCIES
   savon
   simplecov
   simplecov-rcov
+  slimmer!
   sqlite3
   therubyracer
   uglifier
