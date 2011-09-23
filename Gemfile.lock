@@ -56,6 +56,8 @@ GEM
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
     chunky_png (1.2.4)
+    ci_reporter (1.6.5)
+      builder (>= 2.1.2)
     coffee-rails (3.1.1)
       coffee-script (>= 2.2.0)
       railties (~> 3.1.0)
@@ -201,6 +203,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ci_reporter
   coffee-rails (~> 3.1.0)
   compass (~> 0.12.alpha.0)
   delsolr!
@@ -225,6 +228,7 @@ DEPENDENCIES
   simplecov-rcov
   slimmer!
   sqlite3
+  test-unit
   therubyracer
   uglifier
   webmock
