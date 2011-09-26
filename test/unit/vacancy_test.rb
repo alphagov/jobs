@@ -42,8 +42,9 @@ class VacancyTest < ActiveSupport::TestCase
     document.add_field 'vacancy_description', "Work for us", :cdata => true
     document.add_field 'employer_name', "Alphagov", :cdata => true
     document.add_field 'how_to_apply', 'Send us an email', :cdata => true
+    document.add_field 'eligability_criteria', '', :cdata => true
 
-    assert_equal vacancy.to_solr_document.xml, document.xml
+    assert_equal document.xml, vacancy.to_solr_document.xml
   end
 
   test '.send_to_solr' do
