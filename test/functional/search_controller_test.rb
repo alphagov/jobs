@@ -20,6 +20,7 @@ class SearchControllerTest < ActionController::TestCase
 
     mock_search = mock()
     mock_search.stubs(:run => mock_results, :query_params => {}, :location => "postcode", :query => "machine")
+    mock_search.stubs(:docs)
 
     VacancySearch.expects(:new).returns(mock_search)
 
