@@ -20,14 +20,6 @@ else
   gem 'slimmer', :git => 'git@github.com:alphagov/slimmer.git'
 end
 
-group :mac_development do
-  gem 'guard'
-  gem 'guard-test'
-  gem 'growl_notify'
-  gem 'rb-fsevent'
-  gem 'ruby-prof'
-end
-
 group :test do
   gem 'factory_girl_rails'
   gem 'mocha', :require => false
