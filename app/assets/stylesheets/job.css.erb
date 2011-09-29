@@ -223,8 +223,11 @@ p {
 	width: 100%;
 }
 
-.job hgroup {
+#wrapper .job hgroup {
+	background: transparent;
 	float: left;
+	margin: 0;
+	padding: 0;
 	width: 60%;
 }
 
@@ -238,6 +241,13 @@ h4.employer-name {
 	font-size: 0.8em;
 	line-height: 1.5em;
 	text-transform: uppercase;
+}
+
+.job article {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	min-height: 0;
 }
 
 .add-to-jobs-list a {
@@ -544,18 +554,24 @@ nav.jobs-navigation p {
 	width: 100%;
 }
 
-.individual-job article header hgroup {
+#wrapper .individual-job article header hgroup {
+	background: transparent;
 	float: left;
+	margin: 0;
+	padding: 0;
 	width: 65%;
 }
 
-.individual-job article header h1 {
+#wrapper .individual-job article hgroup h1 {
+	border: none;
 	font-size: 1.8em;
 	line-height: 1.05em;
+	min-height: 0;
+	padding: 0;
 	word-wrap: break-word;
 }
 
-.individual-job article header h2.employer-name {
+#wrapper .individual-job article hgroup h2.employer-name {
 	color: #666;
 	margin-top: 0.4em;
 	text-transform: uppercase;
