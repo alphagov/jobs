@@ -17,10 +17,21 @@ window.BookmarkedJobsListView = class BookmarkedJobsListView extends Backbone.Vi
     $(@el).append('<p class="clear-copy">Clear this list when you&rsquo;ve finished if this is a public computer.</p>')
 
     $(window).bind 'resize', => this.setHeight()
+    $(window).bind 'scroll', => this.setHeight()
 
   setHeight: ->
-    # TODO: calculate this relative to the size of the other elements, rather than using a hardcoded value.
-    height = $(window).height() - 340;
+    searchContainer = $("#search-container")
+    bookmarksContainer = $("#job-bookmarks")
+
+    return unless searchContainer.length > 0
+
+    listTop = $(@list).offset().top - $(window).scrollTop()
+    listExtra = bookmarksContainer.height() - $(@list).height() + listTop
+    listPaddingBottom = parseInt(bookmarksContainer.css('padding-bottom'), 10)
+
+    normalHeight = $(window).height() - listExtra
+    scrolledHeight = searchContainer.height() + searchContainer.offset().top - $(window).scrollTop() - listExtra + listPaddingBottom
+    height = Math.min(normalHeight, scrolledHeight)
     $(@list).css(maxHeight: height)
 
   clearAll: ->

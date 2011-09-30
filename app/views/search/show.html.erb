@@ -11,7 +11,7 @@
 		</hgroup>
   </header>
 
-	<div class="search-container">
+	<div class="search-container" id="search-container">
     <div class="search-content group">
 			<div class="location-options">
 		    <form action="<%= search_path %>" method="post">
@@ -70,7 +70,7 @@
       <%- if @results.total > 0 -%>
 				<ol class="search-results">
 					<%- @results.docs.each do |doc| %>
-						<%= content_tag :li, :class => 'job group', :data => { :id => doc['id'] } do -%>
+						<%= content_tag :li, :class => 'job group job-identifier', :data => { :id => doc['id'] } do -%>
 							<header>
 								<hgroup>
 									<h3 class="title">
