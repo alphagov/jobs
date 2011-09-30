@@ -10,7 +10,7 @@ window.JobsListApp = class JobsListApp extends Backbone.Model
     # live bind to the add to list links, so the binding updates as they're added and removed
     $('p.add-to-list a').live('click', (event) =>
       # find the ID of the job that was selected
-      vacancyId = $(event.target).parents('li').data().id
+      vacancyId = $(event.target).parents('.job-identifier').data().id
 
       # match it to the job in the searchResults variable set in a script tag in the HTML
       searchResult = _.detect(searchResults, (result) ->
@@ -29,7 +29,7 @@ window.JobsListApp = class JobsListApp extends Backbone.Model
       $('p.add-to-list').html('<a href="#">Add to list</a>')
 
       _.each(@bookmarkedJobsCollection.models, (job) ->
-        $("li.job[data-id='#{job.id}'] p.add-to-list").html("<span class='disabled'>Already in list</span>")
+        $(".job-identifier[data-id='#{job.id}'] p.add-to-list").html("<span class='disabled'>Already in list</span>")
       )
     )
 
@@ -39,7 +39,7 @@ window.JobsListApp = class JobsListApp extends Backbone.Model
     # now build out the jobs list
     jobsListContainer = $('<div class="job-bookmarks-position" />')
     $('div.search-container').after(jobsListContainer)
-    jobsListContent = $('<div class="job-bookmarks" />').appendTo(jobsListContainer)
+    jobsListContent = $('<div class="job-bookmarks" id="job-bookmarks" />').appendTo(jobsListContainer)
 
     jobsListView = new BookmarkedJobsListView(model: @bookmarkedJobsCollection, el: jobsListContent)
     jobsListView.render()

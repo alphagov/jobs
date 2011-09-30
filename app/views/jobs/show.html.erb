@@ -1,3 +1,9 @@
+<%- content_for :head do -%>
+	<%= javascript_include_tag :search %>
+<%- end -%>
+
+<%= javascript_tag "var searchResults=#{[@formatted_job].to_json};" %>
+
 <div class="related-positioning">
 	<div class="related-container">
 		<div class="related-container-two">
@@ -19,14 +25,14 @@
 <section role="main" class="individual-job group">
   <%# TODO: check whether the referer is for our site -%>
   <header class="jobs-header">
-			<nav class="jobs-navigation" role="navigation">
+		<%= content_tag :nav, :class => 'jobs-navigation job-identifier', :data => { :id => @job['id'] } do -%>
 			<%- if request.env['HTTP_REFERER'].present? -%>
 		    <p><%= link_to '&larr; Back to job search results'.html_safe, :back %></p>
 		  <%- else -%>
 		    <p><%= link_to 'Search for jobs near you' -%></p>
 		  <%- end -%>
-			<p class="add-to-list"><a href="#">Add to list</a></p>
-		</nav>
+			<p class="add-to-list"></p>
+		<% end %>
 	</header>
 	<article>
 		<div class="inner group">
