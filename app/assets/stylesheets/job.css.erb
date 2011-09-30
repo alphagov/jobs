@@ -155,11 +155,15 @@ p {
 	background-color: #fff;
 /*	float: left;*/
 	line-height: 1.4em;
-	margin-right: 16em;
+/*	margin-right: 16em;*/
 /*	overflow: auto;*/
 	padding: 0 0 2em 0;
 	position: relative;
 	z-index: 1;
+}
+
+.js .search-content {
+	margin-right: 16em;
 }
 
 .query-options-headline {
@@ -332,7 +336,7 @@ p.location {
 	float: left;
 }
 
-.query input[type=submit], .query input[type=submit]:visited, .add-to-list a, .add-to-list a:visited, .add-to-list span.disabled, .clear-all a, .clear-all a:visited {
+.query input[type=submit], .query input[type=submit]:visited, .add-to-list a, .add-to-list a:visited, .add-to-list span.disabled, .button-small a, .button-small a:visited {
 	background: #039 url(<%= asset_path 'button-overlay.png' %>) repeat-x;
 	border: 1px solid rgba(0,0,0,0.25);
 	-moz-border-radius: 4px;
@@ -362,7 +366,7 @@ p.location {
 	float: right;
 }
 
-.job-search .add-to-list a, .job-search .add-to-list span.disabled, .clear-all a {
+.job-search .add-to-list a, .job-search .add-to-list span.disabled, .button-small a {
 	margin-right: 0;
 	padding: 1px 8px 2px;
 }
@@ -455,8 +459,22 @@ p.location {
 	top: 0.5em;
 }
 
-p.clear-all {
+p.clear-all, p.print-list {
+	display: inline-block;
 	margin-top: 1em;
+	vertical-align: top;
+}
+
+p.clear-all {
+
+}
+
+p.print-list {
+	margin-right: 1em;
+}
+
+p.clear-copy {
+	margin: 0.5em 0 0 0;
 }
 
 .job-search .pagination-wrapper {
