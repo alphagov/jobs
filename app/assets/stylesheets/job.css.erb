@@ -15,10 +15,17 @@ p {
 	padding: 1em 2em;
 }
 
-.jobs-header hgroup h1 {
+#wrapper .jobs-header hgroup {
+	margin: 0;
+	padding: 0;
+}
+
+#wrapper .jobs-header hgroup h1 {
 	font-size: 1.8em;
 	line-height: 1.05em;
 /*	margin-bottom: 0.5em;*/
+	min-height: 0;
+	padding: 0;
 }
 
 /*
@@ -234,6 +241,7 @@ p {
 h3.title {
   font-size: 1.2em;
   line-height: 1.25em;
+	word-wrap: break-word;
 }
 
 h4.employer-name {
@@ -241,6 +249,7 @@ h4.employer-name {
 	font-size: 0.8em;
 	line-height: 1.5em;
 	text-transform: uppercase;
+	word-wrap: break-word;
 }
 
 .job article {
@@ -371,13 +380,6 @@ p.location {
 	width: 95%;
 }
 
-.job-bookmarks-wrapper {
-	height: 100%;
-	margin: 0 auto;
-	position: relative;
-	width: 100%;
-}
-
 .job-bookmarks {
 	background: #fff;
 	-webkit-box-shadow: 0 0px 4px rgba(0,0,0,0.3);
@@ -435,10 +437,12 @@ p.location {
 .job-bookmarks h4 {
 	border-top: solid 2px #FCC;
 	padding: 0.25em 4em 0 0;
+	word-wrap: break-word;
 }
 
 .job-bookmarks p {
 	color: #666;
+	word-wrap: break-word;
 }
 
 .job-bookmarks .location {
