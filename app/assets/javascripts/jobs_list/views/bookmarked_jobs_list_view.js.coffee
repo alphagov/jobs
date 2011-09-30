@@ -52,9 +52,9 @@ window.BookmarkedJobsListView = class BookmarkedJobsListView extends Backbone.Vi
 
     # hide the clear list button + copy if there's nothing in the list
     if @model.models.length > 0
-      $(@el).find('p.clear-all, p.clear-copy').show()
+      $(@el).find('p.clear-all, p.clear-copy, p.print-list').show()
     else
-      $(@el).find('p.clear-all, p.clear-copy').hide()
+      $(@el).find('p.clear-all, p.clear-copy, p.print-list').hide()
 
     this.setHeight()
 
