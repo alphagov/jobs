@@ -43,7 +43,7 @@
 				  <h2 class="employer-name"><%= @job['employer_name'].presence.try(:titlecase) || "No employer information." %></h2>
 				</hgroup>
 				<div class="location-map">
-					<div id="map-canvas" style="width:200px;height:200px"></div>
+					<div id="map-canvas"></div>
 					<p class="location"><%= @job['location_name'].presence.try(:titlecase) || "No location information." %></p></div>
 			  <div class="basic-info">
 			    <div class="wage">
