@@ -1,5 +1,6 @@
 <%- content_for :head do -%>
 	<%= javascript_include_tag :search %>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <%- end -%>
 
 <%= javascript_tag "var searchResults=#{[@formatted_job].to_json};" %>
@@ -42,7 +43,7 @@
 				  <h2 class="employer-name"><%= @job['employer_name'].presence.try(:titlecase) || "No employer information." %></h2>
 				</hgroup>
 				<div class="location-map">
-					<iframe width="160" height="160" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.co.uk/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=e1+2ps&amp;aq=&amp;sll=53.800651,-4.064941&amp;sspn=17.675514,33.618164&amp;vpsrc=6&amp;ie=UTF8&amp;hq=&amp;hnear=London+E1+2PS,+United+Kingdom&amp;t=m&amp;ll=51.514351,-0.054159&amp;spn=0.011965,0.01914&amp;z=14&amp;output=embed"></iframe>
+					<div id="map-canvas" style="width:200px;height:200px"></div>
 					<p class="location"><%= @job['location_name'].presence.try(:titlecase) || "No location information." %></p></div>
 			  <div class="basic-info">
 			    <div class="wage">
@@ -67,3 +68,17 @@
 	</article>
 	
 </section>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var latlng = new google.maps.LatLng(<%= "%f,%f" % [@job['location_0_coordinate'].to_f,
+													                             @job['location_1_coordinate'].to_f] %>);
+    var myOptions = {
+      zoom: 14,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+  });
+</script>
