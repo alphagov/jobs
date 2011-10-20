@@ -8,5 +8,5 @@ Jobs::Application.configure do
 
   # swap the Slimmer middleware out for the staging configuration
   config.middleware.delete Slimmer::App
-  config.middleware.use Slimmer::App, :template_host => "/data/vhost/static.#{Rails.env}.alphagov.co.uk/current/public/templates"
+  config.middleware.use Slimmer::App, :asset_host => "http://static.staging.alphagov.co.uk"
 end

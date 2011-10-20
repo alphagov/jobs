@@ -60,7 +60,7 @@ Jobs::Application.configure do
 
   # swap the Slimmer middleware out for the production configuration
   config.middleware.delete Slimmer::App
-  config.middleware.use Slimmer::App, :template_host => "/data/vhost/static.alpha.gov.uk/current/public/templates"
+  config.middleware.use Slimmer::App, :asset_host => "http://static.production.alphagov.co.uk"
 
   config.action_mailer.default_url_options = { :host => "www.gov.uk" }
 
