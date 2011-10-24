@@ -2,24 +2,39 @@ require 'csv'
 
 class Vacancy < ActiveRecord::Base
 
-  class ExtraDetailsNotFound < RuntimeError; end
+  class ExtraDetailsNotFound < RuntimeError;
+  end
 
-  # for retrying the SOAP requests
   include RetryThis
   extend RetryThis
 
   validates_presence_of :vacancy_id
 
-  def self.async_bulk_import(run_date)
+  def self.bulk_import_from_api(run_date)
     postcodes = CSV.read(File.join(Rails.root, 'data', 'uk.pc.ll.csv'), :headers => true)
     postcodes = postcodes.to_a # we get a Table class back from the CSV library
     postcodes.shift # lose the header
-    # we shuffle so we don't keep getting results from a nearby area as we progress through
+                               # we shuffle so we don't keep getting results from a nearby area as we progress through
     postcodes.shuffle.each do |row|
-      postcode = row[0]
       latitude = row[1].to_f
       longitude = row[2].to_f
-      Resque.enqueue(PointImporterJob, run_date, latitude, longitude)
+
+      VacancyImporter.perform(run_date, latitude, longitude)
+    end
+  end
+
+  def self.bulk_import_from_local_database
+    Vacancy.find_in_batches do |vacancies|
+      begin
+        vacancies.each do |vacancy|
+          puts "Inserting solr document: #{vacancy.vacancy_title}"
+          vacancy.send_to_solr!
+        end
+      rescue
+        puts "*** Error inserting solr document: #{$!} #{vacancy.inspect}"
+      ensure
+        $solr.commit!
+      end
     end
   end
 
@@ -49,8 +64,8 @@ class Vacancy < ActiveRecord::Base
     self.is_permanent = v[:perm_temp].downcase == 'p'
   end
 
-  # Imports details for a vacancy - if the vacancy is old, it's possible the API might
-  # not be able to find it.
+# Imports details for a vacancy - if the vacancy is old, it's possible the API might
+# not be able to find it.
   def import_extra_details
     details = self.fetch_details_from_api
     if details
@@ -67,26 +82,13 @@ class Vacancy < ActiveRecord::Base
     import_extra_details || raise(ExtraDetailsNotFound)
   end
 
-  # Push all vacancies to Solr, flushing every batch, and commiting at the end.
-  # You probably only want to use this in development.
-  def self.send_to_solr
-    Vacancy.find_in_batches do |vacancies|
-      vacancies.each do |j|
-        j.send_to_solr
-      end
-      $solr.post_update!
-    end
-    $solr.commit!
-    $solr.optimize!
-  end
-
-  # Pushes into the update queue - still needs $solr.post_update! and $solr.commit!
-  # to appear in the index.
+# Pushes into the update queue - still needs $solr.post_update! and $solr.commit!
+# to appear in the index.
   def send_to_solr
     $solr.update(self.to_solr_document)
   end
 
-  # Immediately updates solr and tell it to commit within 5 minutes
+# Immediately updates solr and tell it to commit within 5 minutes
   def send_to_solr!
     $solr.update!(self.to_solr_document, :commitWithin => 5.minutes*1000)
   end
@@ -114,7 +116,7 @@ class Vacancy < ActiveRecord::Base
       doc.add_field 'hours', self.hours
       doc.add_field 'hours_display_text', self.hours_display_text, :cdata => true
       doc.add_field 'wage_display_text', self.wage_display_text, :cdata => true
-      doc.add_field 'received_on', self.received_on.try(:beginning_of_day).try(:iso8601)
+      doc.add_field 'received_on', "#{self.received_on.try(:beginning_of_day).try(:iso8601)}Z"
       doc.add_field 'vacancy_description', self.vacancy_description, :cdata => true
       doc.add_field 'employer_name', self.employer_name, :cdata => true
       doc.add_field 'how_to_apply', self.how_to_apply, :cdata => true
@@ -126,9 +128,9 @@ class Vacancy < ActiveRecord::Base
     retry_this(:times => 3, :error_types => [SocketError, Timeout::Error], :sleep => 1) do |attempt|
       results = self.class.soap_client.request "http://ws.dgjobsservice.info/GetJobDetail" do
         soap.xml do |xml|
-          xml.soap :Envelope, { "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema", "xmlns:soap" => "http://schemas.xmlsoap.org/soap/envelope/" } do
+          xml.soap :Envelope, {"xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema", "xmlns:soap" => "http://schemas.xmlsoap.org/soap/envelope/"} do
             xml.soap :Body do
-              xml.GetJobDetail( { :xmlns => "http://ws.dgjobsservice.info/" }) do
+              xml.GetJobDetail({:xmlns => "http://ws.dgjobsservice.info/"}) do
                 xml.search do
                   xml.AuthenticationKey DIRECTGOV_JOBS_API_AUTHENTICATION_KEY
                   xml.UniqueIdentifier "1"
@@ -147,9 +149,9 @@ class Vacancy < ActiveRecord::Base
     retry_this(:times => 3, :error_types => [SocketError, Timeout::Error], :sleep => 1) do |attempt|
       results = self.soap_client.request "http://ws.dgjobsservice.info/AllNearMe" do
         soap.xml do |xml|
-          xml.soap :Envelope, { "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema", "xmlns:soap" => "http://schemas.xmlsoap.org/soap/envelope/" } do
+          xml.soap :Envelope, {"xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema", "xmlns:soap" => "http://schemas.xmlsoap.org/soap/envelope/"} do
             xml.soap :Body do
-              xml.AllNearMe({ :xmlns => "http://ws.dgjobsservice.info/" }) do
+              xml.AllNearMe({:xmlns => "http://ws.dgjobsservice.info/"}) do
                 xml.search do
                   xml.AuthenticationKey DIRECTGOV_JOBS_API_AUTHENTICATION_KEY
                   xml.UniqueIdentifier "1"

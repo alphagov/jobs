@@ -12,20 +12,20 @@ class VacancyTest < ActiveSupport::TestCase
 
   test '.to_solr_document' do
     vacancy = Factory.build(:vacancy,
-      :vacancy_id => "TES/1234",
-      :vacancy_title => "Testing Vacancy",
-      :soc_code => "1234",
-      :latitude => 51.0,
-      :longitude => 1.0,
-      :location_name => "Testing Town, County",
-      :is_permanent => true,
-      :hours => 25,
-      :hours_display_text => "25 hours, flexible working",
-      :wage_display_text => "Lots of cash",
-      :vacancy_description => "Work for us",
-      :employer_name => "Alphagov",
-      :how_to_apply => "Send us an email",
-      :received_on => Date.today
+                            :vacancy_id => "TES/1234",
+                            :vacancy_title => "Testing Vacancy",
+                            :soc_code => "1234",
+                            :latitude => 51.0,
+                            :longitude => 1.0,
+                            :location_name => "Testing Town, County",
+                            :is_permanent => true,
+                            :hours => 25,
+                            :hours_display_text => "25 hours, flexible working",
+                            :wage_display_text => "Lots of cash",
+                            :vacancy_description => "Work for us",
+                            :employer_name => "Alphagov",
+                            :how_to_apply => "Send us an email",
+                            :received_on => Date.today
     )
 
     document = DelSolr::Document.new
@@ -38,7 +38,7 @@ class VacancyTest < ActiveSupport::TestCase
     document.add_field 'hours', 25
     document.add_field 'hours_display_text', "25 hours, flexible working", :cdata => true
     document.add_field 'wage_display_text', "Lots of cash", :cdata => true
-    document.add_field 'received_on', Date.today.beginning_of_day.iso8601
+    document.add_field 'received_on', "#{Date.today.beginning_of_day.iso8601}Z"
     document.add_field 'vacancy_description', "Work for us", :cdata => true
     document.add_field 'employer_name', "Alphagov", :cdata => true
     document.add_field 'how_to_apply', 'Send us an email', :cdata => true
@@ -97,7 +97,37 @@ class VacancyTest < ActiveSupport::TestCase
   end
 
   test '.import_details_from_hash' do
-    vacancy_hash = {:currency=>"GBP", :date_received=>"30082011", :distance_sort_order_id=>"2396.97008934328", :es_vacancy=>"Y", :hours=>"35", :hours_display_text=>"37.5 HOURS OVER 5 DAYS", :hours_qualifier=>"per week", :is_national=>false, :is_regional=>false, :location=>{:distance_from_origin=>"2396.97008934328", :latitude=>"50.986008297409", :longitude=>"0.9740371746526", :origin_latitude=>"51", :origin_longitude=>"1", :location_name=>"NEW ROMNEY, KENT"}, :location_display_text=>"NEW ROMNEY, KENT", :order_id=>"1", :perm_temp=>"P", :quality=>"86", :received_on=> Time.utc(2011, 8, 30, 0, 0, 0), :soc_code=>"3543", :vacancy_detail=>{:hours=>"0", :soc_code=>"0"}, :vacancy_id=>"FOK/12116", :vacancy_title=>"CHARITY FUNDRAISER", :wage=>"See details", :wage_display_text=>"£255 TO £1000 PER WEEK", :wage_qualifier=>"NK", :wage_sort_order_id=>"20"}
+    vacancy_hash = {:currency=>"GBP",
+                    :date_received=>"30082011",
+                    :distance_sort_order_id=>"2396.97008934328",
+                    :es_vacancy=>"Y",
+                    :hours=>"35",
+                    :hours_display_text=>"37.5 HOURS OVER 5 DAYS",
+                    :hours_qualifier=>"per week",
+                    :is_national=>false,
+                    :is_regional=>false,
+                    :location=>{
+                        :distance_from_origin=>"2396.97008934328",
+                        :latitude=>"50.986008297409",
+                        :longitude=>"0.9740371746526",
+                        :origin_latitude=>"51",
+                        :origin_longitude=>"1",
+                        :location_name=>"NEW ROMNEY, KENT"},
+                    :location_display_text=>"NEW ROMNEY, KENT",
+                    :order_id=>"1",
+                    :perm_temp=>"P",
+                    :quality=>"86",
+                    :received_on=> Time.utc(2011, 8, 30, 0, 0, 0),
+                    :soc_code=>"3543",
+                    :vacancy_detail=>{
+                        :hours=>"0",
+                        :soc_code=>"0"},
+                    :vacancy_id=>"FOK/12116",
+                    :vacancy_title=>"CHARITY FUNDRAISER",
+                    :wage=>"See details",
+                    :wage_display_text=>"£255 TO £1000 PER WEEK",
+                    :wage_qualifier=>"NK",
+                    :wage_sort_order_id=>"20"}
 
     vacancy = Vacancy.new
     vacancy.expects(:vacancy_title=).with(vacancy_hash[:vacancy_title])

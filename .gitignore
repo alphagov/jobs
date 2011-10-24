@@ -5,3 +5,4 @@ tmp/
 .sass-cache/
 coverage
 dump.rdb
+*.iml

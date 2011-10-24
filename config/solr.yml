@@ -1,9 +1,9 @@
 development:
   server: localhost
-  path: /solr
+  path: /solr/jobs
   port: 8983
 
 test:
   server: localhost
-  path: /solr
+  path: /solr/jobs
   port: 8983

@@ -14,25 +14,20 @@ Requirements
 Configuration
 --
 
-Add a file in config/secrets.rb containing:
+Add a file in config/initializers/secrets.rb containing:
 
     DIRECTGOV_JOBS_API_AUTHENTICATION_KEY = "YOUR-API-KEY"
 
 How It Works
 --
 
-The canonical store of vacancy information is the DirectGov Jobs API. This service pulls all of the vacancies out of that API, and stores them into an SQLite database before putting them in Solr.
+There is a rake task called rake vacancies:import
 
-Solr provides the search engine for vacancies, and is used for displaying the information about each job. SQLite isn't used as a public facing datastore: it's only an intermediary step.
+Run this task to begin the indexing process of jobs into the local Solr. 
 
-We use Resque to manage the import process. `rake vacancies:import` queues up the first resque jobs: making a request for each postcode sector in the UK, and finding the vacancies nearby. These then queue up resque jobs to fetch vacancy details for each vacancy, before importing them into Solr.
+You shouln't have to wait too long before a few jobs appear, and you don't need to wait for the task to
+complete before using the app.
 
-To process the queue, you'll need to be running some Resque workers.
+Solr is set to commit after each import, so you should get jobs in a minute or so.
 
-    QUEUES=vacancies,points JOBS_PER_FORK=100 COUNT=4 rake resque:workers
-
-The order of the queues doesn't matter, but if you have it set to vacancies first, then it'll process vacancies as they're found, rather than waiting until the entire country has been swept. It also keeps the queue sizes in redis down, which could be an issue.
-
-`JOBS_PER_FORK` is a tunable number, to limit how often resque forks a new worker. Without this, resque will fork after it processes each job. This is fine for larger jobs, but for quick jobs this adds a large overhead. 100 is just an example. You could probably make this 1000.
-
-The resque jobs should fail in obvious ways, ensuring that they can be retried from the resque web interface if possible.
+When you have enough jobs to work with then abort the task.
