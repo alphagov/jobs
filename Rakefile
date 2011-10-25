@@ -4,5 +4,6 @@
 
 require File.expand_path('../config/application', __FILE__)
 
+
 Jobs::Application.load_tasks
-require 'ci/reporter/rake/test_unit'
+require 'ci/reporter/rake/test_unit' if Rails.env.development?
