@@ -1,32 +1,16 @@
-<div class="related-positioning">
-	<div class="related-container">
-		<div class="related-container-two">
-   		<div class="related">
-		     <div class="inner" class="group">
-		       <h2>Related tools &amp; topics</h2>
-		       <nav role="navigation">
-		         <ul>
-								some other stuff here
-                 <li class="related-topic"><a href="#">View more in <span>Some section &rarr;</span></a></li>
-		         </ul>
-		       </nav>
-		     </div>
-		   </div><!-- end .related -->
-		</div>
-	</div>
-</div>
-
 <section role="main" class="jobs-home group">	
 	<header class="jobs-header">
 		<hgroup>
-			<h1>Jobs</h1>
+			<h1>Job search</h1>
 		</hgroup>
   </header>
 	<div class="job-search-how-to">
 		<div class="inner group">
-			<p>
-				
-			</p>
+			<div class="introduction">
+				<p>
+					Explanatory text here please
+				</p>
+			</div>
 		  <form action="<%= search_path -%>" method="get" class="query">
 				<fieldset>
 					<%= label_tag :location, "Enter your postcode" %>
@@ -54,3 +38,19 @@
 		</div>
 	</div>
 </section>
+
+<div class="related-positioning">
+	<div class="related-container">
+ 		<div class="related">
+	     <div class="inner" class="group">
+	       <h2>Related tools &amp; topics</h2>
+	       <nav role="navigation">
+	         <ul>
+							some other stuff here
+                <li class="related-topic"><a href="#">View more in <span>Some section &rarr;</span></a></li>
+	         </ul>
+	       </nav>
+	     </div>
+	   </div><!-- end .related -->
+	</div>
+</div>

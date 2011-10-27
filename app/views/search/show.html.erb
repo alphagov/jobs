@@ -18,7 +18,7 @@
 		      <%= search_form_fields @search.query_params.except(:location, :latitude, :longitude) %>
 		      <%= label_tag 'location', "For location: " %>
 		      <%= text_field_tag 'location', params[:location] %>
-		      <%= submit_tag 'Change location', :name => nil %>
+		      <%= submit_tag 'Change location', :name => nil, :class => 'button' %>
 		    </form>
 		  </div>
 			<div class="query-options-headline group">

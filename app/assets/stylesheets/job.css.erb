@@ -7,24 +7,15 @@ p {
 	margin: 0.75em 0;
 }
 
-.jobs-header {
-	background: #efece0;
-	border-bottom: none;
-	display: block;
-	margin: 0 12em 0 0em;
+#wrapper .jobs-header hgroup {
 	padding: 1em 2em;
 }
 
-#wrapper .jobs-header hgroup {
-	margin: 0;
-	padding: 0;
-}
-
 #wrapper .jobs-header hgroup h1 {
-	font-size: 1.8em;
-	line-height: 1.05em;
+/*	font-size: 1.8em;*/
+/*	line-height: 1.05em;*/
 /*	margin-bottom: 0.5em;*/
-	min-height: 0;
+/*	min-height: 0;*/
 	padding: 0;
 }
 
@@ -32,19 +23,24 @@ p {
 	jobs home page
 */
 
+.jobs-home .introduction {
+	margin: -1em 0 2em 0;
+}
+
 .jobs-home .query {
 	background-color: #efece0;
 	border: solid 2px #BBB;
 	-webkit-border-radius: 0.5em;
 	-moz-border-radius: 0.5em;
 	border-radius: 0.5em;
-	margin: 0 1em;
+/*	margin: 0 1em;*/
 	padding: 1.5em 0;
 }
 
 .jobs-home .query fieldset {
 	border: none;
 	margin: 0 auto;
+	padding: 0 2em;
 }
 
 .jobs-home .query label {
@@ -52,8 +48,14 @@ p {
 	font-weight: bold;
 }
 
+.jobs-home .query input, .jobs-home .query label {
+	font-size: 1.5em;
+	line-height: 1.5em;
+}
+
 .jobs-home .query input[type="text"] {
 	margin: 0 0.5em;
+	width: 7em;
 }
 
 .job-search-how-to {
@@ -122,7 +124,7 @@ p {
 */
 
 .job-search .jobs-header {
-	margin: 0 16em 0 0em;
+	margin: 0 4em 0 0em;
 }
 
 .job-search form fieldset {
@@ -139,7 +141,8 @@ p {
 }
 
 .location-options {
-	background-color: #ddd;
+/*	background-color: #ddd;*/
+	background-color: #ffffcc;
 	border-bottom: solid 1px #bbb;
 	border-top: solid 1px #bbb;
 	padding: 0.5em 2em;
@@ -296,7 +299,7 @@ p.location {
 	width: 100%;
 }
 
-.basic-info h4, .basic-info p {
+#wrapper .job-search .basic-info h4, #wrapper .job-search .basic-info p {
 	font-size: 0.8em;
 	line-height: 1.4em;
 }
@@ -306,7 +309,7 @@ p.location {
 	margin: 0.25em 0;
 }
 
-.basic-info p {
+#wrapper .job-search .basic-info p {
 	margin: 0.25em 0 0.25em 3.75em;
 }
 
@@ -324,12 +327,12 @@ p.location {
 }
 
 .basic-info .job-options {
-	padding: 0.1em 0 0 0;
+/*	padding: 0.1em 0 0 0;*/
 	width: 32%;	
 }
 
-.job-options p {
-	margin: 0.25em 0 0 0;
+#wrapper .basic-info .job-options p {
+	margin: 0.25em 0 0 2%;
 }
 
 .more-info {
@@ -478,7 +481,7 @@ p.clear-copy {
 }
 
 .job-search .pagination-wrapper {
-	background-color: #F2F2F2;
+	background-color: #E5E5E5;
 	border-top: solid 1px #bbb;
 	float: left;
 	margin: 1em 0 -2em 0;
@@ -509,6 +512,8 @@ p.clear-copy {
 */
 
 .individual-job header.jobs-header {
+	background-color: #E5E5E5;
+	margin-right: 12em;
 	padding: 0.5em 1em;
 }
 
@@ -602,7 +607,7 @@ nav.jobs-navigation p {
 
 .individual-job .location-map {
 	float: right;
-	height: 12em;
+	min-height: 12em;
 	width: 35%;
 }
 
@@ -616,6 +621,12 @@ nav.jobs-navigation p {
 	float: right;
 	margin: 0.5em 0 0 0;
 	width: 10em;
+}
+
+.individual-job .location span {
+	display: block;
+/*	font-size: 0.8em;*/
+	line-height: 1.4em;
 }
 
 .individual-job .basic-info {

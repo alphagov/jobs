@@ -5,24 +5,6 @@
 
 <%= javascript_tag "var searchResults=#{[@formatted_job].to_json};" %>
 
-<div class="related-positioning">
-	<div class="related-container">
-		<div class="related-container-two">
-   		<div class="related">
-		     <div class="inner" class="group">
-		       <h2>Related tools &amp; topics</h2>
-		       <nav role="navigation">
-		         <ul>
-								some other stuff here
-                 <li class="related-topic"><a href="#">View more in <span>Some section &rarr;</span></a></li>
-		         </ul>
-		       </nav>
-		     </div>
-		   </div><!-- end .related -->
-		</div>
-	</div>
-</div>
-
 <section role="main" class="individual-job group">
   <%# TODO: check whether the referer is for our site -%>
   <header class="jobs-header">
@@ -44,14 +26,14 @@
 				</hgroup>
 				<div class="location-map">
 					<div id="map-canvas"></div>
-					<p class="location"><%= @job['location_name'].presence.try(:titlecase) || "No location information." %></p></div>
+					<p class="location"><span><%= @job['location_name'].presence.try(:titlecase) || "No location information." %></span></p></div>
 			  <div class="basic-info">
 			    <div class="wage">
-						<h3>Wage</h3>
+						<h3>Wage:</h3>
 			    	<p><%= @job['wage_display_text'].titlecase %></p>
 					</div>
 					<div class="hours">
-				    <h3>Hours</h3>
+				    <h3>Hours:</h3>
 				    <p><%= @job['hours_display_text'].titlecase %></p>
 					</div>
 			  </div>
@@ -68,6 +50,22 @@
 	</article>
 	
 </section>
+
+<div class="related-positioning">
+	<div class="related-container">
+   		<div class="related">
+		     <div class="inner" class="group">
+		       <h2>Related tools &amp; topics</h2>
+		       <nav role="navigation">
+		         <ul>
+								some other stuff here
+                 <li class="related-topic"><a href="#">View more in <span>Some section &rarr;</span></a></li>
+		         </ul>
+		       </nav>
+		     </div>
+		   </div><!-- end .related -->
+		</div>
+</div>
 
 <script type="text/javascript">
   $(document).ready(function() {
