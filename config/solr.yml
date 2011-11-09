@@ -9,6 +9,6 @@ test:
   port: 8983
 
 production:
-  server: production-support-backend
+  server: support.cluster
   path: /solr/jobs
   port: 8983
