@@ -18,6 +18,7 @@ gem 'rails_autolink'
 gem 'retry-this'
 gem 'sass-rails', "  ~> 3.1.0"
 gem 'mysql2'
+gem 'plek', '0.1.7'
 
 if ENV['SLIMMER_DEV']
   gem 'slimmer', :path => '../slimmer'
