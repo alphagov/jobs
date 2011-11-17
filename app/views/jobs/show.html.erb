@@ -7,7 +7,7 @@
 
 <section role="main" class="individual-job group">
   <%# TODO: check whether the referer is for our site -%>
-  <header class="jobs-header">
+  <header class="page-header jobs-header">
 		<%= content_tag :nav, :class => 'jobs-navigation job-identifier', :data => { :id => @job['id'] } do -%>
 			<%- if request.env['HTTP_REFERER'].present? -%>
 		    <p><%= link_to '&larr; Back to job search results'.html_safe, :back %></p>
