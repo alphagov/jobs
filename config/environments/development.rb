@@ -29,6 +29,4 @@ Jobs::Application.configure do
   config.assets.debug = true
 
   config.action_mailer.default_url_options = { :host => "www.dev.gov.uk" }
-
-  config.middleware.use Slimmer::App, :template_path => "#{config.root}/public/templates"
 end
