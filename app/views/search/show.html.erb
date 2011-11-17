@@ -1,6 +1,4 @@
-<%- content_for :head do -%>
-	<%= javascript_include_tag :search %>
-<%- end -%>
+<%- content_for :head, javascript_include_tag(:search, :defer => 'defer') %>
 
 <%= javascript_tag "var searchResults=#{@formatted_docs.to_json};" %>
 <section role="main" class="job-search group">

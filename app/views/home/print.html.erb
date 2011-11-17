@@ -1,6 +1,4 @@
-<%- content_for :head do -%>
-  <%= javascript_include_tag :print %>
-<%- end -%>
+<%- content_for :head, javascript_include_tag(:print, :defer => 'defer') %>
 
 <section role="main" class="group">
   <h2>Your Jobs List</h2>

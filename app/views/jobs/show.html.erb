@@ -1,6 +1,6 @@
 <%- content_for :head do -%>
-	<%= javascript_include_tag :search %>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<%= javascript_include_tag :search, :defer => 'defer' %>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false" defer></script>
 <%- end -%>
 
 <%= javascript_tag "var searchResults=#{[@formatted_job].to_json};" %>
@@ -67,7 +67,7 @@
 		</div>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript" defer>
   $(document).ready(function() {
     var latlng = new google.maps.LatLng(<%= "%f,%f" % [@job['location_0_coordinate'].to_f,
 													                             @job['location_1_coordinate'].to_f] %>);
