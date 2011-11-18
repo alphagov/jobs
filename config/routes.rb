@@ -17,4 +17,6 @@ Jobs::Application.routes.draw do
 
     match 'print', :to => 'home#print', :via => :get
   end
+  
+  root :to => redirect("/job-search")
 end
