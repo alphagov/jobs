@@ -1,4 +1,5 @@
 source 'http://rubygems.org'
+source 'https://gems.gemfury.com/vo6ZrmjBQu5szyywDszE/'
 
 group :passenger_compatibility do
   gem 'rack', '1.3.5'
@@ -41,4 +42,8 @@ end
 group :assets do
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
+end
+
+group :router do
+  gem 'router-client'
 end
