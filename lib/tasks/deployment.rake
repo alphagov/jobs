@@ -32,5 +32,6 @@ namespace :deployment do
     end
   end
 
+  desc "Register jobs application and routes with the router (run in cluster)"
   task :register => [ :register_application, :register_routes ]
 end
