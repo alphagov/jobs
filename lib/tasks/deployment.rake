@@ -32,5 +32,5 @@ namespace :deployment do
     end
   end
 
-  task :register => :register_application, :register_routes
+  task :register => [ :register_application, :register_routes ]
 end
