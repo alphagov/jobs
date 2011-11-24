@@ -30,6 +30,14 @@ namespace :deployment do
       route = @router.routes.find "/job-search"
       puts "Route already registered: #{route.inspect}"
     end
+
+    begin
+      @router.routes.create application_id: "jobs", route_type: :prefix,
+        incoming_path: "/jobs/assets"
+    rescue Router::Conflict
+      route = @router.routes.find "/jobs/assets"
+      puts "Route already registered: #{route.inspect}"
+    end
   end
 
   desc "Register jobs application and routes with the router (run in cluster)"
