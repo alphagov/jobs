@@ -45,5 +45,5 @@ group :assets do
 end
 
 group :router do
-  gem 'router-client'
+  gem 'router-client', require: 'router/client'
 end

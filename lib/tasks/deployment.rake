@@ -1,12 +1,12 @@
 namespace :deployment do
   task :router_environment do
-    Bundle.require :router, :default
+    Bundler.require :router, :default
 
     require 'logger'
     logger = Logger.new STDOUT
     logger.level = Logger::DEBUG
 
-    http = Router::HttpClient.new "http://cache.cluster:4000/router", logger
+    http = Router::HttpClient.new "http://cache.cluster:8080/router", logger
 
     @router = Router::Client.new http
   end
@@ -25,9 +25,9 @@ namespace :deployment do
   task :register_routes => :router_environment do
     begin
       @router.routes.create application_id: "jobs", route_type: :prefix,
-        incoming_path: "/jobs"
+        incoming_path: "/job-search"
     rescue Router::Conflict
-      route = @router.routes.find "/jobs"
+      route = @router.routes.find "/job-search"
       puts "Route already registered: #{route.inspect}"
     end
   end
