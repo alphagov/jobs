@@ -33,9 +33,9 @@ namespace :deployment do
 
     begin
       @router.routes.create application_id: "jobs", route_type: :prefix,
-        incoming_path: "/jobs/assets"
+        incoming_path: "/jobs"
     rescue Router::Conflict
-      route = @router.routes.find "/jobs/assets"
+      route = @router.routes.find "/jobs"
       puts "Route already registered: #{route.inspect}"
     end
   end
