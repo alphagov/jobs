@@ -13,7 +13,7 @@ namespace :router do
 
   task :register_application => :router_environment do
     platform = ENV['FACTER_govuk_platform']
-    url = "http://jobs.#{platform}.alphagov.co.uk/"
+    url = "jobs.#{platform}.alphagov.co.uk/"
     begin
       @router.applications.create application_id: "jobs", backend_url: url
     rescue Router::Conflict
