@@ -1,4 +1,4 @@
-namespace :deployment do
+namespace :router do
   task :router_environment do
     Bundler.require :router, :default
 
@@ -40,6 +40,6 @@ namespace :deployment do
     end
   end
 
-  desc "Register jobs application and routes with the router (run in cluster)"
+  desc "Register jobs application and routes with the router (run this task on server in cluster)"
   task :register => [ :register_application, :register_routes ]
 end
