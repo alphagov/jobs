@@ -2,7 +2,7 @@ class JobsController < ApplicationController
   include JobFormatter
 
   def show
-    expires_in 10.minute, :public => true unless Rails.env.development?
+    expires_in 24.hours, :public => true unless Rails.env.development?
 
     @job = VacancySearch.find_individual(params[:id])
     @formatted_job = format_job(@job)
