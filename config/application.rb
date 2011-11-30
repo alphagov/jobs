@@ -43,13 +43,13 @@ module Jobs
     config.assets.enabled = true
 
     # Path within public/ where assets are compiled to
-    config.assets.prefix = "jobs/assets"
-    config.assets.manifest = Rails.root.join 'public/jobs/assets'
-    
+    config.assets.prefix = "jobs"
+    config.assets.manifest = Rails.root.join 'public/jobs'
+
     # Paths used by helpers when generating links to assets
-    config.action_controller.assets_dir = Rails.root.join 'public/jobs/assets'
-    config.action_controller.javascripts_dir = Rails.root.join 'public/jobs/assets/javascripts'
-    config.action_controller.stylesheets_dir = Rails.root.join 'public/jobs/assets/stylesheets'
+    config.action_controller.assets_dir = Rails.root.join 'public/jobs'
+    config.action_controller.javascripts_dir = Rails.root.join 'public/jobs/javascripts'
+    config.action_controller.stylesheets_dir = Rails.root.join 'public/jobs/stylesheets'
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
