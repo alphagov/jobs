@@ -6,38 +6,21 @@ namespace :router do
     logger = Logger.new STDOUT
     logger.level = Logger::DEBUG
 
-    http = Router::HttpClient.new "http://cache.cluster:8080/router", logger
-
-    @router = Router::Client.new http
+    @router = Router::Client.new :logger => @logger
   end
 
   task :register_application => :router_environment do
     platform = ENV['FACTER_govuk_platform']
     url = "jobs.#{platform}.alphagov.co.uk/"
-    begin
-      @router.applications.create application_id: "jobs", backend_url: url
-    rescue Router::Conflict
-      application = @router.applications.find "jobs"
-      puts "Application already registered: #{application.inspect}"
-    end
+    @router.applications.update application_id: "jobs", backend_url: url
   end
 
   task :register_routes => :router_environment do
-    begin
-      @router.routes.create application_id: "jobs", route_type: :prefix,
-        incoming_path: "/job-search"
-    rescue Router::Conflict
-      route = @router.routes.find "/job-search"
-      puts "Route already registered: #{route.inspect}"
-    end
+    @router.routes.update application_id: "jobs", route_type: :prefix,
+      incoming_path: "/job-search"
 
-    begin
-      @router.routes.create application_id: "jobs", route_type: :prefix,
-        incoming_path: "/jobs"
-    rescue Router::Conflict
-      route = @router.routes.find "/jobs"
-      puts "Route already registered: #{route.inspect}"
-    end
+    @router.routes.update application_id: "jobs", route_type: :prefix,
+      incoming_path: "/jobs"
   end
 
   desc "Register jobs application and routes with the router (run this task on server in cluster)"
