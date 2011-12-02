@@ -6,7 +6,7 @@ namespace :rummager do
       "description" => "Find job openings",
       "format" => "jobs",
       "link" => "/job-search",
-      "indexable_content" => "search filter save jobs print employment",
+      "indexable_content" => "search filter save job print employment",
     }]
     Rummageable.index documents
   end
