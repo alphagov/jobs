@@ -1,7 +1,7 @@
 <%- content_for :head, javascript_include_tag(:search, :defer => 'defer') %>
 
 <%= javascript_tag "var searchResults=#{@formatted_docs.to_json};" %>
-<section role="main" class="job-search group">
+<section role="main" class="job-search group" id="content">
 
 	<header class="page-header jobs-header">
 		<hgroup>

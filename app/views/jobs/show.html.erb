@@ -5,7 +5,7 @@
 
 <%= javascript_tag "var searchResults=#{[@formatted_job].to_json};" %>
 
-<section role="main" class="individual-job group">
+<section role="main" class="individual-job group" id="content">
   <%# TODO: check whether the referer is for our site -%>
   <header class="page-header jobs-header">
 		<%= content_tag :nav, :class => 'jobs-navigation job-identifier', :data => { :id => @job['id'] } do -%>
