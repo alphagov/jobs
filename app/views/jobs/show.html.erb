@@ -26,7 +26,8 @@
 				</hgroup>
 				<div class="location-map">
 					<div id="map-canvas"></div>
-					<p class="location"><span><%= @job['location_name'].presence.try(:titlecase) || "No location information." %></span></p></div>
+					<p class="location"><span><%= @job['location_name'].presence.try(:titlecase) || "No location information." %></span></p>
+				</div>
 			  <div class="basic-info">
 			    <div class="wage">
 						<h3>Wage:</h3>
@@ -48,7 +49,6 @@
 			</div>
 		</div>
 	</article>
-	
 </section>
 
 <div class="related-positioning">
