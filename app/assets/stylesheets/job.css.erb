@@ -433,6 +433,9 @@ p.location {
 	overflow: auto;
 	padding: 0;
 }
+.lte-ie8 .job-bookmarks ul {
+  padding-bottom: 1px;
+}
 
 .job-bookmarks li {
 	background-color: #fff;
@@ -444,6 +447,10 @@ p.location {
 
 .job-bookmarks li:last-child {
 	border-bottom: solid 1px #ddd;
+}
+.lte-ie8 .job-bookmarks li {
+	border-bottom: solid 1px #ddd;
+	margin-bottom: -1px;
 }
 
 .job-bookmarks h4, .job-bookmarks p {
@@ -500,22 +507,32 @@ p.clear-copy {
 }
 
 .job-search .pagination {
+  background: transparent;
 	list-style: none;
-	padding: 0 2em 2.5em 2em;
+	margin: 0;
+/*  padding: 0.25em 0;*/
+  padding: 0;
 }
 
-.job-search .pagination li.previous {
-	float: left;
-}
-
-.job-search .pagination li.next {
-	float: right;
-	text-align: right;
+.job-search .pagination li {
+	width: 50%;
 }
 
 .job-search .pagination li a {
+  border: none;
 	display: block;
-	padding: 0.5em 0.25em;
+	padding: 1em;
+}
+
+.job-search .pagination li.previous a {
+	float: left;
+	width: auto;
+}
+
+.job-search .pagination li.next a {
+	float: right;
+	text-align: right;
+	width: auto;
 }
 
 /*
