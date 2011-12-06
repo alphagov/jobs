@@ -11,7 +11,7 @@ window.BookmarkedJobsListView = class BookmarkedJobsListView extends Backbone.Vi
 
     @list = $('<ul class="bookmarked-jobs-list" />').appendTo(@el)
 
-    $(@el).append('<p class="hint">Save jobs here by clicking "Add to jobs list" on a job.')
+    $(@el).append('<p class="hint">Save jobs here by clicking "Add to list" on a job.')
     $(@el).append('<p class="print-list button-small"><a href="/print">Print list</a></p>')
     $(@el).append('<p class="clear-all button-small"><a href="#">Clear list</a></p>')
     $(@el).append('<p class="clear-copy">Clear this list when you&rsquo;ve finished if this is a public computer.</p>')
