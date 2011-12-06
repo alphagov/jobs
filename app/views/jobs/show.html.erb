@@ -1,6 +1,6 @@
 <%- content_for :head do -%>
 	<%= javascript_include_tag :search, :defer => 'defer' %>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false" defer></script>
+
 <%- end -%>
 
 <%= javascript_tag "var searchResults=#{[@formatted_job].to_json};" %>
