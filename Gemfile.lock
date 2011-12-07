@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:alphagov/rummageable.git
-  revision: 3409afd6d1801cbe7fccfa6008298204421650ee
+  revision: cfd73002839fca54eca28326bc17f01945fde6d9
   specs:
     rummageable (0.1.0)
       json
@@ -9,13 +9,14 @@ GIT
 
 GIT
   remote: https://github.com/alphagov/delsolr.git
-  revision: a89291920000e76415d05f85df5df59b44814a47
+  revision: f029d6ff72b37a5f6272b7a6d29a39fb1b30af93
   specs:
     delsolr (0.1.5)
+      builder (>= 2.0.0)
 
 GIT
   remote: https://github.com/alphagov/geogov.git
-  revision: 0d92835dec01266bc3611800850b6abf6923690f
+  revision: 13426953924d06b1e0f6af4ef1a439aacc31ba90
   specs:
     geogov (0.0.2)
 
@@ -65,19 +66,19 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.1.2)
-    compass (0.12.alpha.0)
+    coffee-script-source (1.1.3)
+    compass (0.12.alpha.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
     crack (0.3.1)
     erubis (2.7.0)
-    execjs (1.2.9)
+    execjs (1.2.11)
       multi_json (~> 1.0)
-    factory_girl (2.2.0)
+    factory_girl (2.3.2)
       activesupport
-    factory_girl_rails (1.3.0)
-      factory_girl (~> 2.2.0)
+    factory_girl_rails (1.4.0)
+      factory_girl (~> 2.3.0)
       railties (>= 3.0.0)
     fssm (0.2.7)
     gyoku (0.4.4)
@@ -86,27 +87,27 @@ GEM
     httpi (0.9.5)
       rack
     i18n (0.6.0)
-    jquery-rails (1.0.16)
+    jquery-rails (1.0.19)
       railties (~> 3.0)
       thor (~> 0.14)
-    json (1.6.1)
-    libv8 (3.3.10.2)
+    json (1.6.3)
+    libv8 (3.3.10.4)
     mail (2.3.0)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     metaclass (0.0.1)
-    mime-types (1.17.1)
+    mime-types (1.17.2)
     mocha (0.10.0)
       metaclass (~> 0.0.1)
-    multi_json (1.0.3)
-    mysql2 (0.3.7)
+    multi_json (1.0.4)
+    mysql2 (0.3.11)
     nokogiri (1.5.0)
     nori (1.0.2)
     null_logger (0.0.1)
-    plek (0.1.7)
+    plek (0.1.11)
       builder
-    polyglot (0.3.2)
+    polyglot (0.3.3)
     rack (1.3.5)
     rack-cache (1.1)
       rack (>= 0.4)
@@ -142,12 +143,11 @@ GEM
     router-client (2.0.3)
       builder
       null_logger
-    sass (3.1.10)
-    sass-rails (3.1.4)
+    sass (3.1.11)
+    sass-rails (3.1.5)
       actionpack (~> 3.1.0)
       railties (~> 3.1.0)
-      sass (>= 3.1.4)
-      sprockets (~> 2.0.0)
+      sass (~> 3.1.10)
       tilt (~> 1.3.2)
     savon (0.9.7)
       akami (~> 1.0)
@@ -163,30 +163,30 @@ GEM
     simplecov-html (0.5.3)
     simplecov-rcov (0.2.3)
       simplecov (>= 0.4.1)
-    slimmer (1.1.1)
+    slimmer (1.1.3)
       nokogiri (~> 1.5.0)
-      plek (~> 0.1)
+      plek (>= 0.1.8)
       rack (~> 1.3.5)
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sqlite3 (1.3.4)
-    test-unit (2.4.0)
-    therubyracer (0.9.8)
+    sqlite3 (1.3.5)
+    test-unit (2.4.2)
+    therubyracer (0.9.9)
       libv8 (~> 3.3.10)
     thor (0.14.6)
     tilt (1.3.3)
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.30)
-    uglifier (1.0.4)
+    tzinfo (0.3.31)
+    uglifier (1.1.0)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     wasabi (2.0.0)
       nokogiri (>= 1.4.0)
-    webmock (1.7.7)
+    webmock (1.7.8)
       addressable (~> 2.2, > 2.2.5)
       crack (>= 0.1.7)
 
@@ -204,7 +204,7 @@ DEPENDENCIES
   json
   mocha
   mysql2
-  plek (= 0.1.7)
+  plek (~> 0)
   rack (= 1.3.5)
   rails (= 3.1.1)
   rails_autolink

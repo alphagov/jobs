@@ -19,7 +19,7 @@ gem 'rails_autolink'
 gem 'retry-this'
 gem 'sass-rails', "  ~> 3.1.0"
 gem 'mysql2'
-gem 'plek', '0.1.7'
+gem 'plek', '~> 0'
 gem 'rummageable', :git => 'git@github.com:alphagov/rummageable.git'
 
 if ENV['SLIMMER_DEV']
