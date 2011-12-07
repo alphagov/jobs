@@ -19,7 +19,7 @@ window.BookmarkedJobView = class BookmarkedJobView extends Backbone.View
     return false
 
   template: '''
-    <h4><a href="/jobs/{{id}}">{{title}}</a></h4>
+    <h4><a href="/job-search/jobs/{{id}}">{{title}}</a></h4>
     <p class="employer">{{employer}}</p>
     <p class="location">{{location}}</p>
     <p class="remove"><a href="#" class="remove-link">remove</a></p>

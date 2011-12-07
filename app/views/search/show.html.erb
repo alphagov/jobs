@@ -14,7 +14,7 @@
 			<div class="location-options">
 		    <form action="<%= search_path %>" method="post">
 		      <%= search_form_fields @search.query_params.except(:location, :latitude, :longitude) %>
-		      <%= label_tag 'location', "For location: " %>
+		      <%= label_tag 'location', "For postcode: " %>
 		      <%= text_field_tag 'location', params[:location] %>
 		      <%= submit_tag 'Change location', :name => nil, :class => 'button' %>
 		    </form>
