@@ -16,9 +16,9 @@ GIT
 
 GIT
   remote: https://github.com/alphagov/geogov.git
-  revision: 13426953924d06b1e0f6af4ef1a439aacc31ba90
+  revision: 086c5a1ef6b0e719a25c08e8a6c799dab141b02e
   specs:
-    geogov (0.0.2)
+    geogov (0.0.3)
 
 GEM
   remote: http://rubygems.org/
@@ -58,7 +58,7 @@ GEM
     arel (2.2.1)
     builder (3.0.0)
     chunky_png (1.2.5)
-    ci_reporter (1.6.5)
+    ci_reporter (1.6.6)
       builder (>= 2.1.2)
     coffee-rails (3.1.1)
       coffee-script (>= 2.2.0)
