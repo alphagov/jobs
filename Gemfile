@@ -13,7 +13,13 @@ gem 'jquery-rails'
 gem 'savon'
 gem 'therubyracer'
 gem 'delsolr', :git => 'https://github.com/alphagov/delsolr.git'
-gem 'geogov', :git => 'https://github.com/alphagov/geogov.git'
+
+if ENV['GEO_GOV_DEV']
+	gem 'geogov', :path => '../geogov'
+else
+	gem 'geogov', :git => 'https://github.com/alphagov/geogov.git'
+end
+
 gem 'compass', '~> 0.12.alpha.0'
 gem 'rails_autolink'
 gem 'retry-this'
