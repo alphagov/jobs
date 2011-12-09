@@ -59,7 +59,7 @@
                 <div class="query-results-headline">
                     <%- if @results && @results.total > 0 -%>
                         <h2>Found <%= pluralize @results.total, 'job' %>
-                            <small>within <%= pluralize @search.distance, 'mile' %> of <%= @search.location %></small>
+                          <small>within <%= pluralize @search.distance, 'mile' %> of <span><%= @search.location %></span></small>
                         </h2>
                     <%- else -%>
                         <div class="no-results">
