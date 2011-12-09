@@ -1,59 +1,65 @@
-<section role="main" class="jobs-home group" id="content">	
-	<header class="page-header jobs-header">
-		<hgroup>
-			<h1>Job search</h1>
-		</hgroup>
-  </header>
-	<div class="job-search-how-to">
-		<div class="inner group">
-			<div class="introduction">
-				<p>
-					Enter your postcode to find jobs near you. You can sort the results by permanent or part-time, and use keywords to find the type of job you're after.
-        </p>
-        <p>
-          You can save a list of jobs to print or email to yourself.
-				</p>
-			</div>
-		  <form action="<%= search_path -%>" method="get" class="query">
-				<fieldset>
-					<%= label_tag :location, "Enter your postcode" %>
-			    <%= text_field_tag :location, '', :class => 'location' %>
-			    <%= submit_tag "Search", :name => nil, :class => 'submit' %>
-				</fieldset>
-		  </form>
-			<div class="how-it-works">
-				<h2>How job search works</h2>
-				<ol>
-					<li>
-						<h3>Search</h3>
-						<div class="placeholder">an image</div>
-					</li>
-					<li>
-						<h3>Filter and save jobs</h3>
-						<div class="placeholder">an image</div>
-					</li>
-					<li>
-						<h3>Print</h3>
-						<div class="placeholder">an image</div>
-					</li>
-				</ol>
-			</div>
-		</div>
-	</div>
+<section role="main" class="jobs-home group" id="content">
+    <header class="page-header jobs-header">
+        <hgroup>
+            <h1>Job search</h1>
+        </hgroup>
+    </header>
+    <div class="job-search-how-to">
+        <div class="inner group">
+            <div class="introduction">
+                <p>
+                    Enter your postcode to find jobs near you. You can sort the results by permanent or part-time, and
+                    use keywords to find the type of job you're after.
+                </p>
+
+                <p>
+                    You can save a list of jobs to print or email to yourself.
+                </p>
+            </div>
+            <form action="<%= search_path -%>" method="get" class="query">
+                <fieldset>
+                    <%= label_tag :location, "Enter your postcode" %>
+                    <%= text_field_tag :location, '', :class => 'location' %>
+                    <%= submit_tag "Search", :name => nil, :class => 'submit' %>
+                </fieldset>
+            </form>
+            <div class="how-it-works">
+                <h2>How job search works</h2>
+                <ol>
+                    <li>
+                        <h3>Search</h3>
+
+                        <div class="placeholder">an image</div>
+                    </li>
+                    <li>
+                        <h3>Filter and save jobs</h3>
+
+                        <div class="placeholder">an image</div>
+                    </li>
+                    <li>
+                        <h3>Print</h3>
+
+                        <div class="placeholder">an image</div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
 </section>
 
 <div class="related-positioning">
-	<div class="related-container">
- 		<div class="related">
-	     <div class="inner" class="group">
-	       <h2>Related tools &amp; topics</h2>
-	       <nav role="navigation">
-	         <ul>
-							some other stuff here
-                <li class="related-topic"><a href="#">View more in <span>Some section &rarr;</span></a></li>
-	         </ul>
-	       </nav>
-	     </div>
-	   </div><!-- end .related -->
-	</div>
+    <div class="related-container">
+        <div class="related">
+            <div class="inner" class="group">
+                <h2>Related tools &amp; topics</h2>
+                <nav role="navigation">
+                    <ul>
+                        some other stuff here
+                        <li class="related-topic"><a href="#">View more in <span>Some section &rarr;</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- end .related -->
+    </div>
 </div>

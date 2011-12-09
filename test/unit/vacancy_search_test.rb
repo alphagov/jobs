@@ -2,12 +2,12 @@ require 'test_helper'
 
 class JobSearchTest < ActiveSupport::TestCase
   test 'initialized without any options' do
-    assert_raise(VacancySearch::LocationMissing) { VacancySearch.new({}) }
+    assert_raise(VacancySearch::LocationMissing) { VacancySearch.new({}).run }
   end
 
   test 'initialized with XOR latitude, longitude' do
-    assert_raise(VacancySearch::LocationMissing) { VacancySearch.new(:latitude => 51.0) }
-    assert_raise(VacancySearch::LocationMissing) { VacancySearch.new(:longitude => 1.0) }
+    assert_raise(VacancySearch::LocationMissing) { VacancySearch.new(:latitude => 51.0).run }
+    assert_raise(VacancySearch::LocationMissing) { VacancySearch.new(:longitude => 1.0).run }
   end
 
   test 'initialized with a longitude and a latitude' do
@@ -22,8 +22,8 @@ class JobSearchTest < ActiveSupport::TestCase
   end
 
   test 'initialized with a location, XOR latitude, longitude' do
-    assert_raise(VacancySearch::InvalidLocationCombination) { VacancySearch.new(:latitude => 51.0, :location => "Oxford") }
-    assert_raise(VacancySearch::InvalidLocationCombination) { VacancySearch.new(:longitude => 1.0, :location => "Oxford") }
+    assert_raise(VacancySearch::InvalidLocationCombination) { VacancySearch.new(:latitude => 51.0, :location => "Oxford").run }
+    assert_raise(VacancySearch::InvalidLocationCombination) { VacancySearch.new(:longitude => 1.0, :location => "Oxford").run }
   end
 
   test 'initialized with only latitude/longitude' do

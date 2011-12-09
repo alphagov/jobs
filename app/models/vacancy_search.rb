@@ -1,12 +1,18 @@
 class VacancySearch
 
-  class InvalidLocationCombination < RuntimeError; end
-  class LocationMissing < RuntimeError; end
-  class SearchError < RuntimeError; end
+  class InvalidLocationCombination < RuntimeError;
+  end
+
+  class LocationMissing < RuntimeError;
+  end
+
+  class SearchError < RuntimeError;
+  end
 
   attr_accessor :location, :latitude, :longitude, :distance
   attr_accessor :query, :permanent, :full_time, :recency
   attr_accessor :page, :per_page
+  attr_accessor :errors
 
   DEFAULT_QUERY = "*:*"
   DEFAULT_PER_PAGE = 50
@@ -17,10 +23,6 @@ class VacancySearch
     @location = options.delete(:location)
     @latitude = options.delete(:latitude).try(:to_f)
     @longitude = options.delete(:longitude).try(:to_f)
-
-    raise InvalidLocationCombination if @location.present? && (@latitude.present? || @longitude.present?)
-    raise LocationMissing if @location.blank? && (@latitude.blank? || @longitude.blank?)
-
     @permanent = options.delete(:permanent)
     @full_time = options.delete(:full_time)
     @per_page = options.delete(:per_page).presence || DEFAULT_PER_PAGE
@@ -28,25 +30,28 @@ class VacancySearch
     @page = options.delete(:page).try(:to_i) || 1
     @distance = options.delete(:distance) || DEFAULT_DISTANCE
     @recency = options.delete(:recency).try(:to_i)
+    @errors = {}
   end
 
   def run
+    raise InvalidLocationCombination if @location.present? && (@latitude.present? || @longitude.present?)
+    raise LocationMissing if @location.blank? && (@latitude.blank? || @longitude.blank?)
     geocode if @location.present?
 
     params = {
-      :query => @query.present? ? "title:#{@query}" : "*:*",
-      :fields => "*",
-      :fq => "{!bbox}",
-      :sort => "geodist() asc",
-      :sfield => "location",
-      :pt => "#{@latitude},#{@longitude}",
-      :d => @distance * MILES_TO_KM_MULTIPLIER,
-      :limit => @per_page,
-      :offset => (@page-1)*@per_page,
-      :filters => []
+        :query => @query.present? ? "title:#{@query}" : "*:*",
+        :fields => "*",
+        :fq => "{!bbox}",
+        :sort => "geodist() asc",
+        :sfield => "location",
+        :pt => "#{@latitude},#{@longitude}",
+        :d => @distance * MILES_TO_KM_MULTIPLIER,
+        :limit => @per_page,
+        :offset => (@page-1)*@per_page,
+        :filters => []
     }
 
-    params[:filters] << { :is_permanent => @permanent } unless @permanent.nil?
+    params[:filters] << {:is_permanent => @permanent} unless @permanent.nil?
     params[:filters] << (@full_time ? "hours:[30 TO *]" : "hours:[* TO 29]") unless @full_time.nil?
     # round to beginning of day and subtract x days
     params[:filters] << "received_on:[NOW/DAY-#{@recency}DAY TO *]" unless @recency.nil?
@@ -72,10 +77,10 @@ class VacancySearch
 
   def self.find_individual(job_id)
     params = {
-      :query => "*:*",
-      :fields => "*",
-      :filters => ["id:#{job_id}"],
-      :limit => 1
+        :query => "*:*",
+        :fields => "*",
+        :filters => ["id:#{job_id}"],
+        :limit => 1
     }
 
     results = $solr.query('standard', params) || raise(SearchError)
@@ -84,9 +89,9 @@ class VacancySearch
 
   def self.received_on_counts
     params = {
-      :query => "*:*",
-      :limit => 0,
-      :facets => [{ :field => 'received_on', :mincount => 10 }]
+        :query => "*:*",
+        :limit => 0,
+        :facets => [{:field => 'received_on', :mincount => 10}]
     }
 
     results = $solr.query('standard', params) || raise(SearchError)
@@ -101,11 +106,11 @@ class VacancySearch
 
   def self.ids_for_date(date)
     params = {
-      :query => "*:*",
-      :limit => 50000,
-      :sort => "id asc",
-      :fields => "id",
-      :filters => ["received_on:[#{date.beginning_of_day.iso8601} TO #{date.end_of_day.iso8601}]"]
+        :query => "*:*",
+        :limit => 50000,
+        :sort => "id asc",
+        :fields => "id",
+        :filters => ["received_on:[#{date.beginning_of_day.iso8601} TO #{date.end_of_day.iso8601}]"]
     }
 
     results = $solr.query('standard', params) || raise(SearchError)
