@@ -5,6 +5,7 @@ namespace :rummager do
       "title" => "Job search",
       "description" => "Find job openings",
       "format" => "jobs",
+      "section" => "work",
       "link" => "/job-search",
       "indexable_content" => "search filter save job print employment",
     }]
