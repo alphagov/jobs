@@ -52,6 +52,8 @@ module Jobs
     config.action_controller.stylesheets_dir = Rails.root.join 'public/jobs/stylesheets'
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    config.assets.version = '1.0'          
+    
+    config.middleware.use Rack::Geo 
   end
 end

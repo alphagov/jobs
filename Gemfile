@@ -14,10 +14,12 @@ gem 'savon'
 gem 'therubyracer'
 gem 'delsolr', :git => 'https://github.com/alphagov/delsolr.git'
 
-if ENV['GEO_GOV_DEV']
-	gem 'geogov', :path => '../geogov'
+if ENV['GEO_DEV']
+  gem 'rack-geo', :path => '../rack-geo'
+  gem 'geogov', :path => '../geogov'
 else
-	gem 'geogov', :git => 'https://github.com/alphagov/geogov.git'
+  gem 'rack-geo', '~> 0.8.1'
+  gem 'geogov', '~> 0.0.4'
 end
 
 gem 'compass', '~> 0.12.alpha.0'
