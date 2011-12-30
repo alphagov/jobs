@@ -3,8 +3,6 @@
 require 'test_helper'
 
 class VacancyTest < ActiveSupport::TestCase
-  include AssetHelpers
-
   test 'is invalid without a vacancy_id' do
     vacancy = Factory.build(:vacancy, :vacancy_id => nil)
     assert_equal false, vacancy.valid?
@@ -67,35 +65,6 @@ class VacancyTest < ActiveSupport::TestCase
     assert_equal true, vacancy.delete_from_solr
   end
 
-  test '.fetch_details_from_api' do
-    vacancy = Factory.create(:vacancy, :vacancy_id => "SOM/56416")
-
-    stub_request(:get, "http://soap.xbswebservices.info/jobsearch.asmx?WSDL").
-      to_return(:status => 200, :body => asset_contents('jobsearch_wsdl'))
-
-    stub_request(:post, "http://soap.xbswebservices.info/jobsearch.asmx").
-      with(:body => asset_contents('get_job_detail_request')).
-      to_return(:body => asset_contents('get_job_detail_response'))
-
-    details = vacancy.fetch_details_from_api
-
-    # just to prove we're getting the hash back
-    assert_equal details[:age_exempt], "N"
-  end
-
-  test '#fetch_vacancies_from_api' do
-    # stub WSDL
-    stub_request(:get, "http://soap.xbswebservices.info/jobsearch.asmx?WSDL").
-      to_return(:status => 200, :body => asset_contents('jobsearch_wsdl'))
-
-    stub_request(:post, "http://soap.xbswebservices.info/jobsearch.asmx").
-      with(:body => asset_contents('all_near_me_request')).
-      to_return(:body => asset_contents('all_near_me_response'))
-
-    response = Vacancy.fetch_vacancies_from_api(51.0, 1.0)
-    assert_equal 100, response.length
-  end
-
   test '.import_details_from_hash' do
     vacancy_hash = {:currency=>"GBP",
                     :date_received=>"30082011",
@@ -149,5 +118,4 @@ class VacancyTest < ActiveSupport::TestCase
 
     vacancy.import_details_from_hash(vacancy_hash)
   end
-
 end

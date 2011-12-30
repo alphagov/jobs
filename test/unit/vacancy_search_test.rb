@@ -146,4 +146,20 @@ class JobSearchTest < ActiveSupport::TestCase
     assert_equal VacancySearch.find_individual('JOB/1234'), nil
   end
 
+
+  test '.fetch_details_from_api' do
+    vacancy = Factory.create(:vacancy, :vacancy_id => "SOM/56416")
+
+    stub_request(:get, "http://soap.xbswebservices.info/jobsearch.asmx?WSDL").
+      to_return(:status => 200, :body => asset_contents('jobsearch_wsdl'))
+
+    stub_request(:post, "http://soap.xbswebservices.info/jobsearch.asmx").
+      with(:body => asset_contents('get_job_detail_request')).
+      to_return(:body => asset_contents('get_job_detail_response'))
+
+    details = vacancy.fetch_details_from_api
+
+    # just to prove we're getting the hash back
+    assert_equal details[:age_exempt], "N"
+  end
 end
