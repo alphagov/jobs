@@ -14,6 +14,8 @@ gem 'savon'
 gem 'therubyracer'
 gem 'delsolr', :git => 'https://github.com/alphagov/delsolr.git'
 
+gem 'aws-ses', :require => 'aws/ses'
+
 if ENV['GEO_DEV']
   gem 'rack-geo', :path => '../rack-geo'
   gem 'geogov', :path => '../geogov'

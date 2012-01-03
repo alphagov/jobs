@@ -50,6 +50,11 @@ GEM
     akami (1.0.0)
       gyoku (>= 0.4.0)
     arel (2.2.1)
+    aws-ses (0.4.4)
+      builder
+      mail (> 2.2.5)
+      mime-types
+      xml-simple
     builder (3.0.0)
     chunky_png (1.2.5)
     ci_reporter (1.6.8)
@@ -190,11 +195,13 @@ GEM
     webmock (1.7.8)
       addressable (~> 2.2, > 2.2.5)
       crack (>= 0.1.7)
+    xml-simple (1.1.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-ses
   ci_reporter
   coffee-rails (~> 3.1.0)
   compass (~> 0.12.alpha.0)
