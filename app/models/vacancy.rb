@@ -5,9 +5,11 @@ class Vacancy < ActiveRecord::Base
   validates_presence_of :vacancy_id
 
   def import_details_from_hash(v)
-    [:vacancy_title, :soc_code, :received_on, :wage, :wage_qualifier, 
-      :wage_display_text, :wage_sort_order_id, :currency, :is_national, :is_regional,
-      :hours, :hours_qualifier, :hours_display_text].each do |field|
+    [
+      :vacancy_title, :soc_code, :received_on, :wage, :wage_qualifier,
+      :wage_display_text, :wage_sort_order_id, :currency, :is_national,
+      :is_regional, :hours, :hours_qualifier, :hours_display_text
+    ].each do |field|
         write_attribute(field, v[field])
     end
 

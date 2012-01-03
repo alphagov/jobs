@@ -40,7 +40,6 @@ class VacancyImporter
     end
   end
 
-private
   def self.soap_client
     @@soap_client ||= Savon::Client.new do
       wsdl.document = "http://soap.xbswebservices.info/jobsearch.asmx?WSDL"
@@ -108,7 +107,10 @@ private
       vacancy_hash.recursively_symbolize_keys!
       vacancy = Vacancy.find_or_initialize_by_vacancy_id(vacancy_hash[:vacancy_id])
       # if we've already seen this vacancy on this run_date, we can ignore it.
-      return if vacancy.most_recent_import_on == run_date
+      if vacancy.most_recent_import_on == run_date
+        Rails.logger.warn "Duplicate job seen"
+        return
+      end
 
       if vacancy.new_record?
         vacancy.first_import_on = run_date

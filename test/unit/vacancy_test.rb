@@ -99,23 +99,23 @@ class VacancyTest < ActiveSupport::TestCase
                     :wage_sort_order_id=>"20"}
 
     vacancy = Vacancy.new
-    vacancy.expects(:vacancy_title=).with(vacancy_hash[:vacancy_title])
-    vacancy.expects(:received_on=).with(vacancy_hash[:received_on])
-    vacancy.expects(:soc_code=).with(vacancy_hash[:soc_code])
-    vacancy.expects(:wage=).with(vacancy_hash[:wage])
-    vacancy.expects(:wage_qualifier=).with(vacancy_hash[:wage_qualifier])
-    vacancy.expects(:wage_display_text=).with(vacancy_hash[:wage_display_text])
-    vacancy.expects(:currency=).with(vacancy_hash[:currency])
-    vacancy.expects(:is_national=).with(vacancy_hash[:is_national])
-    vacancy.expects(:is_regional=).with(vacancy_hash[:is_regional])
-    vacancy.expects(:hours=).with(vacancy_hash[:hours].to_i)
-    vacancy.expects(:hours_qualifier=).with(vacancy_hash[:hours_qualifier])
-    vacancy.expects(:hours_display_text=).with(vacancy_hash[:hours_display_text])
-    vacancy.expects(:location_name=).with(vacancy_hash[:location][:location_name])
-    vacancy.expects(:latitude=).with(vacancy_hash[:location][:latitude].to_f)
-    vacancy.expects(:longitude=).with(vacancy_hash[:location][:longitude].to_f)
-    vacancy.expects(:is_permanent=).with(true)
-
     vacancy.import_details_from_hash(vacancy_hash)
+
+    assert_equal vacancy.vacancy_title, vacancy_hash[:vacancy_title]
+    assert_equal vacancy.received_on, vacancy_hash[:received_on]
+    assert_equal vacancy.soc_code, vacancy_hash[:soc_code]
+    assert_equal vacancy.wage, vacancy_hash[:wage]
+    assert_equal vacancy.wage_qualifier, vacancy_hash[:wage_qualifier]
+    assert_equal vacancy.wage_display_text, vacancy_hash[:wage_display_text]
+    assert_equal vacancy.currency, vacancy_hash[:currency]
+    assert_equal vacancy.is_national, vacancy_hash[:is_national]
+    assert_equal vacancy.is_regional, vacancy_hash[:is_regional]
+    assert_equal vacancy.hours, vacancy_hash[:hours].to_i
+    assert_equal vacancy.hours_qualifier, vacancy_hash[:hours_qualifier]
+    assert_equal vacancy.hours_display_text, vacancy_hash[:hours_display_text]
+    assert_equal vacancy.location_name, vacancy_hash[:location][:location_name]
+    assert_equal vacancy.latitude, vacancy_hash[:location][:latitude].to_f
+    assert_equal vacancy.longitude, vacancy_hash[:location][:longitude].to_f
+    assert_equal vacancy.is_permanent, true
   end
 end
