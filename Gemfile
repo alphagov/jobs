@@ -24,6 +24,8 @@ else
   gem 'geogov', '~> 0.0.4'
 end
 
+gem 'exception_notification'
+
 gem 'compass', '~> 0.12.alpha.0'
 gem 'rails_autolink'
 gem 'retry-this'
