@@ -1,6 +1,8 @@
 Jobs::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  config.middleware.use "Graylog2Exceptions", { :hostname => 'graylog.cluster', :port => '12201', :facility => 'jobs'}
+
   # Code is not reloaded between requests
   config.cache_classes = true
 
@@ -35,6 +37,7 @@ Jobs::Application.configure do
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
+  config.logger = GELF::Logger.new("graylog.cluster", "12201", max_size = 'WAN', { :facility => "jobs" })
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store

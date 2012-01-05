@@ -13,6 +13,8 @@ gem 'jquery-rails'
 gem 'savon'
 gem 'therubyracer'
 gem 'delsolr', :git => 'https://github.com/alphagov/delsolr.git'
+gem 'gelf'
+gem 'graylog2_exceptions'
 
 gem 'aws-ses', :require => 'aws/ses'
 
