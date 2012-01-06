@@ -45,13 +45,6 @@ class VacancyTest < ActiveSupport::TestCase
     assert_equal document.xml, vacancy.to_solr_document.xml
   end
 
-  test '.send_to_solr' do
-    vacancy = Factory.build(:vacancy)
-    vacancy.stubs(:to_solr_document).returns(mock())
-    $solr.expects(:update).with(vacancy.to_solr_document).returns(true)
-    assert_equal true, vacancy.send_to_solr
-  end
-
   test '.send_to_solr!' do
     vacancy = Factory.build(:vacancy)
     vacancy.stubs(:to_solr_document).returns(mock())

@@ -5,13 +5,6 @@ module Searchable
     after_destroy :delete_from_solr
   end
 
-  # Pushes into the update queue - still needs $solr.post_update! and $solr.commit!
-  # to appear in the index.
-  def send_to_solr
-    $solr.update(self.to_solr_document)
-  end
-
-  # Immediately updates solr and tell it to commit within 5 minutes
   def send_to_solr!
     $solr.update!(self.to_solr_document, :commitWithin => 5.minutes*1000)
   end
