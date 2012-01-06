@@ -4,10 +4,14 @@ class VacancyApiClient
   extend RetryThis
 
   def self.fetch_details_from_api(vacancy)
+    Rails.logger.info("Fetching details for vacancy #{vacancy.vacancy_id} #{vacancy.inspect}")
+
     retry_this(:times => 3, :error_types => [SocketError, Timeout::Error], :sleep => 1) do |attempt|
       results = soap_client.request "http://ws.dgjobsservice.info/GetJobDetail" do
         soap.xml do |xml|
-          xml.soap :Envelope, {"xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema", "xmlns:soap" => "http://schemas.xmlsoap.org/soap/envelope/"} do
+          xml.soap :Envelope, {"xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
+                               "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema",
+                               "xmlns:soap" => "http://schemas.xmlsoap.org/soap/envelope/"} do
             xml.soap :Body do
               xml.GetJobDetail({:xmlns => "http://ws.dgjobsservice.info/"}) do
                 xml.search do
@@ -20,15 +24,21 @@ class VacancyApiClient
           end
         end
       end
+
+      Rails.logger.info("Details: #{results.body}")
       results.body.try(:[], :get_job_detail_response).try(:[], :get_job_detail_result).try(:[], :vacancy)
     end
   end
 
   def self.fetch_all_vacancies_from_api(latitude, longitude)
+    Rails.logger.info("Fetching all vacancies for #{latitude} #{longitude}")
+
     retry_this(:times => 3, :error_types => [SocketError, Timeout::Error], :sleep => 1) do |attempt|
       results = soap_client.request "http://ws.dgjobsservice.info/AllNearMe" do
         soap.xml do |xml|
-          xml.soap :Envelope, {"xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema", "xmlns:soap" => "http://schemas.xmlsoap.org/soap/envelope/"} do
+          xml.soap :Envelope, {"xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
+                               "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema",
+                               "xmlns:soap" => "http://schemas.xmlsoap.org/soap/envelope/"} do
             xml.soap :Body do
               xml.AllNearMe({:xmlns => "http://ws.dgjobsservice.info/"}) do
                 xml.search do
@@ -59,6 +69,8 @@ class VacancyApiClient
 
   private
   def self.soap_client
+    Savon.log = false
+
     @@soap_client ||= Savon::Client.new do
       wsdl.document = "http://soap.xbswebservices.info/jobsearch.asmx?WSDL"
       http.open_timeout = 30

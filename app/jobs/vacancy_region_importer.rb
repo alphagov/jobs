@@ -28,28 +28,31 @@ class VacancyRegionImporter
         vacancy.most_recent_import_on = @import_date
         vacancy.import_details_from_hash(vacancy_hash)
 
-        Rails.logger.info("Importing vacancy: #{vacancy.inspect}")
+        Rails.logger.info("Importing vacancy: #{vacancy.vacancy_title} #{vacancy.vacancy_id}")
 
         # Imports details for a vacancy - if the vacancy is old, it's possible the API might
         # not be able to find it.
         begin
-          extra_details = fetch_details_from_api(vacancy)
+          extra_details = VacancyApiClient.fetch_details_from_api(vacancy)
+
           if extra_details
             vacancy.employer_name = extra_details[:employer_name]
             vacancy.eligability_criteria = extra_details[:eligability_criteria]
             vacancy.vacancy_description = extra_details[:vacancy_description]
             vacancy.how_to_apply = extra_details[:how_to_apply]
           end
-        rescue
-          Rails.logger.error("Couldn't fetch extra details for vacancy: #{vacancy.inspect}")
+        rescue Exception => e
+          Rails.logger.error("Couldn't fetch extra details for vacancy: #{vacancy.inspect} #{e.message} #{e.inspect}")
+          Rails.logger.error(e.backtrace.inspect)
         end
         vacancy.save!
       else
         vacancy.most_recent_import_on = @import_date
         vacancy.save!
       end
-    rescue
-      Rails.logger.error("An error occurred processing a vacancy: #{$!} #{vacancy_hash.inspect}")
+    rescue Exception => e
+      Rails.logger.error("An error occurred processing a vacancy: #{$!}")
+      Rails.logger.error(e.backtrace.inspect)
     end
   end
 end
