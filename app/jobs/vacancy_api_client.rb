@@ -24,7 +24,7 @@ class VacancyApiClient
     end
   end
 
-  def self.fetch_all_vacancies_from_api(run_date, latitude, longitude)
+  def self.fetch_all_vacancies_from_api(latitude, longitude)
     retry_this(:times => 3, :error_types => [SocketError, Timeout::Error], :sleep => 1) do |attempt|
       results = soap_client.request "http://ws.dgjobsservice.info/AllNearMe" do
         soap.xml do |xml|
@@ -53,55 +53,11 @@ class VacancyApiClient
           end
         end
       end
-      found_vacancies = results.body.try(:[], :all_near_me_response).try(:[], :all_near_me_result).try(:[], :vacancies).try(:[], :vacancy_summary) || []
-
-      found_vacancies.each do |vacancy_hash|
-        create_vacancy(run_date, vacancy_hash)
-      end
+      results.body.try(:[], :all_near_me_response).try(:[], :all_near_me_result).try(:[], :vacancies).try(:[], :vacancy_summary) || []
     end
   end
 
   private
-  def self.create_vacancy(run_date, vacancy_hash)
-    begin
-      vacancy_hash.recursively_symbolize_keys!
-      vacancy = Vacancy.find_or_initialize_by_vacancy_id(vacancy_hash[:vacancy_id])
-      # if we've already seen this vacancy on this run_date, we can ignore it.
-      if vacancy.most_recent_import_on == run_date
-        Rails.logger.warn "Duplicate job seen"
-        return
-      end
-
-      if vacancy.new_record?
-        vacancy.first_import_on = run_date
-        vacancy.most_recent_import_on = run_date
-        vacancy.import_details_from_hash(vacancy_hash)
-
-        Rails.logger.info("Importing vacancy: #{vacancy.inspect}")
-
-        # Imports details for a vacancy - if the vacancy is old, it's possible the API might
-        # not be able to find it.
-        begin
-          extra_details = fetch_details_from_api(vacancy)
-          if extra_details
-            vacancy.employer_name = extra_details[:employer_name]
-            vacancy.eligability_criteria = extra_details[:eligability_criteria]
-            vacancy.vacancy_description = extra_details[:vacancy_description]
-            vacancy.how_to_apply = extra_details[:how_to_apply]
-          end
-        rescue
-          Rails.logger.error("Couldn't fetch extra details")
-        end
-        vacancy.save!
-      else
-        vacancy.most_recent_import_on = run_date
-        vacancy.save!
-      end
-    rescue
-      Rails.logger.error("An error occurecd processing a vacancy: #{$!} #{vacancy_hash.inspect}")
-    end
-  end
-
   def self.soap_client
     @@soap_client ||= Savon::Client.new do
       wsdl.document = "http://soap.xbswebservices.info/jobsearch.asmx?WSDL"
@@ -109,5 +65,4 @@ class VacancyApiClient
       http.read_timeout = 30
     end
   end
-
 end

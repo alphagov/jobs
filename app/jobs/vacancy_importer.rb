@@ -17,7 +17,7 @@ class VacancyImporter
     end
   end
 
-  def self.bulk_import_from_api(run_date)
+  def self.bulk_import_from_api
     postcodes = CSV.read(File.join(Rails.root, 'data', 'uk.pc.ll.csv'), :headers => true)
     postcodes = postcodes.to_a # we get a Table class back from the CSV library
     postcodes.shift # lose the header
@@ -27,7 +27,7 @@ class VacancyImporter
       latitude = row[1].to_f
       longitude = row[2].to_f
 
-      VacancyApiClient.fetch_all_vacancies_from_api(run_date, latitude, longitude)
+      VacancyRegionImporter.new(Date.today, latitude, longitude).import
     end
   end
 end

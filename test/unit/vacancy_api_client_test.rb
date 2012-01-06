@@ -11,7 +11,7 @@ class VacancyApiClientTest < ActiveSupport::TestCase
         with(:body => asset_contents('all_near_me_request')).
         to_return(:body => asset_contents('all_near_me_response'))
 
-    response = VacancyApiClient.fetch_all_vacancies_from_api(Date.today, 51.0, 1.0)
+    response = VacancyApiClient.fetch_all_vacancies_from_api(51.0, 1.0)
     assert_equal 100, response.length
   end
 

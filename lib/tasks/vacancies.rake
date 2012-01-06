@@ -2,7 +2,7 @@ namespace :vacancies do
 
   desc "Load all job vacancies synchronously from the remote API"
   task :import => :environment do
-    VacancyImporter.bulk_import_from_api(Date.today)
+    VacancyImporter.bulk_import_from_api
   end
 
   desc "Load all vacancies from the internal (development) database into Solr"
