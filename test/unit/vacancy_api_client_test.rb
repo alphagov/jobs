@@ -1,6 +1,8 @@
 # coding:utf-8
 require 'test_helper'
 
+DIRECTGOV_JOBS_API_AUTHENTICATION_KEY='TESTING'
+
 class VacancyApiClientTest < ActiveSupport::TestCase
 
   test 'fetch_all_vacancies_from_api' do
