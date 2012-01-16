@@ -6,6 +6,8 @@ group :passenger_compatibility do
   gem 'rake', '0.9.2'
 end
 
+gem 'gds-warmup-controller'
+
 gem 'rails', '3.1.1'
 gem 'sqlite3'
 gem 'json'
